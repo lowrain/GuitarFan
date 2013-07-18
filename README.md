@@ -1,6 +1,21 @@
-A web app for guitar score powered by Python/Flask
+GuitarFan(temporary app name)
+===
 
+A guitar score web app for guitar fans, powered by Python/Flask
 
-Bootstrap + jQuery<br />
-Flask + Flask-Classy/Restful + Blueprint<br />
-QLAlchemy + SQLite<br />
+# Features
+
+* guitar score browse
+* guitar score search
+* data management
+* others
+
+# Developer Email
+
+jinzm1982@gmail.com
+
+# Technology
+* MVC
+* Bootstrap + jQuery<br />
+* Flask + Blueprint + Flask-Classy<br />
+* QLAlchemy + SLite<br />
