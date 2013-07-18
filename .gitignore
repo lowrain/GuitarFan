@@ -1,0 +1,11 @@
+env
+
+*.log
+*.pyc
+*.key
+
+.idea
+.DS_Store
+
+*.db
+supervisord.conf
