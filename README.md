@@ -17,5 +17,5 @@ jinzm1982@gmail.com
 # Technology
 * MVC
 * Bootstrap + jQuery<br />
-* Flask + Blueprint + Flask-Classy<br />
+* Flask + Blueprint<br />
 * QLAlchemy + SLite<br />
