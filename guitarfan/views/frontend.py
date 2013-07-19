@@ -3,5 +3,5 @@
 
 from flask import render_template, request, flash, redirect, url_for, Blueprint, current_app, session
 
-site = Blueprint('site', __name__)
+frontend = Blueprint('frontend', __name__)
 

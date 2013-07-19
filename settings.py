@@ -24,10 +24,9 @@
 # SOFTWARE.
 
 import os
-_basedir = os.path.abspath(os.path.dirname(__file__))
 
 # database config
-DATABASE_URI = 'sqlite:///' + os.path.join(_basedir, 'data/sqlite.db')
+SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.abspath(os.path.dirname(__file__)) + '/guitarfan/data/sqlite.db'
 
 # web config
 PORT = 8888
@@ -35,3 +34,5 @@ HOST = '127.0.0.1'
 SESSION_PROTECTION = 'strong'
 SECRET_KEY = 'b\n\x90\\\x13\x044Q\x9a>\x99v\x08\x8ez[\x11 \x82\x83'
 DEBUG = True
+ADMIN = 'lowrain'
+ADMIN_PWD = 'password'

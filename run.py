@@ -23,13 +23,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from flask import Flask
-from flask.ext.classy import FlaskView, route
-import controlers
 
-# let's start it :)
+from guitarfan import create_app
+
 if __name__ == '__main__':
-    app = Flask(__name__)
-    app.config.from_object('settings')
-    controlers.reg_blueprints(app)
+    app = create_app('settings')
     app.run(host=app.config['HOST'], port=int(app.config['PORT']), debug=app.config['DEBUG'])
