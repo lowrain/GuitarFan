@@ -10,6 +10,7 @@ class Score(db.Model):
     path = db.Column(db.String(50))
     technique = db.Column(db.Integer)
     format = db.Column(db.Integer)
+    hit = db.Column(db.Integer)
     track_id = db.Column(db.String(32), db.ForeignKey('track.id'))
 
     def __init__(self, id, path, technique, format, track_id):

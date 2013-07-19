@@ -34,5 +34,6 @@ HOST = '127.0.0.1'
 SESSION_PROTECTION = 'strong'
 SECRET_KEY = 'b\n\x90\\\x13\x044Q\x9a>\x99v\x08\x8ez[\x11 \x82\x83'
 DEBUG = True
+APP_NAME = 'GuitarFan'
 ADMIN = 'lowrain'
 ADMIN_PWD = 'password'

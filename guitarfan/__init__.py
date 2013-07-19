@@ -12,10 +12,8 @@ def create_app(config):
     from models import db
     db.init_app(app)
 
-    # register all views in blueprint
-    from views import admin, api, frontend
-    app.register_blueprint(admin)
-    app.register_blueprint(api)
-    app.register_blueprint(frontend)
+    # register all blueprints
+    import controlers
+    controlers.Register_Blueprints(app)
 
     return app

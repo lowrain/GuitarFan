@@ -34,6 +34,7 @@ class Score(db.Model):
     path = db.Column(db.String(50))
     technique = db.Column(db.Integer)
     format = db.Column(db.Integer)
+    hit = db.Column(db.Integer)
     track_id = db.Column(db.String(32), db.ForeignKey('track.id'))
 
     def __init__(self, id, path, technique, format, track_id):
@@ -64,6 +65,22 @@ class Track(db.Model):
     def __repr__(self):
         return '<Track %r>' % self.name
 
+class AdminUser(db.Model):
+    __tablename__ = 'adminuser'
+
+    id = db.Column(db.String(32), primary_key=True)
+    name = db.Column(db.String(50))
+    email = db.Column(db.String)
+    state = db.Column(db.Integer)
+
+    def __init__(self, id, name, email, state):
+        self.id = id
+        self.name = name
+        self.email = email
+        self.state = state
+
+    def __repr__(self):
+        return '<AdminUser %r>' % self.name
 ######################
 
 
