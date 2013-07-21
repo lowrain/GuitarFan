@@ -7,5 +7,5 @@ db = SQLAlchemy()
 from administrator import AdminUser
 from artist import Artist
 from track import Track
-from score import Score
+from tab import Score
 from enums import *

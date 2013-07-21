@@ -8,6 +8,8 @@ class Artist(db.Model):
 
     id = db.Column(db.String(32), primary_key=True)
     name = db.Column(db.String(50))
+    alpha = db.Column(db.String(1))
+    photo = db.Column(db.String)
     region_id = db.Column(db.Integer)
     category_id = db.Column(db.Integer)
     tracks = db.relationship('Track', backref='track', lazy='dynamic')

@@ -3,12 +3,12 @@
 
 from . import db
 
-class Score(db.Model):
-    __tablename__ = 'score'
+class Tab(db.Model):
+    __tablename__ = 'tab'
 
     id = db.Column(db.String(32), primary_key=True)
     path = db.Column(db.String(50))
-    technique = db.Column(db.Integer)
+    finger_style = db.Column(db.Boolean)
     format = db.Column(db.Integer)
     hit = db.Column(db.Integer)
     track_id = db.Column(db.String(32), db.ForeignKey('track.id'))

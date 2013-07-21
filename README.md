@@ -1,7 +1,7 @@
 GuitarFan(temporary app name)
 ===
 
-A guitar score web app for guitar fans, powered by Python/Flask
+Guitar tabs web app for guitar fans, powered by Python/Flask, under developing...
 
 # Features
 
@@ -19,3 +19,11 @@ jinzm1982@gmail.com
 * Bootstrap + jQuery<br />
 * Flask + Blueprint<br />
 * QLAlchemy + SLite<br />
+
+# Modules
+* Tabs Search
+* Tabs Index
+* Guitar Tools -- tune, chord search and so one...
+
+# Domain name
+guitar123.net

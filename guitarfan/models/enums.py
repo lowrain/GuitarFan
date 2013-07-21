@@ -24,8 +24,10 @@ class MusicStyle(object):
     blues = 5
     classic = 6
     country = 7
-    children = 8
-    national = 9
+    jazz = 8
+    children = 9
+    national = 10
+    lover = 11
     other = 0
 
 class PlayTech(object):
