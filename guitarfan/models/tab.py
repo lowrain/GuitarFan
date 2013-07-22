@@ -3,22 +3,36 @@
 
 from . import db
 
+# tag-tab link table
+tag_tab = db.Table('tag_tab',
+                db.Column('tag_id', db.Integer, db.ForeignKey('tag.id')),
+                db.Column('tab_id', db.Integer, db.ForeignKey('tab.id')))
+
 class Tab(db.Model):
     __tablename__ = 'tab'
 
     id = db.Column(db.String(32), primary_key=True)
-    path = db.Column(db.String(50))
-    finger_style = db.Column(db.Boolean)
+    name = db.Column(db.String(50))
     format = db.Column(db.Integer)
     hit = db.Column(db.Integer)
-    track_id = db.Column(db.String(32), db.ForeignKey('track.id'))
+    difficulty = db.Column(db.Integer)
+    file_path = db.Column(db.String)
+    audio_url = db.Column(db.String)
+    style_id = db.Column(db.Integer)
+    artist_id = db.Column(db.String(32), db.ForeignKey('artist.id'))
+    tags = db.relationship('Tag', secondary=tag_tab, backref=db.backref('tag_tab', lazy='dynamic'))
 
-    def __init__(self, id, path, technique, format, track_id):
+    def __init__(self, id, name, format, difficulty, file_path, audio_url, style_id, artist_id, tags):
         self.id = id
-        self.path = path
-        self.technique = technique
+        self.name = name
         self.format = format
-        self.track_id = track_id
+        self.hit = 0
+        self.difficulty = difficulty
+        self.file_path = file_path
+        self.audio_url = audio_url
+        self.style_id = style_id
+        self.artist_id = artist_id
+        self.tags = tags
 
     def __repr__(self):
-        return '<Score %r>' % self.id + " : " + self.path
+        return '<Score %r>' % self.name

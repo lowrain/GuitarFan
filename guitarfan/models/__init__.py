@@ -6,6 +6,6 @@ db = SQLAlchemy()
 
 from administrator import AdminUser
 from artist import Artist
-from track import Track
-from tab import Score
+from tab import Tab
+from tag import Tag
 from enums import *

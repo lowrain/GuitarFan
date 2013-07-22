@@ -25,17 +25,16 @@ class MusicStyle(object):
     classic = 6
     country = 7
     jazz = 8
-    children = 9
+    child = 9
     national = 10
-    lover = 11
     other = 0
 
-class PlayTech(object):
-    finger = 1
-    picker = 2
-    other = 0
+class DifficultyDegree(object):
+    beginner = 1
+    Intermediate = 2
+    Advanced = 3
 
-class ScoreFormat(object):
+class TabFormat(object):
     img = 1,
     txt = 2,
     gtp = 3,
