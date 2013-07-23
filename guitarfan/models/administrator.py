@@ -1,22 +1,26 @@
-from . import db
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from werkzeug.security import generate_password_hash, check_password_hash
 
-class AdminUser(db.Model):
-    __tablename__ = 'adminuser'
+from guitarfan.extensions.flasksqlalchemy import db
 
-    id = db.Column(db.String(32), primary_key=True)
+
+class Administrator(db.Model):
+    __tablename__ = 'administrator'
+
+    id = db.Column(db.String(50), primary_key=True)
     name = db.Column(db.String(50))
     email = db.Column(db.String)
+    password = db.Column(db.String)
     status = db.Column(db.Integer)
 
-    def __init__(self, id, name, email, status):
+    def __init__(self, id, name, email, password, status):
         self.id = id
         self.name = name
         self.email = email
+        self.password = password
         self.status = status
-
-    def __repr__(self):
-        return '<AdminUser %r>' % self.name
 
     def check_password(self, password):
         return check_password_hash(self.password, password)
@@ -34,4 +38,7 @@ class AdminUser(db.Model):
         return False
 
     def get_id(self):
-        return unicode(self.id)
+        return self.id
+
+    def __repr__(self):
+        return '<AdminUser %r>' % self.name

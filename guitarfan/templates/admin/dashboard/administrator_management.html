@@ -1,0 +1,119 @@
+{% extends "dashboard/base.html" %}
+
+{% block active_dashboard_administrator %}active{% endblock %}
+
+{% block main %}
+    <div class="span9">
+        {% if action == 'list' %}
+            <ul class="breadcrumb">
+                <li><a href="{{ url_for('bp_admin_administrator.list')}}">Dashboard</a> <span class="divider">/</span></li>
+                <li>Auth <span class="divider">/</span></li>
+                <li>Administrator <span class="divider">/</span></li>
+                <li class="active">List</li>
+            </ul>
+
+            {{ macro.feedback_message() }}
+
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <!--<span class="brand">Administrator Management</span>-->
+                    <div class="btn-group">
+                        <a href="{{ url_for('bp_admin_administrator.add')}}" class="btn btn-success"><i class="icon-plus"></i> New Administrator</a>
+                    </div>
+                </div>
+            </div>
+
+            <table class="table table-hover table-bordered table-striped">
+                <tr>
+                    <th width="20%">user name</th>
+                    <th width="65%">email</th>
+                    <th width="6%" style="text-align: center">status</th>
+                    <th></th>
+                </tr>
+                {% for administrator in administrators %}
+                    <tr>
+                        <td>{{ administrator.name }}</td>
+                        <td>{{ administrator.email }}</td>
+                        <td style="text-align: center">{{ macro.get_status(administrator.status) }}</td>
+                        <td>
+                            <div class="dropdown related_menu">
+                                <a title="Related Objects" class="relate_menu dropdown-toggle" data-toggle="dropdown"><i class="icon icon-list"></i></a>
+                                <ul class="dropdown-menu pull-right" role="menu">
+                                    <li><a href="{{ url_for('bp_admin_administrator.edit', id=administrator.id) }}"><i class="icon-edit"></i> Edit</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="{{ url_for('bp_admin_administrator.update_status', id=administrator.id, status=(not administrator.status)) }}">{{ macro.get_adverse_desc(administrator.status) }}</a></li>
+                                    <li><a href="{{ url_for('bp_admin_administrator.delete', id=administrator.id) }}"><i class="icon-remove"></i> Delete</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+
+        {% elif action == 'add' %}
+            <ul class="breadcrumb">
+                <li><a href="{{ url_for('bp_admin_administrator.list')}}">Dashboard</a> <span class="divider">/</span></li>
+                <li>Auth <span class="divider">/</span></li>
+                <li>Administrator <span class="divider">/</span></li>
+                <li class="active">Add</li>
+            </ul>
+
+            {{ macro.feedback_message() }}
+
+            <div class="tabbable">
+                <form method="post" action="">
+                    {{ form.hidden_tag() }}
+                    <legend>Add Administrator</legend>
+                    <div class="box form-container row-fluid form-horizontal">
+                        {{ macro.create_wtf_field(form.email) }}
+                        {{ macro.create_wtf_field(form.name) }}
+                        {{ macro.create_wtf_field(form.password) }}
+                        {{ macro.create_wtf_field(form.confirm_password) }}
+                    </div>
+
+                    <div class="form-actions">
+                        {{ form.submit(class="btn btn-danger") }}
+                    </div>
+                </form>
+            </div>
+        {% elif action == 'edit' %}
+            <ul class="breadcrumb">
+                <li><a href="{{ url_for('bp_admin_administrator.list')}}">Dashboard</a> <span class="divider">/</span></li>
+                <li>Auth <span class="divider">/</span></li>
+                <li>Administrator <span class="divider">/</span></li>
+                <li class="active">Edit</li>
+            </ul>
+
+            {{ macro.feedback_message() }}
+
+            <div class="tabbable">
+                <form method="post" action="">
+                    {{ form.hidden_tag() }}
+                    <legend>Edit Administrator</legend>
+                    <div class="box form-container row-fluid form-horizontal">
+                        <div class="control-group">
+                            <label class="control-label">User Name</label>
+                            <div class="controls">
+                                {{ administrator.name  }}
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Email</label>
+                            <div class="controls">
+                                {{ administrator.email  }}
+                            </div>
+                        </div>
+                        {{ macro.create_wtf_field(form.new_password) }}
+                        {{ macro.create_wtf_field(form.confirm_password) }}
+                        {{ macro.create_wtf_field(form.status) }}
+                    </div>
+                    <div class="form-actions">
+                        {{ form.submit(class="btn btn-danger") }}
+                    </div>
+
+                </form>
+
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

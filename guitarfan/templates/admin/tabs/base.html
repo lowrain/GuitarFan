@@ -1,0 +1,18 @@
+{% extends "admin/base.html" %}
+
+{% block active_tabs %}active{% endblock %}
+
+{% block sidebar %}
+    <div class="span3">
+        <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+                <li class="nav-header">Tabs</li>
+                <li><a href="#"><i class="icon-music"></i> Tabs Mangement</a></li>
+                <li class="nav-header">Artists</li>
+                <li><a href="#"><i class="icon-group"></i> Artists Mangement</a></li>
+                <li class="nav-header">Tags</li>
+                <li><a href="{{ url_for('bp_admin_tab.tab_list') }}"><i class="icon-tags"></i> Tags Mangement</a></li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}

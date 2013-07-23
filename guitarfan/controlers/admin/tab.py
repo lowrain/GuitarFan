@@ -8,9 +8,11 @@ from sqlalchemy import or_
 
 from guitarfan.models import *
 
-bp_admin_score = Blueprint('bp_admin_score', __name__, template_folder="admin")
+bp_admin_tab = Blueprint('bp_admin_tab', __name__, template_folder="../../templates/admin/tabs")
 
-@bp_admin_score.route('/admin/scores', methods=['GET', 'POST'])
-def index():
+
+@login_required
+@bp_admin_tab.route('/admin/tabs', methods=['GET', 'POST'])
+def tab_list():
     if request.method == 'GET':
-        return render_template('admin/score/index.html')
+        return render_template('tab_list.html')

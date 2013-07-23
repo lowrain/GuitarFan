@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Guitar Fan {% block title %}{% endblock %}</title>
+    <title>GuitarFan {% block title %}{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="lowrain">
@@ -10,11 +10,12 @@
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='bootstrap/css/bootstrap.css') }}">
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='bootstrap/css/bootstrap-responsive.css') }}">
     <!-- <link rel=stylesheet type=text/css href="{{ url_for('static', filename='FlatUI/css/flat-ui.css') }}"> -->
-    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='FortAwesome/css/font-awesome.css') }}">
-    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/admin.css') }}">
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='FontAwesome/css/font-awesome.css') }}">
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='admin.css') }}">
     <script src="{{ url_for('static', filename='FlatUI/js/jquery-1.8.2.min.js') }}"></script>
     <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+    <script src="{{ url_for('static', filename='admin.js') }}"></script>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
 
     {% block style %}
         <style type="text/css">
@@ -27,8 +28,6 @@
             }
         </style>
     {% endblock %}
-
-    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -49,21 +48,22 @@
                     <span class="icon-bar"></span>
                 </a>
 
-                <a class="brand" href="#">{{ config['APP_NAME'] }}</a>
+                <a class="brand" href="/index.html"><i class="icon-home"></i> {{ config['APP_NAME'] }}</a>
 
                 <ul class="nav">
-                    <li class="{% block active_scores %}{% endblock %}"><a href="{{ url_for('bp_admin_score.index') }}">Scores</a></li>
-                    <li class="{% block active_dashboard %}{% endblock %}"><a href="">Dashboard</a></li>
+                    <li class="{% block active_tabs %}{% endblock %}"><a href="{{ url_for('bp_admin_tab.tab_list') }}"><i class="icon-music"></i> Tabs</a></li>
+                    <li class="{% block active_dashboard %}{% endblock %}"><a href="{{ url_for('bp_admin_administrator.list') }}"><i class="icon-dashboard"></i> Dashboard</a></li>
                 </ul>
 
                 <ul class="nav pull-right">
                     <li class="divider-vertical"></li>
-                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Welcome,</b> administrator<b class="caret"></b></a>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user"></i> <b>{{ current_user.name }}</b> <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#"><i class="icon-cogs"></i> Change Settings</a></li>
+                            <li><a href="{{ url_for('bp_admin_administrator.edit', id=current_user.id) }}"><i class="icon-cogs"></i> Change Settings</a></li>
                         </ul>
                     </li>
-                    <li><a href="#">Log out</a></li>
+                    <li><a href="{{ url_for('bp_admin_administrator.logout') }}">Logout <i class="icon-off"></i></a></li>
                 </ul>
 
             </div>

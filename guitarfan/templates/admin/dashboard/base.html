@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block active_tabs %}{% endblock %}
+{% block active_dashboard %}active{% endblock %}
+
+{% block sidebar %}
+    <div class="span3">
+        <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+                <li class="nav-header">AUTH</li>
+                <li class="{% block active_dashboard_administrator %}{% endblock %}">
+                    <a href="{{ url_for('bp_admin_administrator.list') }}"> <i class="icon-user"></i> Administrators Mangement</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}
