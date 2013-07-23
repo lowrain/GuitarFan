@@ -14,7 +14,7 @@ from guitarfan.extensions.flasksqlalchemy import db
 
 bp_admin_administrator = Blueprint('bp_admin_administrator', __name__, template_folder="../../templates/admin")
 
-@bp_admin_administrator.route('/admin/')
+@bp_admin_administrator.route('/admin')
 @login_required
 def index():
     return render_template('index.html')
@@ -29,19 +29,29 @@ def login():
     if request.method == 'POST':
         if form.validate_on_submit():
             administrator = Administrator.query.filter(or_(Administrator.email == form.name.data, Administrator.name == form.name.data)).first()
+            passed = True
             if administrator is None:
                 flash(u'Account does not exist', 'error')
-                return redirect(url_for('bp_admin_administrator.login'))
+                passed = False
             elif not administrator.is_active():
                 flash(u'Account has been disabled', 'error')
-                return redirect(url_for('bp_admin_administrator.login'))
+                passed = False
             elif administrator.check_password(form.password.data):
-                login_user(administrator)
                 flash(u'Welcome ' + administrator.name + ', login successful', 'success')
-                return redirect(url_for('bp_admin_administrator.index'))
+                passed = True
+            else:
+                flash(u'Password is not correct', 'error')
+                passed = False
+
+            if passed:
+                login_user(administrator)
+                return redirect(url_for('bp_admin_administrator.list'))
+            else:
+
+                return render_template('login.html', form=form)
         else:
             flash(validator.catch_errors(form.errors), 'error')
-            return redirect(url_for('bp_admin_administrator.index'))
+            return render_template('login.html', form=form)
 
 
 @bp_admin_administrator.route('/admin/logout', methods=['GET'])
@@ -84,7 +94,7 @@ def edit(id):
         return render_template('dashboard/administrator_management.html', action='edit', form=form, administrator=administrator)
     elif request.method == 'POST':
         if form.validate_on_submit():
-            if form.new_password.data:
+            if 8 <= len(form.new_password.data) <= 20:
                 administrator.update_password(form.new_password.data)
 
             administrator.status = form.status.data
@@ -97,6 +107,28 @@ def edit(id):
             return render_template('dashboard/administrator_management.html', action='edit', form=form, administrator=administrator)
 
 
+@bp_admin_administrator.route('/admin/administrators', methods=['DELETE'])
+@login_required
+def delete():
+    administrator = Administrator.query.filter_by(id=request.values['id']).first()
+    db.session.delete(administrator)
+    db.session.commit()
+    # flash(u'Delete administrator successfully', 'success')
+    # return redirect(url_for('bp_admin_administrator.list'))
+    return 'success'
+
+
+# @bp_admin_administrator.route('/admin/administrators/<string:id>', methods=['DELETE'])
+# @login_required
+# def delete(id):
+#     administrator = Administrator.query.filter_by(id=id).first()
+#     # db.session.delete(administrator)
+#     # db.session.commit()
+#     flash(u'Delete administrator successfully', 'success')
+#     # return redirect(url_for('bp_admin_administrator.list'))
+#     return 'true'
+
+
 @bp_admin_administrator.route('/admin/administrators/<string:id>/status/<int:status>', methods=['GET', 'POST'])
 @login_required
 def update_status(id, status):
@@ -105,13 +137,4 @@ def update_status(id, status):
     db.session.commit()
 
     flash('Change administrator status successfully', 'success')
-    return redirect(url_for('bp_admin_administrator.list'))
-
-@bp_admin_administrator.route('/admin/administrators/delete/<string:id>')
-@login_required
-def delete(id):
-    administrator = Administrator.query.filter_by(id=id).first()
-    db.session.delete(administrator)
-    db.session.commit()
-    flash(u'Delete administrator successfully', 'success')
     return redirect(url_for('bp_admin_administrator.list'))

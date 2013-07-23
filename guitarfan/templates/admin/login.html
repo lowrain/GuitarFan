@@ -37,11 +37,11 @@
 
 {% block body %}
     <div class="container">
-        <form class="form-signin" method="post" action="">
+        <form class="form-signin" method="post">
             {{ form.hidden_tag() }}
             <h2 class="">Admin Login</h2>
             {{ macro.feedback_message() }}
-            {{ form.name(class="input-block-level", placeholder="Username or Email") }}
+            {{ form.name(class="input-block-level", placeholder="User name or email") }}
             {{ form.password(class="input-block-level", placeholder="Password") }}
             {{ form.submit(class="btn btn-primary pull-right") }}
             <a href="{{ url_for("bp_admin_administrator.login") }}">← Back to Home.</a>

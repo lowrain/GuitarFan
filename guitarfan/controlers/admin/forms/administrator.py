@@ -2,17 +2,15 @@
 # -*- coding: utf-8 -*-
 
 from flask.ext.wtf import Form, TextField, HiddenField, BooleanField, PasswordField, SubmitField, Required, EqualTo, \
-    Regexp, Email
+    Regexp, Email, length
 
 from guitarfan.utilities import validator
 from guitarfan.models.administrator import Administrator
 
 
 class AdministratorLoginForm(Form):
-    name = TextField(u'User Name or Email',
-                         validators=[Required(message=u'User Name or Email is required')])
-    password = PasswordField(u'Password',
-                             validators=[Required(message=u'Password is required')])
+    name = TextField(u'User name or email', validators=[Required(message=u'User name or email is required')])
+    password = PasswordField(u'Password', validators=[Required(message=u'Password is required')])
     submit = SubmitField(u'Login', id='submit')
 
 
@@ -30,7 +28,7 @@ class AddAdministratorForm(Form):
     #                          validators=[Required(message=u'Group is required')])
     password = PasswordField(u'Password', description=u'At least eight characters',
                              validators=[Required(message=u'Password is required'),
-                                         Regexp(u'^.{8,20}$', message=u'Password are at least eight characters')])
+                                         Regexp(u'^(.{8,20})|()$', message=u'Password are at least eight chars')])
     confirm_password = PasswordField(u'Confirm Password', description=u'Re-enter the password',
                                      validators=[EqualTo('password', message=u'Passwords must be the same')])
     status = BooleanField(u'Status', description=u'Enable')
@@ -39,7 +37,7 @@ class AddAdministratorForm(Form):
 
 class EditAdministratorForm(Form):
     new_password = PasswordField(u'New Password', description=u'At least eight characters, if not change please leave it empty',
-                                 validators=[Regexp(u'^.{8,20}$', message=u'Password are at least eight characters')])
+                                 validators=[Regexp(u'^(.{8,20})|()$', message=u'Password are at least eight chars')])
     confirm_password = PasswordField(u'Confirm Password', description=u'Re-enter the password',
                                      validators=[EqualTo('new_password', message=u'Passwords must be the same')])
     status = BooleanField(u'Status', description=u'Enable')

@@ -6,10 +6,8 @@
     <div class="span9">
         {% if action == 'list' %}
             <ul class="breadcrumb">
-                <li><a href="{{ url_for('bp_admin_administrator.list')}}">Dashboard</a> <span class="divider">/</span></li>
-                <li>Auth <span class="divider">/</span></li>
-                <li>Administrator <span class="divider">/</span></li>
-                <li class="active">List</li>
+                <li>Dashboard <span class="divider">/</span></li>
+                <li>Administrators</li>
             </ul>
 
             {{ macro.feedback_message() }}
@@ -31,7 +29,7 @@
                     <th></th>
                 </tr>
                 {% for administrator in administrators %}
-                    <tr>
+                    <tr id="tr_{{ administrator.id }}">
                         <td>{{ administrator.name }}</td>
                         <td>{{ administrator.email }}</td>
                         <td style="text-align: center">{{ macro.get_status(administrator.status) }}</td>
@@ -40,22 +38,37 @@
                                 <a title="Related Objects" class="relate_menu dropdown-toggle" data-toggle="dropdown"><i class="icon icon-list"></i></a>
                                 <ul class="dropdown-menu pull-right" role="menu">
                                     <li><a href="{{ url_for('bp_admin_administrator.edit', id=administrator.id) }}"><i class="icon-edit"></i> Edit</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="{{ url_for('bp_admin_administrator.update_status', id=administrator.id, status=(not administrator.status)) }}">{{ macro.get_adverse_desc(administrator.status) }}</a></li>
-                                    <li><a href="{{ url_for('bp_admin_administrator.delete', id=administrator.id) }}"><i class="icon-remove"></i> Delete</a></li>
+                                    {% if current_user.name != administrator.name %}
+                                        <li class="divider"></li>
+                                        <li><a href="{{ url_for('bp_admin_administrator.update_status', id=administrator.id, status=(not administrator.status)) }}">{{ macro.get_adverse_desc(administrator.status) }}</a></li>
+                                        <li><a href="javascript:void(0);" onclick="DeleteAdministrator('{{ administrator.id }}', 'tr_{{ administrator.id }}')"><i class="icon-remove"></i> Delete</a></li>
+                                    {% endif %}
                                 </ul>
                             </div>
                         </td>
                     </tr>
                 {% endfor %}
             </table>
-
+            <script type="text/javascript">
+                function DeleteAdministrator(id, selectedTR) {
+                    if (confirm('Are you sure you want to delete this account?')) {
+                        $.ajax({
+                            url: '{{ url_for('bp_admin_administrator.delete') }}',
+                            type: 'DELETE',
+                            data: { id : id },
+                            success: function(result) {
+                                if (result == 'success')
+                                    $('#' + selectedTR).remove();
+                            }
+                        });
+                    }
+                }
+            </script>
         {% elif action == 'add' %}
             <ul class="breadcrumb">
-                <li><a href="{{ url_for('bp_admin_administrator.list')}}">Dashboard</a> <span class="divider">/</span></li>
-                <li>Auth <span class="divider">/</span></li>
-                <li>Administrator <span class="divider">/</span></li>
-                <li class="active">Add</li>
+                <li>Dashboard <span class="divider">/</span></li>
+                <li><a href="{{ url_for('bp_admin_administrator.list')}}">Administrators</a> <span class="divider">/</span></li>
+                <li>Add</li>
             </ul>
 
             {{ macro.feedback_message() }}
@@ -78,10 +91,9 @@
             </div>
         {% elif action == 'edit' %}
             <ul class="breadcrumb">
-                <li><a href="{{ url_for('bp_admin_administrator.list')}}">Dashboard</a> <span class="divider">/</span></li>
-                <li>Auth <span class="divider">/</span></li>
-                <li>Administrator <span class="divider">/</span></li>
-                <li class="active">Edit</li>
+                <li>Dashboard <span class="divider">/</span></li>
+                <li><a href="{{ url_for('bp_admin_administrator.list')}}">Administrators</a> <span class="divider">/</span></li>
+                <li>Edit</li>
             </ul>
 
             {{ macro.feedback_message() }}

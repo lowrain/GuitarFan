@@ -6,7 +6,7 @@ from flask.ext.wtf import ValidationError
 def catch_errors(errors):
     messages = ''
     if errors:
-        for (field, errors) in errors.items():
+        for (field, errors) in errors.items()[::-1]:
             for error in errors:
                 messages = '%s;%s' % (messages, error)
 
