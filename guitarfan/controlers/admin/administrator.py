@@ -129,7 +129,7 @@ def delete():
 #     return 'true'
 
 
-@bp_admin_administrator.route('/admin/administrators/<string:id>/status/<int:status>', methods=['GET', 'POST'])
+@bp_admin_administrator.route('/admin/administrators/<string:id>/status/<int:status>')
 @login_required
 def update_status(id, status):
     administrator = Administrator.query.filter_by(id=id).first()
