@@ -1,0 +1,53 @@
+{% extends "tabs/base.html" %}
+
+{% block active_tabs_artist %}active{% endblock %}
+
+{% block main %}
+    <div class="span9">
+        {% if action == 'list' %}
+            <ul class="breadcrumb">
+                <li>Tabs <span class="divider">/</span></li>
+                <li>Artist Management</li>
+            </ul>
+
+            {{ macro.feedback_message() }}
+
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <div class="btn-group">
+                        <a href="{{ url_for('bp_admin_artist.add')}}" class="btn btn-success"><i class="icon-plus"></i> New Artist</a>
+                    </div>
+                </div>
+            </div>
+        {% elif action == 'add' %}
+            <ul class="breadcrumb">
+                <li>Tabs <span class="divider">/</span></li>
+                <li>Artist Management</li>
+                <li>Add</li>
+            </ul>
+
+            {{ macro.feedback_message() }}
+
+            <div class="tabbable">
+                <form method="post" action="" enctype="multipart/form-data">
+                    {{ form.hidden_tag() }}
+                    <!--<legend>Add Artist</legend>-->
+                    <div class="box form-container row-fluid form-horizontal">
+                        {{ macro.create_wtf_field(form.name) }}
+                        {{ macro.create_wtf_field(form.letter) }}
+                        <div class="control-group">
+                            <label class="control-label">Photo</label>
+                            <div class="controls">
+                                <input type="file" name="photofile">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        {{ form.submit(class="btn btn-danger") }}
+                    </div>
+                </form>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

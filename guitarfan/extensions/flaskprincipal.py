@@ -10,7 +10,6 @@ UserAccessNeed = partial(Need, 'functions')
 
 
 class UserAccessPermission(Permission):
-
     def __init__(self, name):
         need = UserAccessNeed(name)
         super(UserAccessPermission, self).__init__(need)

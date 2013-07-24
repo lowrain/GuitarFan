@@ -15,7 +15,7 @@ jinzm1982@gmail.com
 * Python 2.7.2
 * MVC + RESTful
 * Bootstrap + Flat UI + jQuery<br />
-* Flask + Blueprint + Flask-Login + Flask-WTF<br />
+* Flask + Blueprint + Flask-Login + Flask-WTF + Flask-Uploads<br />
 * SQLAlchemy + SLite<br />
 * IDE: PyCharm
 

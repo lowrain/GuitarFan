@@ -14,7 +14,6 @@
 
             <div class="navbar">
                 <div class="navbar-inner">
-                    <!--<span class="brand">Administrator Management</span>-->
                     <div class="btn-group">
                         <a href="{{ url_for('bp_admin_administrator.add')}}" class="btn btn-success"><i class="icon-plus"></i> New Administrator</a>
                     </div>
@@ -76,7 +75,7 @@
             <div class="tabbable">
                 <form method="post" action="">
                     {{ form.hidden_tag() }}
-                    <legend>Add Administrator</legend>
+                    <!--<legend>Add Administrator</legend>-->
                     <div class="box form-container row-fluid form-horizontal">
                         {{ macro.create_wtf_field(form.email) }}
                         {{ macro.create_wtf_field(form.name) }}
@@ -101,7 +100,7 @@
             <div class="tabbable">
                 <form method="post" action="">
                     {{ form.hidden_tag() }}
-                    <legend>Edit Administrator</legend>
+                    <!--<legend>Edit Administrator</legend>-->
                     <div class="box form-container row-fluid form-horizontal">
                         <div class="control-group">
                             <label class="control-label">User Name</label>

@@ -8,17 +8,17 @@ from sqlalchemy import or_
 
 from guitarfan.models import *
 
-bp_admin_tab = Blueprint('bp_admin_tab', __name__, template_folder="../../templates/admin/tabs")
+bp_admin_tag = Blueprint('bp_admin_tag', __name__, template_folder="../../templates/admin/tabs")
 
 
-@bp_admin_tab.route('/admin/tabs')
+@bp_admin_tag.route('/admin/tags')
 @login_required
 def list():
     if request.method == 'GET':
-        return render_template('tab_management.html', action='list')
+        return render_template('tag_management.html', action='list')
 
 
-@bp_admin_tab.route('/admin/tabs/add', methods=['GET', 'POST'])
+@bp_admin_tag.route('/admin/tags/add', methods=['GET', 'POST'])
 @login_required
 def add():
-    return render_template('tab_management.html')
+    return render_template('tag_management.html')

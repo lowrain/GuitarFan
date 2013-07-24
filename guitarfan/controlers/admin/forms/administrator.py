@@ -31,7 +31,6 @@ class AddAdministratorForm(Form):
                                          Regexp(u'^(.{8,20})|()$', message=u'Password are at least eight chars')])
     confirm_password = PasswordField(u'Confirm Password', description=u'Re-enter the password',
                                      validators=[EqualTo('password', message=u'Passwords must be the same')])
-    status = BooleanField(u'Status', description=u'Enable')
     submit = SubmitField(u'Submit', id='submit')
 
 

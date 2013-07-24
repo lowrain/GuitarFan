@@ -4,13 +4,12 @@
 from uuid import uuid1
 
 from flask import render_template, request, redirect, url_for, flash, Blueprint
-from flask.ext.login import login_user, logout_user, login_required, current_user
+from flask.ext.login import login_user, logout_user, login_required
 from sqlalchemy import or_
-from forms import *
 
 from guitarfan.models.administrator import Administrator
 from guitarfan.extensions.flasksqlalchemy import db
-
+from forms.administrator import *
 
 bp_admin_administrator = Blueprint('bp_admin_administrator', __name__, template_folder="../../templates/admin")
 
@@ -26,7 +25,7 @@ def login():
 
     if request.method == 'GET':
         return render_template('login.html', form=form)
-    if request.method == 'POST':
+    elif request.method == 'POST':
         if form.validate_on_submit():
             administrator = Administrator.query.filter(or_(Administrator.email == form.name.data, Administrator.name == form.name.data)).first()
             passed = True
@@ -66,23 +65,24 @@ def list():
     administrators = Administrator.query.all()
     return render_template('dashboard/administrator_management.html', action='list', administrators=administrators)
 
-@login_required
+
 @bp_admin_administrator.route('/admin/administrators/add', methods=['GET', 'POST'])
+@login_required
 def add():
     form = AddAdministratorForm()
 
     if request.method == 'GET':
-        return render_template('dashboard/administrator_management.html', form=form, action='add')
+        return render_template('dashboard/administrator_management.html', action='add', form=form)
     elif request.method == 'POST':
         if form.validate_on_submit():
             administrator = Administrator(str(uuid1()), form.name.data, form.email.data, form.password.data, 1)
             db.session.add(administrator)
             db.session.commit()
-            flash(u'Creating administrator successfully', 'success')
+            flash(u'Add new administrator successfully', 'success')
             return redirect(url_for('bp_admin_administrator.list'))
         else:
             flash(validator.catch_errors(form.errors), 'error')
-            return render_template('dashboard/administrator_management.html', form=form, action='add')
+            return render_template('dashboard/administrator_management.html', action='add', form=form)
 
 
 @bp_admin_administrator.route('/admin/administrators/<string:id>', methods=['GET', 'POST'])
@@ -100,7 +100,7 @@ def edit(id):
             administrator.status = form.status.data
             db.session.commit()
 
-            flash('Update administrator successfully', 'success')
+            flash(u'Update administrator successfully', 'success')
             return redirect(url_for('bp_admin_administrator.list'))
         else:
             flash(validator.catch_errors(form.errors), 'error')

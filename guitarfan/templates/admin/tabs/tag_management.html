@@ -1,0 +1,22 @@
+{% extends "tabs/base.html" %}
+
+{% block active_tabs_tag %}active{% endblock %}
+
+{% block main %}
+    <div class="span9">
+        {% if action == 'list' %}
+            <ul class="breadcrumb">
+                <li>Tabs <span class="divider">/</span></li>
+                <li>Tag Management</li>
+            </ul>
+
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <div class="btn-group">
+                        <a href="{{ url_for('bp_admin_tag.add')}}" class="btn btn-success"><i class="icon-plus"></i> New Tag</a>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

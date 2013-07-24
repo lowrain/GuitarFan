@@ -13,55 +13,6 @@
     {% endwith %}
 {%- endmacro %}
 
-
-{#{% macro get_operation_title(kind)  -%}#}
-{#    {% if kind == 'ssh_detect' %}#}
-{#        Ssh Detect#}
-{#    {% elif kind == 'ping_detect' %}#}
-{#        Ping Detect#}
-{#    {% elif kind == 'custom_execute' %}#}
-{#        Custom Execute#}
-{#    {% elif kind == 'predefined_execute' %}#}
-{#        PreDefined Execute#}
-{#    {% elif kind == 'power_control' %}#}
-{#        Power Control#}
-{#    {% else %}#}
-{#        Error Operation Type#}
-{#    {% endif %}#}
-{#{%- endmacro %}#}
-{##}
-{##}
-{#{% macro generation_create_operation_link(kind)  -%}#}
-{#    {% if kind == 'ssh_detect' %}#}
-{#        {{ url_for('operation.create_ssh_detect_ctrl') }}#}
-{#    {% elif kind == 'ping_detect' %}#}
-{#        {{ url_for('operation.create_ping_detect_ctrl') }}#}
-{#    {% elif kind == 'custom_execute' %}#}
-{#        {{ url_for('operation.create_custom_execute_ctrl') }}#}
-{#    {% elif kind == 'predefined_execute' %}#}
-{#        {{ url_for('operation.create_predefined_execute_ctrl') }}#}
-{#    {% elif kind == 'power_control' %}#}
-{#        {{ url_for('operation.create_power_control_ctrl') }}#}
-{#    {% endif %}#}
-{#{%- endmacro %}#}
-{##}
-{##}
-{#{% macro get_operation_status(status)  -%}#}
-{#    {% if status == '0' %}#}
-{#        <span class="label label-info">队列中</span>#}
-{#    {% elif status == '1' %}#}
-{#        <span class="label label-success">已完成</span>#}
-{#    {% elif status == '2' %}#}
-{#        <span class="label label-warning">内部错误</span>#}
-{#    {% elif status == '5' %}#}
-{#        <span class="label">执行中</span>#}
-{#    {% else %}#}
-{#        <span class="label label-warning">异常结果</span>#}
-{#    {% endif %}#}
-{#{%- endmacro %}#}
-{##}
-{##}
-
 {% macro get_adverse_desc(status)  -%}
     {% if status == 0 %}
         <i class="icon-ok-sign"></i> Enable

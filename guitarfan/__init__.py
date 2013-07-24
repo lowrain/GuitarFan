@@ -8,11 +8,11 @@ def create_app(config):
     app = Flask(__name__)
     app.config.from_object(config)
 
-    # config Flask-Login
+    # init flask-login
     from guitarfan.extensions.flasklogin import login_manager
     login_manager.init_app(app)
 
-    # init sqlalchemy db
+    # init flask-sqlalchemy
     from guitarfan.extensions.flasksqlalchemy import db
     db.init_app(app)
 
