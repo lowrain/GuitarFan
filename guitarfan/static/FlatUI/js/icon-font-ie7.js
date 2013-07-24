@@ -1,36 +1,67 @@
-/* Use this script if you need to support IE 7 and IE 6. */
+/* Load this script using conditional IE comments if you need to support IE 7 and IE 6. */
 
 window.onload = function() {
 	function addIcon(el, entity) {
 		var html = el.innerHTML;
-		el.innerHTML = '<span style="font-family: \'Flat-UI-Icons-16\'">' + entity + '</span>' + html;
+		el.innerHTML = '<span style="font-family: \'Flat-UI-Icons\'">' + entity + '</span>' + html;
 	}
 	var icons = {
-			'fui-volume-16' : '&#xe000;',
-			'fui-video-16' : '&#xe001;',
-			'fui-time-16' : '&#xe002;',
-			'fui-settings-16' : '&#xe003;',
-			'fui-plus-16' : '&#xe004;',
-			'fui-new-16' : '&#xe005;',
-			'fui-menu-16' : '&#xe006;',
-			'fui-man-16' : '&#xe007;',
-			'fui-mail-16' : '&#xe008;',
-			'fui-lock-16' : '&#xe009;',
-			'fui-location-16' : '&#xe00a;',
-			'fui-heart-16' : '&#xe00b;',
-			'fui-eye-16' : '&#xe00c;',
-			'fui-cross-16' : '&#xe00d;',
-			'fui-cmd-16' : '&#xe00e;',
-			'fui-checkround-16' : '&#xe00f;',
-			'fui-checkmark-16' : '&#xe010;',
-			'fui-camera-16' : '&#xe011;',
-			'fui-calendar-16' : '&#xe012;',
-			'fui-bubble-16' : '&#xe013;'
+			'fui-triangle-up' : '&#xe000;',
+			'fui-triangle-up-small' : '&#xe001;',
+			'fui-triangle-right-large' : '&#xe002;',
+			'fui-triangle-left-large' : '&#xe003;',
+			'fui-triangle-down' : '&#xe004;',
+			'fui-triangle-down-small' : '&#xe005;',
+			'fui-info' : '&#xe016;',
+			'fui-alert' : '&#xe017;',
+			'fui-question' : '&#xe018;',
+			'fui-window' : '&#xe019;',
+			'fui-windows' : '&#xe01a;',
+			'fui-upload' : '&#xe01b;',
+			'fui-arrow-right' : '&#xe02c;',
+			'fui-arrow-left' : '&#xe02d;',
+			'fui-loop' : '&#xe02e;',
+			'fui-cmd' : '&#xe02f;',
+			'fui-mic' : '&#xe030;',
+			'fui-export' : '&#xe031;',
+			'fui-check-inverted' : '&#xe006;',
+			'fui-heart' : '&#xe007;',
+			'fui-location' : '&#xe008;',
+			'fui-plus' : '&#xe009;',
+			'fui-check' : '&#xe00a;',
+			'fui-cross' : '&#xe00b;',
+			'fui-list' : '&#xe00c;',
+			'fui-new' : '&#xe00d;',
+			'fui-video' : '&#xe00e;',
+			'fui-photo' : '&#xe00f;',
+			'fui-volume' : '&#xe010;',
+			'fui-time' : '&#xe011;',
+			'fui-eye' : '&#xe012;',
+			'fui-chat' : '&#xe013;',
+			'fui-home' : '&#xe015;',
+			'fui-search' : '&#xe01c;',
+			'fui-user' : '&#xe01d;',
+			'fui-mail' : '&#xe01e;',
+			'fui-lock' : '&#xe01f;',
+			'fui-power' : '&#xe020;',
+			'fui-star' : '&#xe021;',
+			'fui-calendar' : '&#xe022;',
+			'fui-gear' : '&#xe023;',
+			'fui-book' : '&#xe024;',
+			'fui-exit' : '&#xe025;',
+			'fui-trash' : '&#xe026;',
+			'fui-folder' : '&#xe027;',
+			'fui-bubble' : '&#xe028;',
+			'fui-cross-inverted' : '&#xe029;',
+			'fui-plus-inverted' : '&#xe02a;'
 		},
 		els = document.getElementsByTagName('*'),
 		i, attr, html, c, el;
-	for (i = 0; i < els.length; i += 1) {
+	for (i = 0; ; i += 1) {
 		el = els[i];
+		if(!el) {
+			break;
+		}
 		attr = el.getAttribute('data-icon');
 		if (attr) {
 			addIcon(el, attr);
