@@ -14,7 +14,7 @@ Guitar tabs web app for guitar fans, powered by Python/Flask, under developing..
 * Architecture: MVC + RESTful
 * UI: Responsive by Bootstrap + Flat UI + FontAwesome + jQuery + jQuery.dataTables + jQuery File Upload
 * Data: SQLAlchemy + SQLite
-* IDE & Tools: PyCharm, SQLite Professional, iTerm, Git, and Google+ssh(what can I way - -#) of course...
+* IDE & Tools: PyCharm, SQLite Professional, iTerm, Git, and Google+ssh(what can I say - -#) of course...
 
 # Modules
 * Tab search
