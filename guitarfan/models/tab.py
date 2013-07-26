@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import time
 from guitarfan.extensions.flasksqlalchemy import db
 
 # tag-tab link table
@@ -20,6 +21,7 @@ class Tab(db.Model):
     audio_url = db.Column(db.String)
     style_id = db.Column(db.Integer)
     artist_id = db.Column(db.String(50), db.ForeignKey('artist.id'))
+    update_time = db.Column(db.String(20))
     tags = db.relationship('Tag', secondary=tag_tab, backref=db.backref('tag_tab', lazy='dynamic'))
 
     def __init__(self, id, name, format, difficulty, file_path, audio_url, style_id, artist_id, tags):
@@ -33,6 +35,7 @@ class Tab(db.Model):
         self.style_id = style_id
         self.artist_id = artist_id
         self.tags = tags
+        self.update_time = time.strftime('%Y-%m-%d %H:%M')
 
     def __repr__(self):
         return '<Score %r>' % self.name

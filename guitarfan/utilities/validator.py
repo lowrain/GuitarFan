@@ -39,22 +39,18 @@ class UnChange(object):
         check = self.model.query.filter_by(id=form.id.data).first()
         if check is not None and field.data != getattr(check, self.field):
             raise ValidationError(self.message)
-#
-# def checkfile(form,field):
-#     if field.data:
-#         filename=field.data.lower()
-#         ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
-#         if not ('.' in filename and filename.rsplit('.',1)[1] in ALLOWED_EXTENSIONS):
-#             raise ValidationError('Wrong file type, you can upload only png,jpg,jpeg,gif files')
-#     else:
-#         raise ValidationError('field not Present') # I added this just for some debugging.
 
 
-def allowed_file(filename, type):
-    allowed_extenstions = ''
-    if type == 'tab':
-        allowed_extenstions = current_app.config['TAB_FILE_ALLOWED_EXTENSIONS']
-    elif type == 'photo':
-        allowed_extenstions = current_app.config['ARTIST_PHOTO_ALLOWED_EXTENSIONS']
+class AllowedPhotoFile(object):
+    """ validator that checks upload file """
+    def __init__(self, model, field, message=None):
+        self.model = model
+        self.field = field
+        self.message = message if message else u'Upload photo file is not available format'
 
-    return '.' in filename and filename.rsplit('.', 1)[1] in allowed_extenstions
+    def __call__(self, form, field):
+        if field.data:
+            allowed_extenstions = current_app.config['ARTIST_PHOTO_ALLOWED_EXTENSIONS']
+            filename = field.data.filename
+            if not ('.' in filename and filename.rsplit('.', 1)[1] in allowed_extenstions):
+                raise ValidationError(self.message)

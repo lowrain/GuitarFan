@@ -8,21 +8,23 @@ Guitar tabs web app for guitar fans, powered by Python/Flask, under developing..
 * easy to use
 * adapt to common browers(ie, chrome, safari, firefox) and devices(desktop, ipad)
 
-# Developer Email
-jinzm1982@gmail.com
-
 # Technology
-* Python 2.7.2
-* MVC + RESTful
-* Bootstrap + Flat UI + jQuery<br />
-* Flask + Blueprint + Flask-Login + Flask-WTF + Flask-Uploads<br />
-* SQLAlchemy + SLite<br />
-* IDE: PyCharm
+* Language: Python 2.7.2
+* Framework: Flask + Blueprint + Flask-Login + Flask-WTF
+* Architecture: MVC + RESTful
+* UI: Bootstrap + FontAwesome + Flat UI + jQuery + DataTables + jQuery File Upload
+* Data: SQLAlchemy + SLite
+* IDE & Tools: PyCharm, SQLite Professional, iTerm
 
 # Modules
-* Home: Search, popular tags
-* Tabs Index: category by artists or styles or tags
-* Guitar Tools -- tuning, chord search, site/app recommended and so one...
+* Tab search
+* Tabs Index: category by artists, styles, tags
+* Guitar Tools -- tuning, chord search, site/app recommended...
+* Backend Admin: data management, data crawling, application status monitor, logs view, database backup and so on...
 
-# Domain name
+# Domain name (web server is not deployed yet, coming soon...)
 http://www.guitar123.net
+
+
+# Contact Email
+jinzm1982@gmail.com

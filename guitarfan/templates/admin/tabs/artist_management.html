@@ -19,10 +19,48 @@
                     </div>
                 </div>
             </div>
+
+            <table class="table table-hover table-bordered table-striped">
+                <tr>
+                    <th width="90%">artist</th>
+                    <th></th>
+                </tr>
+                {% for artist in artists %}
+                    <tr>
+                        <td>{{ artist.name }}</td>
+                        <td>
+                            <div class="dropdown related_menu">
+                                <a title="Related Objects" class="relate_menu dropdown-toggle" data-toggle="dropdown"><i class="icon icon-list"></i></a>
+                                <ul class="dropdown-menu pull-right" role="menu">
+                                    <li><a href="{{ url_for('bp_admin_artist.edit', id=artist.id) }}"><i class="icon-edit"></i> Edit</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="javascript:void(0);" onclick="DeleteArtist('{{ artist.id }}', this)"><i class="icon-remove"></i> Delete</a></li>
+
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+            <script type="text/javascript">
+                function DeleteArtist(id, link) {
+                    if (confirm('Are you sure you want to delete this artist?')) {
+                        $.ajax({
+                            url: '{{ url_for('bp_admin_artist.delete') }}',
+                            type: 'DELETE',
+                            data: { id : id },
+                            success: function(result) {
+                                if (result == 'success')
+                                    $(link).closest('tr').remove();
+                            }
+                        });
+                    }
+                }
+            </script>
         {% elif action == 'add' %}
             <ul class="breadcrumb">
                 <li>Tabs <span class="divider">/</span></li>
-                <li>Artist Management</li>
+                <li><a href="{{ url_for('bp_admin_artist.list') }}">Artist Management</a> <span class="divider">/</span></li>
                 <li>Add</li>
             </ul>
 
@@ -31,14 +69,41 @@
             <div class="tabbable">
                 <form method="post" action="" enctype="multipart/form-data">
                     {{ form.hidden_tag() }}
-                    <!--<legend>Add Artist</legend>-->
                     <div class="box form-container row-fluid form-horizontal">
                         {{ macro.create_wtf_field(form.name) }}
                         {{ macro.create_wtf_field(form.letter) }}
+                        {{ macro.create_wtf_field(form.region) }}
+                        {{ macro.create_wtf_field(form.category) }}
+                        {{ macro.create_wtf_field(form.photo) }}
+                    </div>
+
+                    <div class="form-actions">
+                        {{ form.submit(class="btn btn-danger") }}
+                    </div>
+                </form>
+            </div>
+        {% elif action == 'edit' %}
+            <ul class="breadcrumb">
+                <li>Tabs <span class="divider">/</span></li>
+                <li><a href="{{ url_for('bp_admin_artist.list') }}">Artist Management</a> <span class="divider">/</span></li>
+                <li>Edit</li>
+            </ul>
+
+            {{ macro.feedback_message() }}
+
+            <div class="tabbable">
+                <form method="post" action="" enctype="multipart/form-data">
+                    {{ form.hidden_tag() }}
+                    <div class="box form-container row-fluid form-horizontal">
+                        {{ macro.create_wtf_field(form.name) }}
+                        {{ macro.create_wtf_field(form.letter) }}
+                        {{ macro.create_wtf_field(form.region) }}
+                        {{ macro.create_wtf_field(form.category) }}
+                        {{ macro.create_wtf_field(form.photo) }}
                         <div class="control-group">
-                            <label class="control-label">Photo</label>
+                            <label class="control-label"></label>
                             <div class="controls">
-                                <input type="file" name="photofile">
+                                <img src="{{ photo_path }}" style="width:120px; height:120px" />
                             </div>
                         </div>
                     </div>

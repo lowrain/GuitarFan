@@ -24,11 +24,12 @@
 # SOFTWARE.
 
 import os
-
-_rootpath = os.path.abspath(os.path.dirname(__file__))
+#TODO upload folder
+# path config
+APP_PATH = os.path.dirname(os.path.abspath(__file__)) + '/guitarfan'
 
 # database config
-SQLALCHEMY_DATABASE_URI = 'sqlite:///' + _rootpath + '/guitarfan/data/sqlite.db'
+SQLALCHEMY_DATABASE_URI = 'sqlite:///' + APP_PATH + '/data/sqlite.db'
 
 # web config
 PORT = 8888
@@ -40,7 +41,7 @@ APP_NAME = 'GuitarFan'
 SITE_URL = 'http://www.guitar123.net'
 
 # uplods config
-ARTIST_PHOTO_FOLDER = _rootpath + '/guitarfan/uploads/artists/'
-TAB_FILE_FOLDER = _rootpath + '/guitarfan/uploads/tabs/'
+ARTIST_PHOTO_FOLDER = '/static/artists'
+TAB_FILE_FOLDER = '/static/tabs'
 ARTIST_PHOTO_ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 TAB_FILE_ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif', 'txt'])

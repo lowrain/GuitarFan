@@ -9,3 +9,6 @@ init_db.py
 
 *.db
 supervisord.conf
+
+/guitarfan/static/artists
+/guitarfan/static/tabs

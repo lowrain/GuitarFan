@@ -2,17 +2,15 @@
 # -*- coding: utf-8 -*-
 
 import string
-
-# from flask.ext.uploads import UploadSet, IMAGES
-from flask.ext.wtf import Form, TextField, HiddenField, BooleanField, PasswordField, SubmitField, SelectField, FileField, \
-    Required, FileAllowed, FileRequired, EqualTo, Regexp, Email, length
+from flask.ext.wtf import Form, StringField, TextField, HiddenField, BooleanField, PasswordField, SubmitField, \
+    SelectField, FileField, HiddenInput, Required, FileAllowed, FileRequired, EqualTo, Regexp, Email, length
 
 from guitarfan.utilities import validator
 from guitarfan.models.artist import Artist
 from guitarfan.models.enums import *
 
 
-def GetLetterChoices():
+def get_letter_choices():
     letters = string.uppercase[:26]
     letterChoices = []
     for l in letters:
@@ -21,16 +19,14 @@ def GetLetterChoices():
     letterChoices.append(('0', 'Other'))
     return letterChoices
 
-# images = UploadSet("images", IMAGES)
 
-class AddArtistFrom(Form):
+class ArtistFrom(Form):
+    id = HiddenField(widget=HiddenInput())
     name = TextField(u'Name', description=u'Unrepeatable.',
-                     validators=[Required(message=u'Name is required'),
-                                 Regexp(u'^[a-zA-Z0-9\_\-\.\ ]{1,20}$', message=u'Incorrect name format'),
-                                 validator.Unique(Artist, Artist.name, message=u'The current name is already in use')])
-    letter = SelectField(u'Alpha', description=u'Select the first letter of artist name.', choices=GetLetterChoices())
-    # photo = FileField(u'Photo', description=u'Upload image file, png/jpg/gif.',
-    #                   validators=[Regexp(u'^[^/\\]*.[jpg|jpeg|gif|png]$', message=u'Incorrect file format')])
-    # photo = FileField(u'Upload artist photo', description=u'Upload artist photo.', validators=[FileAllowed(images, message=u'Images only!')])
+                     validators=[Required(message=u'Name is required'), validator.Unique(Artist, Artist.name, message=u'The current name is already in use')])
+    letter = SelectField(u'Letter', description=u'Select the first letter of artist name.', choices=get_letter_choices())
+    photo = FileField(u'Photo', description=u'Upload image file, 120x120.',
+                      validators=[validator.AllowedPhotoFile(Artist, Artist.photo, message=u'Upload photo file is not available format')])
+    region = SelectField(u'Region', description=u'Select the region of artist.', choices=ArtistRegion.get_described_items(), default=1, coerce=int)
+    category = SelectField(u'Category', description=u'Select the category of artist.', choices=ArtistCategory.get_described_items(), default=1, coerce=int)
     submit = SubmitField(u'Submit', id='submit')
-
