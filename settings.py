@@ -24,7 +24,6 @@
 # SOFTWARE.
 
 import os
-#TODO upload folder
 # path config
 APP_PATH = os.path.dirname(os.path.abspath(__file__)) + '/guitarfan'
 

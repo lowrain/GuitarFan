@@ -18,7 +18,6 @@ def check_dir(path):
 
 
 def upload_file(file, upload_path, new_filename):
-    # TODO check if file exists
     try:
         upload_folder = get_abspath(upload_path)
         check_dir(upload_folder)

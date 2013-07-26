@@ -6,21 +6,31 @@ import operator
 
 # domain enum classes
 class EnumBase(object):
-    descriptions = {}
+    _descriptions = {}
 
     @classmethod
     def get_items(cls):
+        # change all enum items to sorted list
+        # [(1,'aa'), (2,'bb'), (3,'cc')]
         items_dict = dict((v, k) for k, v in cls.__dict__.items() if not k.startswith('_') and not k.startswith('get_'))
         sorted_list = sorted(items_dict.iteritems(), key=operator.itemgetter(0))
         return sorted_list
 
     @classmethod
     def get_described_items(cls):
+        # get described enum items list which is for displaying to end user
+        # [(1,u'描述1'), (2,u'描述2'), (3,u'描述3')]
         items = cls.get_items()
         new_items = []
         for item in items:
             new_items.append((item[0], cls._descriptions[item[0]]))
         return new_items
+
+    @classmethod
+    # get the corresponding text for given enum item
+    # band ==> u‘乐队'
+    def get_item_text(cls, item):
+        return cls._descriptions[item]
 
 
 class ArtistCategory(EnumBase):

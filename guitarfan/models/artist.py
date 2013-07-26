@@ -6,6 +6,7 @@ import os
 from flask import url_for, current_app
 from guitarfan.extensions.flasksqlalchemy import db
 import guitarfan.utilities.oshelper as oshelper
+from enums import *
 
 class Artist(db.Model):
     __tablename__ = 'artist'
@@ -32,6 +33,19 @@ class Artist(db.Model):
         return '<Artist %r>' % self.name
 
     @property
+    def tabs_count(self):
+        # TODO return related tabs count
+        return 0
+
+    @property
+    def region_text(self):
+        return ArtistRegion.get_item_text(self.region_id)
+
+    @property
+    def category_text(self):
+        return ArtistCategory.get_item_text(self.category_id)
+
+    @property
     def photo_relative_path(self):
         nophoto_path = url_for('static', filename='images/nophoto.png')
 
@@ -43,6 +57,9 @@ class Artist(db.Model):
             return photo_path
         else:
             return nophoto_path
+
+    def amaskdfalkjsdf(self):
+        pass
 
 
 
