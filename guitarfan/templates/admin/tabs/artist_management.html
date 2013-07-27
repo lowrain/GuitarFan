@@ -6,10 +6,12 @@
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='dataTables/css/jquery.dataTables.css') }}">
     <script src="{{ url_for('static', filename='dataTables/js/jquery.dataTables.min.js') }}"></script>
     <script type="text/javascript" charset="utf-8">
-        {# TODO 1.multiple select 2.can't delete if has any tab 3.not sort any column by default #}
-        $(document).ready(function() {
-            $('.table').dataTable();
-        } );
+        $(function() {
+            $('.table').dataTable({
+                "aaSorting": [[ 4, "desc" ]],
+                "sPaginationType": "full_numbers"
+            });
+        });
     </script>
     <div class="span9">
         {% if action == 'list' %}
@@ -32,11 +34,12 @@
                 <thead>
                 <tr>
                     <th width="5%"></th>
-                    <th width="25%">artist</th>
+                    <th width="20%">artist</th>
                     <th width="10%">region</th>
                     <th width="15%">category</th>
                     <th width="20%">update time</th>
-                    <th width="12%">tabs count</th>
+                    <th width="12%">tabs</th>
+                    <th width="12%">has photo</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -49,14 +52,16 @@
                         <td>{{ artist.category_text }}</td>
                         <td>{{ artist.update_time }}</td>
                         <td>{{ artist.tabs_count }}</td>
+                        <td>{{ 'yes' if artist.photo != '' else 'no'|safe }}</td>
                         <td>
                             <div class="dropdown related_menu">
                                 <a title="Related Objects" class="relate_menu dropdown-toggle" data-toggle="dropdown"><i class="icon icon-list"></i></a>
                                 <ul class="dropdown-menu pull-right" role="menu">
                                     <li><a href="{{ url_for('bp_admin_artist.edit', id=artist.id) }}"><i class="icon-edit"></i> Edit</a></li>
+                                    {% if artist.tabs_count == 0 %}
                                     <li class="divider"></li>
                                     <li><a href="javascript:void(0);" onclick="DeleteArtist('{{ artist.id }}', this)"><i class="icon-remove"></i> Delete</a></li>
-
+                                    {% endif %}
                                 </ul>
                             </div>
                         </td>

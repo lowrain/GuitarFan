@@ -20,7 +20,6 @@ bp_admin_artist = Blueprint('bp_admin_artist', __name__, template_folder="../../
 @bp_admin_artist.route('/admin/artists')
 @login_required
 def list():
-    # TODO order by update_time field default
     artists = Artist.query.all()
     return render_template('artist_management.html', action='list', artists=artists)
 
@@ -108,6 +107,9 @@ def edit(id):
 @login_required
 def delete():
     artist = Artist.query.filter_by(id=request.values['id']).first()
-    db.session.delete(artist)
-    db.session.commit()
-    return 'success'
+    if artist.tabs_count == 0:
+        db.session.delete(artist)
+        db.session.commit()
+        return 'success'
+    else:
+        return u"This artist still has tab(s), can't delete"

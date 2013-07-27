@@ -34,8 +34,8 @@ class Artist(db.Model):
 
     @property
     def tabs_count(self):
-        # TODO return related tabs count
-        return 0
+        return len(self.tabs.all())
+
 
     @property
     def region_text(self):
