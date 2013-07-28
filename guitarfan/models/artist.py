@@ -11,13 +11,13 @@ from enums import *
 class Artist(db.Model):
     __tablename__ = 'artist'
 
-    id = db.Column(db.String(50), primary_key=True)
-    name = db.Column(db.String(50))
-    letter = db.Column(db.String(1))
+    id = db.Column(db.String(50), primary_key=True, unique=True)
+    name = db.Column(db.String(50), nullable=False)
+    letter = db.Column(db.String(1), nullable=False)
     photo = db.Column(db.String)
-    region_id = db.Column(db.Integer)
-    category_id = db.Column(db.Integer)
-    update_time = db.Column(db.String(20))
+    region_id = db.Column(db.Integer, nullable=False, default=1)
+    category_id = db.Column(db.Integer, nullable=False, default=1)
+    update_time = db.Column(db.String(20), nullable=False)
     tabs = db.relationship('Tab', backref='artist', lazy='dynamic')
 
     def __init__(self, id, name, letter, photo, region_id, category_id):
@@ -35,7 +35,6 @@ class Artist(db.Model):
     @property
     def tabs_count(self):
         return len(self.tabs.all())
-
 
     @property
     def region_text(self):
@@ -57,10 +56,5 @@ class Artist(db.Model):
             return photo_path
         else:
             return nophoto_path
-
-    def amaskdfalkjsdf(self):
-        pass
-
-
 
 

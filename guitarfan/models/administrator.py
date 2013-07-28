@@ -9,11 +9,11 @@ from guitarfan.extensions.flasksqlalchemy import db
 class Administrator(db.Model):
     __tablename__ = 'administrator'
 
-    id = db.Column(db.String(50), primary_key=True)
-    name = db.Column(db.String(50))
-    email = db.Column(db.String)
-    password = db.Column(db.String)
-    status = db.Column(db.Integer)
+    id = db.Column(db.String(50), primary_key=True, unique=True)
+    name = db.Column(db.String(50), nullable=False)
+    email = db.Column(db.String, nullable=False)
+    password = db.Column(db.String, nullable=False)
+    status = db.Column(db.Integer, nullable=False, default=1)
 
     def __init__(self, id, name, email, password, status):
         self.id = id

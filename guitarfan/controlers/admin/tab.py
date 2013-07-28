@@ -7,6 +7,7 @@ from flask.ext.login import login_user, logout_user, login_required, current_use
 from sqlalchemy import or_
 
 from guitarfan.models import *
+from guitarfan.extensions.flasksqlalchemy import db
 
 bp_admin_tab = Blueprint('bp_admin_tab', __name__, template_folder="../../templates/admin/tabs")
 
@@ -14,11 +15,26 @@ bp_admin_tab = Blueprint('bp_admin_tab', __name__, template_folder="../../templa
 @bp_admin_tab.route('/admin/tabs')
 @login_required
 def list():
-    if request.method == 'GET':
-        return render_template('tab_management.html', action='list')
+    tabs = Tab.query.all()
+    return render_template('tab_management.html', action='list', tabs=tabs)
 
 
 @bp_admin_tab.route('/admin/tabs/add', methods=['GET', 'POST'])
 @login_required
 def add():
     return render_template('tab_management.html')
+
+
+@bp_admin_tab.route('/admin/tabs/<string:id>', methods=['GET', 'POST'])
+@login_required
+def edit():
+    return render_template('tab_management.html')
+
+
+@bp_admin_tab.route('/admin/tabs', methods=['DELETE'])
+@login_required
+def delete():
+    tab = Tab.query.filter_by(id=request.values['id']).first()
+    db.session.delete(tab)
+    db.session.commit()
+    return 'success'

@@ -72,7 +72,7 @@ def edit(id):
     artist = Artist.query.filter_by(id=id).first()
     form = ArtistFrom(id=artist.id, name=artist.name, letter=artist.letter, photo=artist.letter,
                       region=artist.region_id, category=artist.category_id)
-
+    # TODO add dummy parameter to stop cache
     if request.method == 'GET':
         return render_template('artist_management.html', action='edit', form=form, photo_path=artist.photo_relative_path)
 

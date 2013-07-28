@@ -3,12 +3,24 @@
 {% block active_tabs_tab %}active{% endblock %}
 
 {% block main %}
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='dataTables/css/jquery.dataTables.css') }}">
+    <script src="{{ url_for('static', filename='dataTables/js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" charset="utf-8">
+        $(function() {
+            $('.gridTable').dataTable({
+                "aaSorting": [[ 6, "desc" ]],
+                "sPaginationType": "full_numbers"
+            });
+        });
+    </script>
     <div class="span9">
         {% if action == 'list' %}
             <ul class="breadcrumb">
                 <li>Tabs <span class="divider">/</span></li>
                 <li>Tab Management</li>
             </ul>
+
+            {{ macro.feedback_message() }}
 
             <div class="navbar">
                 <div class="navbar-inner">
@@ -17,6 +29,62 @@
                     </div>
                 </div>
             </div>
+
+            <table class="gridTable table-hover table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th class="text-left" width="20%">title</th>
+                    <th width="10%">format</th>
+                    <th width="10%">style</th>
+                    <th width="10%">difficulty</th>
+                    <th width="10%">artist</th>
+                    <th width="10%">hits</th>
+                    <th width="20%">update time</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for tab in tabs %}
+                    <tr>
+                        <td>{{ tab.title }}</td>
+                        <td class="text-center">{{ tab.format_text }}</td>
+                        <td class="text-center">{{ tab.style_text }}</td>
+                        <td class="text-center">{{ tab.difficulty_text }}</td>
+                        <td class="text-center">{{ tab.artist.name }}</td>
+                        <td class="text-center">{{ tab.hits }}</td>
+                        <td class="text-center">{{ tab.update_time }}</td>
+                        <td class="text-center">
+                            <div class="dropdown related_menu">
+                                <a title="Related Objects" class="relate_menu dropdown-toggle" data-toggle="dropdown"><i class="icon icon-list"></i></a>
+                                <ul class="dropdown-menu pull-right" role="menu">
+                                    <li class="text-left"><a href="{{ url_for('bp_admin_tab.edit', id=tab.id) }}"><i class="icon-edit"></i> Edit</a></li>
+                                    <li class="divider"></li>
+                                    <li class="text-left"><a href="javascript:void(0);" onclick="DeleteArtist('{{ tab.id }}', this)"><i class="icon-remove"></i> Delete</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <script type="text/javascript">
+                function DeleteArtist(id, link) {
+                    if (confirm('Are you sure you want to delete this tab?')) {
+                        $.ajax({
+                            url: '{{ url_for('bp_admin_tab.delete') }}',
+                            type: 'DELETE',
+                            data: { id : id },
+                            dataType: "text",
+                            success: function(result) {
+                                if (result == 'success')
+                                    $(link).closest('tr').remove();
+                                else
+                                    alert(result);
+                            }
+                        });
+                    }
+                }
+            </script>
         {% endif %}
     </div>
 {% endblock %}

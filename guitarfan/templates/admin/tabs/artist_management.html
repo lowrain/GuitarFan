@@ -7,7 +7,7 @@
     <script src="{{ url_for('static', filename='dataTables/js/jquery.dataTables.min.js') }}"></script>
     <script type="text/javascript" charset="utf-8">
         $(function() {
-            $('.table').dataTable({
+            $('.gridTable').dataTable({
                 "aaSorting": [[ 4, "desc" ]],
                 "sPaginationType": "full_numbers"
             });
@@ -30,15 +30,15 @@
                 </div>
             </div>
 
-            <table class="table table-hover table-bordered table-striped">
+            <table class="gridTable table-hover table-bordered table-striped">
                 <thead>
                 <tr>
                     <th width="5%"></th>
-                    <th width="20%">artist</th>
+                    <th width="22%">artist</th>
                     <th width="10%">region</th>
                     <th width="15%">category</th>
                     <th width="20%">update time</th>
-                    <th width="12%">tabs</th>
+                    <th width="8%">tabs</th>
                     <th width="12%">has photo</th>
                     <th></th>
                 </tr>
@@ -46,21 +46,22 @@
                 <tbody>
                 {% for artist in artists %}
                     <tr>
-                        <td style="text-align: center">{{ artist.letter }}</td>
+                        <td class="text-center">{{ artist.letter }}</td>
                         <td>{{ artist.name }}</td>
-                        <td>{{ artist.region_text }}</td>
-                        <td>{{ artist.category_text }}</td>
-                        <td>{{ artist.update_time }}</td>
-                        <td>{{ artist.tabs_count }}</td>
-                        <td>{{ 'yes' if artist.photo != '' else 'no'|safe }}</td>
-                        <td>
+                        <td class="text-center">{{ artist.region_text }}</td>
+                        <td class="text-center">{{ artist.category_text }}</td>
+                        <td class="text-center">{{ artist.update_time }}</td>
+                        <td class="text-center">{{ artist.tabs_count }}</td>
+                        <!-- TODO change text to font-awesome -->
+                        <td class="text-center">{{ 'yes' if artist.photo != '' else 'no'|safe }}</td>
+                        <td class="text-center">
                             <div class="dropdown related_menu">
                                 <a title="Related Objects" class="relate_menu dropdown-toggle" data-toggle="dropdown"><i class="icon icon-list"></i></a>
                                 <ul class="dropdown-menu pull-right" role="menu">
-                                    <li><a href="{{ url_for('bp_admin_artist.edit', id=artist.id) }}"><i class="icon-edit"></i> Edit</a></li>
+                                    <li class="text-left"><a href="{{ url_for('bp_admin_artist.edit', id=artist.id) }}"><i class="icon-edit"></i> Edit</a></li>
                                     {% if artist.tabs_count == 0 %}
                                     <li class="divider"></li>
-                                    <li><a href="javascript:void(0);" onclick="DeleteArtist('{{ artist.id }}', this)"><i class="icon-remove"></i> Delete</a></li>
+                                    <li class="text-left"><a href="javascript:void(0);" onclick="DeleteArtist('{{ artist.id }}', this)"><i class="icon-remove"></i> Delete</a></li>
                                     {% endif %}
                                 </ul>
                             </div>
@@ -76,9 +77,12 @@
                             url: '{{ url_for('bp_admin_artist.delete') }}',
                             type: 'DELETE',
                             data: { id : id },
+                            dataType: "text",
                             success: function(result) {
                                 if (result == 'success')
                                     $(link).closest('tr').remove();
+                                else
+                                    alert(result);
                             }
                         });
                     }

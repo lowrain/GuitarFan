@@ -9,7 +9,7 @@ class Tag(db.Model):
     __tablename__ = 'tag'
 
     id = db.Column(db.String(50), primary_key=True, unique=True)
-    name = db.Column(db.String)
+    name = db.Column(db.String, nullable=False)
     update_time = db.Column(db.String(20))
 
     def __init__(self, id, name):
