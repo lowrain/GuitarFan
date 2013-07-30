@@ -36,7 +36,7 @@
                             <div class="dropdown related_menu">
                                 <a title="Related Objects" class="relate_menu dropdown-toggle" data-toggle="dropdown"><i class="icon icon-list"></i></a>
                                 <ul class="dropdown-menu pull-right" role="menu">
-                                    <li class="text-left"><a href="{{ url_for('bp_admin_administrator.edit', id=administrator.id) }}"><i class="icon-edit"></i> Edit</a></li>
+                                    <li class="text-left"><a href="{{ url_for('bp_admin_administrator.edit', id=administrator.id) }}"><i class="icon-pencil"></i> Edit</a></li>
                                     {% if current_user.name != administrator.name %}
                                         <li class="divider"></li>
                                         <li class="text-left"><a href="{{ url_for('bp_admin_administrator.update_status', id=administrator.id, status=(not administrator.status)) }}">{{ macro.get_adverse_desc(administrator.status) }}</a></li>

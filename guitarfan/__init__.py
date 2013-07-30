@@ -14,6 +14,7 @@ def create_app(config):
 
     # init flask-sqlalchemy
     from guitarfan.extensions.flasksqlalchemy import db
+    db.app = app # if without it, db query operation will throw exception in Form class
     db.init_app(app)
 
     # register all blueprints

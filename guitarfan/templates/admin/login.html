@@ -37,6 +37,11 @@
 
 {% block body %}
     {# TODO focus name textbox automatically #}
+    <script>
+    $(function() {
+        $('#name').focus();
+    });
+    </script>
     <div class="container">
         <form class="form-signin" method="post">
             {{ form.hidden_tag() }}

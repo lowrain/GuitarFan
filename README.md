@@ -12,12 +12,13 @@ Guitar tabs web app for guitar fans, powered by Python/Flask, under developing..
 * Language: Python 2.7.2
 * Framework: Flask + Blueprint + Flask-Login + Flask-WTF
 * Architecture: MVC + RESTful
-* UI: Responsive by Bootstrap + Flat UI + FontAwesome + jQuery + jQuery.dataTables + jQuery File Upload
+* UI: Responsive by Bootstrap + Flat UI + FontAwesome + jQuery + jQuery.dataTables + jQuery File Upload + select2
 * Data: SQLAlchemy + SQLite
 * IDE & Tools: PyCharm, SQLite Professional, iTerm, Git, and Google+ssh(what can I say - -#) of course...
 
 # Modules
 * Tab search
+* Random tab with some options (funny??)
 * Tabs Index: category by artists, styles, tags
 * Guitar Video Recommend (do we really need it??)
 * Guitar Tools -- tuning, chord search, site/app recommended...

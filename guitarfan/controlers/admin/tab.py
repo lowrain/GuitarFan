@@ -8,6 +8,8 @@ from sqlalchemy import or_
 
 from guitarfan.models import *
 from guitarfan.extensions.flasksqlalchemy import db
+from forms.tab import *
+
 
 bp_admin_tab = Blueprint('bp_admin_tab', __name__, template_folder="../../templates/admin/tabs")
 
@@ -22,12 +24,17 @@ def list():
 @bp_admin_tab.route('/admin/tabs/add', methods=['GET', 'POST'])
 @login_required
 def add():
-    return render_template('tab_management.html')
+    # TODO implement add view
+    form = TabFrom()
+    if request.method == 'GET':
+        return render_template('tab_management.html', action='add', form=form)
+
 
 
 @bp_admin_tab.route('/admin/tabs/<string:id>', methods=['GET', 'POST'])
 @login_required
 def edit():
+    # TODO implement edit view
     return render_template('tab_management.html')
 
 

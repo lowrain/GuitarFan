@@ -44,7 +44,7 @@ def login():
 
             if passed:
                 login_user(administrator)
-                if request.values['next']:
+                if 'next' in request.values:
                     return redirect(request.values['next'])
                 else:
                     return redirect(url_for('bp_admin_administrator.list'))

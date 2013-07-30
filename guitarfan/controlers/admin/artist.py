@@ -3,6 +3,7 @@
 
 import os
 from uuid import uuid1
+from random import random
 
 from flask import render_template, request, redirect, url_for, flash, Blueprint, current_app
 from flask.ext.login import login_user, logout_user, login_required, current_user
@@ -72,9 +73,10 @@ def edit(id):
     artist = Artist.query.filter_by(id=id).first()
     form = ArtistFrom(id=artist.id, name=artist.name, letter=artist.letter, photo=artist.letter,
                       region=artist.region_id, category=artist.category_id)
-    # TODO add dummy parameter to stop cache
+
+    photo_relative_path = artist.photo_relative_path + '?dummy=' + str(random())
     if request.method == 'GET':
-        return render_template('artist_management.html', action='edit', form=form, photo_path=artist.photo_relative_path)
+        return render_template('artist_management.html', action='edit', form=form, photo_path=photo_relative_path)
 
     elif request.method == 'POST':
         if form.validate_on_submit():

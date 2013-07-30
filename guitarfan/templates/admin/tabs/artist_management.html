@@ -11,6 +11,7 @@
                 "aaSorting": [[ 4, "desc" ]],
                 "sPaginationType": "full_numbers"
             });
+            $(".select2").select2();
         });
     </script>
     <div class="span9">
@@ -34,12 +35,12 @@
                 <thead>
                 <tr>
                     <th width="5%"></th>
-                    <th width="22%">artist</th>
+                    <th width="28%" class="text-left">artist</th>
                     <th width="10%">region</th>
                     <th width="15%">category</th>
                     <th width="20%">update time</th>
                     <th width="8%">tabs</th>
-                    <th width="12%">has photo</th>
+                    <th width="8%">photo</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -52,13 +53,12 @@
                         <td class="text-center">{{ artist.category_text }}</td>
                         <td class="text-center">{{ artist.update_time }}</td>
                         <td class="text-center">{{ artist.tabs_count }}</td>
-                        <!-- TODO change text to font-awesome -->
-                        <td class="text-center">{{ 'yes' if artist.photo != '' else 'no'|safe }}</td>
+                        <td class="text-center">{{ ('<i class="icon-ok"><span style="display:none">Yes</span></i>' if artist.photo != '' else '<i class="icon-minus"><span style="display:none">No</span></i>')|safe }}</td>
                         <td class="text-center">
                             <div class="dropdown related_menu">
                                 <a title="Related Objects" class="relate_menu dropdown-toggle" data-toggle="dropdown"><i class="icon icon-list"></i></a>
                                 <ul class="dropdown-menu pull-right" role="menu">
-                                    <li class="text-left"><a href="{{ url_for('bp_admin_artist.edit', id=artist.id) }}"><i class="icon-edit"></i> Edit</a></li>
+                                    <li class="text-left"><a href="{{ url_for('bp_admin_artist.edit', id=artist.id) }}"><i class="icon-pencil"></i> Edit</a></li>
                                     {% if artist.tabs_count == 0 %}
                                     <li class="divider"></li>
                                     <li class="text-left"><a href="javascript:void(0);" onclick="DeleteArtist('{{ artist.id }}', this)"><i class="icon-remove"></i> Delete</a></li>
@@ -102,9 +102,9 @@
                     {{ form.hidden_tag() }}
                     <div class="box form-container row-fluid form-horizontal">
                         {{ macro.create_wtf_field(form.name) }}
-                        {{ macro.create_wtf_field(form.letter) }}
-                        {{ macro.create_wtf_field(form.region) }}
-                        {{ macro.create_wtf_field(form.category) }}
+                        {{ macro.create_wtf_field(form.letter, class="select2 span4") }}
+                        {{ macro.create_wtf_field(form.region, class="select2 span4") }}
+                        {{ macro.create_wtf_field(form.category, class="select2 span4") }}
                         {{ macro.create_wtf_field(form.photo) }}
                     </div>
 
