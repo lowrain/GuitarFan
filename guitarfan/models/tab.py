@@ -26,17 +26,17 @@ class Tab(db.Model):
     # tags = db.relationship('Tag', secondary=tag_tab, backref=db.backref('tag_tab', lazy='dynamic'))
     tags = db.relationship('Tag', secondary=tag_tab, backref='tabs', lazy='dynamic')
 
-    def __init__(self, id, name, format, difficulty, file_path, audio_url, style_id, artist_id, tags):
+    def __init__(self, id, title, format_id, artist_id, difficulty_id, style_id, file_path, audio_url):
         self.id = id
-        self.name = name
-        self.format = format
-        self.hit = 0
-        self.difficulty = difficulty
+        self.title = title
+        self.format_id = format_id
+        self.artist_id = artist_id
+        self.difficulty_id = difficulty_id
+        self.style_id = style_id
         self.file_path = file_path
         self.audio_url = audio_url
-        self.style_id = style_id
-        self.artist_id = artist_id
-        self.tags = tags
+        self.hit = 0
+        # self.tags = tags
         self.update_time = time.strftime('%Y-%m-%d %H:%M')
 
     def __repr__(self):

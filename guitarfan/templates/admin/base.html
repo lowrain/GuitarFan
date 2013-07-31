@@ -14,12 +14,7 @@
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='select2/css/select2.css') }}">
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='select2/css/select2-bootstrap.css') }}">
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/admin.css') }}">
-    <script src="{{ url_for('static', filename='FlatUI/js/jquery-1.8.3.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='select2/js/select2.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/admin.js') }}"></script>
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
-
     {% block style %}
         <style type="text/css">
             body {
@@ -88,5 +83,10 @@
         </div>
     </footer>
 {% endblock %}
+<script src="{{ url_for('static', filename='FlatUI/js/jquery-1.8.3.min.js') }}"></script>
+<script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename='select2/js/select2.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+{% block script %}{% endblock %}
 </body>
 </html>

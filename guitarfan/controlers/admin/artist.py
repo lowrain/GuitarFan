@@ -43,7 +43,7 @@ def add():
 
             if file:
                 photo_filename = artist_id + '.' + file.filename.rsplit('.', 1)[1]
-                if not oshelper.upload_file(file, current_app.config['ARTIST_PHOTO_FOLDER'], photo_filename):
+                if not oshelper.upload_file(file, oshelper.get_artistphoto_upload_abspath(), photo_filename):
                     photo_filename = ''
                     uploadfailed = True
 
@@ -90,7 +90,7 @@ def edit(id):
             file = form.photo.data
             if file:
                 photo_filename = artist.id + '.' + file.filename.rsplit('.', 1)[1]
-                if oshelper.upload_file(file, current_app.config['ARTIST_PHOTO_FOLDER'], photo_filename):
+                if oshelper.upload_file(file, oshelper.get_artistphoto_upload_abspath(), photo_filename):
                     artist.photo = photo_filename
 
             # flush data

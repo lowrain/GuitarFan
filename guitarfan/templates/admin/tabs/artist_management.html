@@ -1,19 +1,12 @@
 {% extends "tabs/base.html" %}
 
+{% block style %}
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='dataTables/css/jquery.dataTables.css') }}">
+{% endblock %}
+
 {% block active_tabs_artist %}active{% endblock %}
 
 {% block main %}
-    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='dataTables/css/jquery.dataTables.css') }}">
-    <script src="{{ url_for('static', filename='dataTables/js/jquery.dataTables.min.js') }}"></script>
-    <script type="text/javascript" charset="utf-8">
-        $(function() {
-            $('.gridTable').dataTable({
-                "aaSorting": [[ 4, "desc" ]],
-                "sPaginationType": "full_numbers"
-            });
-            $(".select2").select2();
-        });
-    </script>
     <div class="span9">
         {% if action == 'list' %}
             <ul class="breadcrumb">
@@ -60,8 +53,8 @@
                                 <ul class="dropdown-menu pull-right" role="menu">
                                     <li class="text-left"><a href="{{ url_for('bp_admin_artist.edit', id=artist.id) }}"><i class="icon-pencil"></i> Edit</a></li>
                                     {% if artist.tabs_count == 0 %}
-                                    <li class="divider"></li>
-                                    <li class="text-left"><a href="javascript:void(0);" onclick="DeleteArtist('{{ artist.id }}', this)"><i class="icon-remove"></i> Delete</a></li>
+                                        <li class="divider"></li>
+                                        <li class="text-left"><a href="javascript:void(0);" onclick="DeleteArtist('{{ artist.id }}', this)"><i class="icon-remove"></i> Delete</a></li>
                                     {% endif %}
                                 </ul>
                             </div>
@@ -102,9 +95,9 @@
                     {{ form.hidden_tag() }}
                     <div class="box form-container row-fluid form-horizontal">
                         {{ macro.create_wtf_field(form.name) }}
-                        {{ macro.create_wtf_field(form.letter, class="select2 span4") }}
-                        {{ macro.create_wtf_field(form.region, class="select2 span4") }}
-                        {{ macro.create_wtf_field(form.category, class="select2 span4") }}
+                        {{ macro.create_wtf_field(form.letter, class="select2 span2") }}
+                        {{ macro.create_wtf_field(form.region, class="select2 span2") }}
+                        {{ macro.create_wtf_field(form.category, class="select2 span2") }}
                         {{ macro.create_wtf_field(form.photo) }}
                     </div>
 
@@ -127,9 +120,9 @@
                     {{ form.hidden_tag() }}
                     <div class="box form-container row-fluid form-horizontal">
                         {{ macro.create_wtf_field(form.name) }}
-                        {{ macro.create_wtf_field(form.letter) }}
-                        {{ macro.create_wtf_field(form.region) }}
-                        {{ macro.create_wtf_field(form.category) }}
+                        {{ macro.create_wtf_field(form.letter, class="select2 span2") }}
+                        {{ macro.create_wtf_field(form.region, class="select2 span2") }}
+                        {{ macro.create_wtf_field(form.category, class="select2 span2") }}
                         {{ macro.create_wtf_field(form.photo) }}
                         <div class="control-group">
                             <label class="control-label"></label>
@@ -146,4 +139,17 @@
             </div>
         {% endif %}
     </div>
+{% endblock %}
+
+{% block script %}
+    <script src="{{ url_for('static', filename='dataTables/js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" charset="utf-8">
+        $(function() {
+            $('.gridTable').dataTable({
+                "aaSorting": [[ 4, "desc" ]],
+                "sPaginationType": "full_numbers"
+            });
+            $(".select2").select2();
+        });
+    </script>
 {% endblock %}

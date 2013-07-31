@@ -24,9 +24,9 @@ class ArtistFrom(Form):
     id = HiddenField(widget=HiddenInput())
     name = TextField(u'Name', description=u'Unrepeatable.',
                      validators=[Required(message=u'Name is required'), validator.Unique(Artist, Artist.name, message=u'The current name is already in use')])
-    letter = SelectField(u'Letter', description=u'Select the first letter of artist name.', choices=get_letter_choices())
+    letter = SelectField(u'Letter', choices=get_letter_choices())
     photo = FileField(u'Photo', description=u'Upload image file, 120x120.',
                       validators=[validator.AllowedPhotoFile(Artist, Artist.photo, message=u'Upload photo file is not available format')])
-    region = SelectField(u'Region', description=u'Select the region of artist.', choices=ArtistRegion.get_described_items(), default=1, coerce=int)
-    category = SelectField(u'Category', description=u'Select the category of artist.', choices=ArtistCategory.get_described_items(), default=1, coerce=int)
+    region = SelectField(u'Region', choices=ArtistRegion.get_described_items(), default=1, coerce=int)
+    category = SelectField(u'Category', choices=ArtistCategory.get_described_items(), default=1, coerce=int)
     submit = SubmitField(u'Submit', id='submit')

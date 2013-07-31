@@ -1,19 +1,35 @@
 {% extends "tabs/base.html" %}
 
+{% block style %}
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='dataTables/css/jquery.dataTables.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='FineUploader/fineuploader-3.7.1.css') }}">
+    <style>
+        li.alert {
+            margin-top: 3px;
+            font-size: 12px;
+        }
+
+        li.alert-success {
+            background-color: #DFF0D8;
+        }
+
+        li.alert-error {
+            background-color: #F2DEDE;
+        }
+
+        .qq-upload-size {
+            float: right;
+        }
+
+        .alert-error .qq-upload-failed-text {
+            display: inline;
+        }
+    </style>
+{% endblock %}
+
 {% block active_tabs_tab %}active{% endblock %}
 
 {% block main %}
-    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='dataTables/css/jquery.dataTables.css') }}">
-    <script src="{{ url_for('static', filename='dataTables/js/jquery.dataTables.min.js') }}"></script>
-    <script type="text/javascript" charset="utf-8">
-        $(function() {
-            $('.gridTable').dataTable({
-                "aaSorting": [[ 6, "desc" ]],
-                "sPaginationType": "full_numbers"
-            });
-            $(".select2").select2();
-        });
-    </script>
     <div class="span9">
         {% if action == 'list' %}
             <ul class="breadcrumb">
@@ -35,10 +51,10 @@
                 <thead>
                 <tr>
                     <th class="text-left" width="22%">title</th>
+                    <th width="10%">artist</th>
                     <th width="10%">format</th>
                     <th width="10%">style</th>
                     <th width="10%">difficulty</th>
-                    <th width="10%">artist</th>
                     <th width="10%">hits</th>
                     <th width="20%">update time</th>
                     <th></th>
@@ -48,10 +64,10 @@
                 {% for tab in tabs %}
                     <tr>
                         <td>{{ tab.title }}</td>
+                        <td class="text-center">{{ tab.artist.name }}</td>
                         <td class="text-center">{{ tab.format_text }}</td>
                         <td class="text-center">{{ tab.style_text }}</td>
                         <td class="text-center">{{ tab.difficulty_text }}</td>
-                        <td class="text-center">{{ tab.artist.name }}</td>
                         <td class="text-center">{{ tab.hits }}</td>
                         <td class="text-center">{{ tab.update_time }}</td>
                         <td class="text-center">
@@ -99,14 +115,23 @@
                 <form method="post" action="" enctype="multipart/form-data">
                     {{ form.hidden_tag() }}
                     <div class="box form-container row-fluid form-horizontal">
-                        {{ macro.create_wtf_field(form.title) }}
-                        {{ macro.create_wtf_field(form.format, class="select2 span4") }}
-                        {{ macro.create_wtf_field(form.difficulty, class="select2 span4") }}
-                        {{ macro.create_wtf_field(form.style, class="select2 span4") }}
-                        <!-- TODO make artist selector empty default -->
+                        {{ macro.create_wtf_field(form.tab_title) }}
                         {{ macro.create_wtf_field(form.artist, class="select2 span4") }}
+                        {{ macro.create_wtf_field(form.format, class="select2 span2") }}
+                        {{ macro.create_wtf_field(form.difficulty, class="select2 span2") }}
+                        {{ macro.create_wtf_field(form.style, class="select2 span2") }}
                         {{ macro.create_wtf_field(form.tags, class="select2 span10") }}
                         {{ macro.create_wtf_field(form.audio_url, class="span10") }}
+                        <div class="control-group">
+                            <label class="control-label">Tab File(s)</label>
+                            <div class="controls">
+                                <div id="fileUpload">
+                                    <noscript>
+                                        <p>Please enable JavaScript to use Fine Uploader.</p>
+                                    </noscript>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-actions">
@@ -116,4 +141,39 @@
             </div>
         {% endif %}
     </div>
+{% endblock %}
+{% block script %}
+    <script src="{{ url_for('static', filename='dataTables/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='FineUploader/jquery.fineuploader-3.7.1.min.js') }}"></script>
+    <script type="text/javascript" charset="utf-8">
+        $(function() {
+            $('.gridTable').dataTable({
+                "aaSorting": [[ 6, "desc" ]],
+                "sPaginationType": "full_numbers"
+            });
+            <!-- TODO change to loading data from api which returns json to selector -->
+            $(".select2").select2({
+                placeholder: "Select a artist"
+            });
+            {# TODO display error message #}
+            $('#fileUpload').fineUploader({
+                request: {
+                    endpoint: '{{ url_for('bp_admin_tab.uploadtab') }}'
+                },
+                text: {
+                    uploadButton: '<div><i class="icon-cloud-upload icon-white"></i> Upload</div>'
+                },
+                template: '<table width=100% cellspacing=0 cellpadding=0><tr><td><div class="qq-uploader span6">' +
+                        '<pre class="qq-upload-drop-area span12"><span>{dragZoneText}</span></pre>' +
+                        '<div class="qq-upload-button btn btn-success" style="width: 25%;">{uploadButtonText}</div>' +
+                        '<span class="qq-drop-processing"><span>{dropProcessingText}</span><span class="qq-drop-processing-spinner"></span></span>' +
+                        '<ul class="qq-upload-list" style="margin-top: 5px;"></ul>' +
+                        '</div></td></tr></table>',
+                classes: {
+                    success: 'alert alert-success',
+                    fail: 'alert alert-error'
+                }
+            });
+        });
+    </script>
 {% endblock %}
