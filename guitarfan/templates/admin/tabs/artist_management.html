@@ -45,7 +45,7 @@
                         <td class="text-center">{{ artist.region_text }}</td>
                         <td class="text-center">{{ artist.category_text }}</td>
                         <td class="text-center">{{ artist.update_time }}</td>
-                        <td class="text-center"><span class="label label-info">{{ artist.tabs_count }}</span></td>
+                        <td class="text-center"><span class="label label-info">{{ artist.tabs.count() }}</span></td>
                         <td class="text-center">{{ ('<span class="label label-success">Yes</span>' if artist.photo != '' else '<span class="label label-warning">No</span>')|safe }}</td>
                         <td class="text-center">
                             <div class="dropdown related_menu">
@@ -55,7 +55,7 @@
                                     <li class="divider"></li>
                                     <!-- TODO implement add tab function -->
                                     <li class="text-left"><a href="javascript:void(0);"><i class="icon-plus"></i> Add Tab</a></li>
-                                    {% if artist.tabs_count == 0 %}
+                                    {% if artist.tabs.count() == 0 %}
                                         <li class="text-left"><a href="javascript:void(0);" onclick="DeleteArtist('{{ artist.id }}', this)"><i class="icon-remove"></i> Delete</a></li>
                                     {% endif %}
                                 </ul>

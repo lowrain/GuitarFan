@@ -135,12 +135,13 @@
                 <thead>
                 <tr>
                     <th class="text-left" width="22%">title</th>
-                    <th width="10%">artist</th>
-                    <th width="10%">format</th>
-                    <th width="10%">style</th>
-                    <th width="10%">difficulty</th>
-                    <th width="10%">hits</th>
-                    <th width="20%">update time</th>
+                    <th width="12%">artist</th>
+                    <th width="8%">format</th>
+                    <th width="8%">style</th>
+                    <th width="8%">difficulty</th>
+                    <th width="8%">hits</th>
+                    <th width="18%">update time</th>
+                    <th width="8%">preview</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -154,6 +155,13 @@
                         <td class="text-center">{{ tab.difficulty_text }}</td>
                         <td class="text-center"><span class="label label-important">{{ tab.hits }}</span></td>
                         <td class="text-center">{{ tab.update_time }}</td>
+                        <td class="text-center">
+                            {% if tab.tabfiles.count() > 0 %}
+                                <a href="#" style="text-decoration: none;"><i class="icon-eye-open"></i></a>
+                            {% else %}
+                                <i class="icon-eye-close"></i>
+                            {% endif %}
+                        </td>
                         <td class="text-center">
                             <div class="dropdown related_menu">
                                 <a title="Related Objects" class="relate_menu dropdown-toggle" data-toggle="dropdown"><i class="icon icon-list"></i></a>
@@ -206,8 +214,33 @@
                     </div>
                 </form>
             </div>
-        {% elif action == 'add' %}
+        {% elif action == 'edit' %}
+            <ul class="breadcrumb">
+                <li>Tabs <span class="divider">/</span></li>
+                <li><a href="{{ url_for('bp_admin_tab.list') }}">Tab Management</a> <span class="divider">/</span></li>
+                <li>Edit Tab</li>
+            </ul>
 
+            {{ macro.feedback_message() }}
+
+            <div class="tabbable">
+                <form method="post" action="" enctype="multipart/form-data">
+                    {{ form.hidden_tag() }}
+                    <div class="box form-container row-fluid form-horizontal">
+                        {{ macro.create_wtf_field(form.tab_title, class="span6") }}
+                        {{ macro.create_wtf_field(form.artist, class="select2 span4") }}
+                        {{ macro.create_wtf_field(form.format, class="select2 span2") }}
+                        {{ macro.create_wtf_field(form.difficulty, class="select2 span2") }}
+                        {{ macro.create_wtf_field(form.style, class="select2 span2") }}
+                        {{ macro.create_wtf_field(form.tags, class="select2 span10") }}
+                        {{ macro.create_wtf_field(form.audio_url, class="span10") }}
+                    </div>
+
+                    <div class="form-actions">
+                        {{ form.submit(class="btn btn-danger") }}
+                    </div>
+                </form>
+            </div>
         {% endif %}
     </div>
 {% endblock %}

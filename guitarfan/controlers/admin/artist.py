@@ -109,7 +109,7 @@ def edit(id):
 @login_required
 def delete():
     artist = Artist.query.filter_by(id=request.values['id']).first()
-    if artist.tabs_count == 0:
+    if artist.tabs.count() == 0:
         db.session.delete(artist)
         db.session.commit()
         return 'success'

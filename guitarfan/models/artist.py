@@ -33,10 +33,6 @@ class Artist(db.Model):
         return '<Artist %r>' % self.name
 
     @property
-    def tabs_count(self):
-        return len(self.tabs.all())
-
-    @property
     def region_text(self):
         return ArtistRegion.get_item_text(self.region_id)
 

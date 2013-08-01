@@ -15,7 +15,6 @@ class Tab(db.Model):
 
     id = db.Column(db.String(50), primary_key=True, unique=True)
     title = db.Column(db.String(50), nullable=False)
-    file_path = db.Column(db.String, nullable=False)
     audio_url = db.Column(db.String)
     format_id = db.Column(db.Integer, nullable=False)
     difficulty_id = db.Column(db.Integer, nullable=False, default=1)
@@ -25,15 +24,15 @@ class Tab(db.Model):
     update_time = db.Column(db.String(20), nullable=False)
     # tags = db.relationship('Tag', secondary=tag_tab, backref=db.backref('tag_tab', lazy='dynamic'))
     tags = db.relationship('Tag', secondary=tag_tab, backref='tabs', lazy='dynamic')
+    tabfiles = db.relationship('TabFile', backref='tab', lazy='dynamic')
 
-    def __init__(self, id, title, format_id, artist_id, difficulty_id, style_id, file_path, audio_url):
+    def __init__(self, id, title, format_id, artist_id, difficulty_id, style_id, audio_url):
         self.id = id
         self.title = title
         self.format_id = format_id
         self.artist_id = artist_id
         self.difficulty_id = difficulty_id
         self.style_id = style_id
-        self.file_path = file_path
         self.audio_url = audio_url
         self.hit = 0
         # self.tags = tags
