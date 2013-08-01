@@ -1,0 +1,277 @@
+{% extends "tabs/base.html" %}
+
+{% block style %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='FineUploader/fineuploader-3.7.1.css') }}">
+    <style>
+        .qq-upload-button {
+            display: block;
+            width: 220px;
+            padding: 7px 0;
+            text-align: center;
+        {#            background: #51a351;#}
+            border-bottom: 1px solid #DDD;
+            color: #FFF;
+        }
+
+        li.alert {
+            margin-top: 3px;
+            font-size: 12px;
+        }
+
+        li.alert-success {
+            background-color: #DFF0D8;
+        }
+
+        li.alert-error {
+            background-color: #F2DEDE;
+        }
+
+        .qq-upload-size {
+            float: right;
+        }
+
+        .qq-upload-list {
+            width: 400px;
+        }
+
+        .alert-error .qq-upload-failed-text {
+            display: inline;
+        }
+
+        .wizard {
+            margin-bottom: 20px;
+        }
+        .wizard a {
+            padding: 10px 12px 10px;
+            margin-right: 5px;
+            background: #efefef;
+            position: relative;
+            display: inline-block;
+            text-decoration:none;
+        }
+        .wizard a:before {
+            width: 0;
+            height: 0;
+            border-top: 20px inset transparent;
+            border-bottom: 20px inset transparent;
+            border-left: 20px solid #fff;
+            position: absolute;
+            content: "";
+            top: 0;
+            left: 0;
+        }
+        .wizard a:after {
+            width: 0;
+            height: 0;
+            border-top: 20px inset transparent;
+            border-bottom: 20px inset transparent;
+            border-left: 20px solid #efefef;
+            position: absolute;
+            content: "";
+            top: 0;
+            right: -20px;
+            z-index: 2;
+        }
+        .wizard a:first-child:before,
+        .wizard a:last-child:after {
+            border: none;
+        }
+        .wizard a:first-child {
+            -webkit-border-radius: 4px 0 0 4px;
+            -moz-border-radius: 4px 0 0 4px;
+            border-radius: 4px 0 0 4px;
+        }
+        .wizard a:last-child {
+            -webkit-border-radius: 0 4px 4px 0;
+            -moz-border-radius: 0 4px 4px 0;
+            border-radius: 0 4px 4px 0;
+        }
+        .wizard .badge {
+            margin: 0 5px 0 18px;
+            position: relative;
+            top: -1px;
+        }
+        .wizard a:first-child .badge {
+            margin-left: 0;
+        }
+        .wizard .current {
+            background: #007ACC;
+            color: #fff;
+        }
+        .wizard .current:after {
+            border-left-color: #007ACC;
+        }
+
+
+            /* ff anti-aliasing bug - http://coderwall.com/p/tpmsta */
+        .mywizard li {
+            position: relative;
+            background: #f5f5f5;
+            padding-right: 30px;
+            padding-left: 5px;
+        }
+
+        .mywizard li a:after, .mywizard li a:before {
+            left: 100%;
+            border: solid transparent;
+            content: " ";
+            height: 0;
+            width: 0;
+            position: absolute;
+            pointer-events: none;
+        }
+
+        .mywizard li a:after {
+            border-color: rgba(245, 245, 245, 0);
+            border-left-color: #f5f5f5;
+            border-width: 20px;
+            top: 50%;
+            margin-top: -20px;
+            margin-left: -30px;
+        }
+
+        .mywizard li a:before {
+            border-color: rgba(255, 255, 255, 0);
+            border-left-color: #fff;
+            border-width: 30px;
+            top: 50%;
+            margin-top: -30px;
+            margin-left: -30px;
+        }
+        .mywizard li .badge {
+            vertical-align: text-bottom;
+            padding-top: 3px;
+        }
+    </style>
+{% endblock %}
+
+{% block active_tabs_tab %}active{% endblock %}
+
+{% block main %}
+    <div class="span9">
+        {% if show_wizard %}
+            <ul class="breadcrumb">
+                <li>Tabs <span class="divider">/</span></li>
+                <li><a href="{{ url_for('bp_admin_tab.list') }}">Tab Management</a> <span class="divider">/</span></li>
+                <li>Add</li>
+            </ul>
+
+            <div class="wizard">
+                <a><span class="badge">1</span> Tab Information</a>
+                <a class="current"><span class="badge badge-inverse">2</span> Upload Tab Files</a>
+            </div>
+        {% else %}
+            <ul class="breadcrumb">
+                <li>Tabs <span class="divider">/</span></li>
+                <li><a href="{{ url_for('bp_admin_tab.list') }}">Tab Management</a> <span class="divider">/</span></li>
+                <li><a href="{{ url_for('bp_admin_tab.edit', id=tab.id) }}">{{ tab.artist.name + ' - ' + tab.title }}</a> <span class="divider">/</span></li>
+                <li>Tab File(s)</li>
+            </ul>
+        {% endif %}
+
+        {{ macro.feedback_message() }}
+
+        <div class="box form-container row-fluid form-horizontal">
+            <div class="control-group">
+                <label class="control-label">Artist</label>
+                <div class="controls">
+                    {{ tab.artist.name }}
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Title</label>
+                <div class="controls">
+                    {{ tab.title }}
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Files</label>
+                <div class="controls">
+                    <table class="table table-hover table-bordered table-striped" style="width:95%;">
+                        <thead>
+                        <tr>
+                            <th class="text-left" width="40%">title</th>
+                            <th>artist</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for tab in tabs %}
+                            <tr>
+                                <td>{{ tab.title }}</td>
+                                <td class="text-center">{{ tab.artist.name }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Upload</label>
+                <div class="controls">
+                    <div id="fileUpload">
+                        <noscript>
+                            <p>Please enable JavaScript to use Fine Uploader.</p>
+                        </noscript>
+                    </div>
+                    <div id="triggerUpload" class="btn btn-info btn-mini" style="margin-top: 10px;">
+                        <i class="icon-upload icon-white"></i> Upload Now
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if show_wizard %}
+            <div class="form-actions">
+                <input class="btn btn-danger" id="submit" name="submit" type="submit" value="Finish">
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script src="{{ url_for('static', filename='dataTables/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='FineUploader/jquery.fineuploader-3.7.1.min.js') }}"></script>
+    <script type="text/javascript" charset="utf-8">
+        $(function() {
+            var uploader = $('#fileUpload').fineUploader({
+                request: {
+                    endpoint: '{{ url_for('bp_admin_tab.tabfile_upload', tab_id=tab.id) }}'
+                },
+                maxAutoAttempts: 3,
+                autoUpload: false,
+                editFilename: {
+                    enabled: true
+                },
+                failedUploadTextDisplay: {
+                    mode: 'custom',
+                    maxChars: 40,
+                    responseProperty: 'error',
+                    enableTooltip: true
+                },
+                text: {
+                    uploadButton: '<div><i class="icon-cloud-upload icon-white"></i> Select or drag file(s) to upload</div>'
+                },
+                template:
+                        '<table width=100% cellspacing=0 cellpadding=0>' +
+                                '   <tr>' +
+                                '       <td>' +
+                                '           <div class="qq-uploader">' +
+                                '               <pre class="qq-upload-drop-area"><span>{dragZoneText}</span></pre>' +
+                                '               <div class="qq-upload-button">{uploadButtonText}</div>' +
+                                '               <span class="qq-drop-processing"><span>{dropProcessingText}</span><span class="qq-drop-processing-spinner"></span></span>' +
+                                '               <ul class="qq-upload-list"></ul>' +
+                                '           </div>' +
+                                '       </td>' +
+                                '   </tr>' +
+                                '</table>',
+                classes: {
+                    success: 'alert alert-success',
+                    fail: 'alert alert-error'
+                }
+            });
+            $('#triggerUpload').click(function() {
+                uploader.fineUploader('uploadStoredFiles');
+            });
+        });
+
+    </script>
+{% endblock %}

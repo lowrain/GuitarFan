@@ -2,29 +2,7 @@
 
 {% block style %}
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='dataTables/css/jquery.dataTables.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='FineUploader/fineuploader-3.7.1.css') }}">
     <style>
-        li.alert {
-            margin-top: 3px;
-            font-size: 12px;
-        }
-
-        li.alert-success {
-            background-color: #DFF0D8;
-        }
-
-        li.alert-error {
-            background-color: #F2DEDE;
-        }
-
-        .qq-upload-size {
-            float: right;
-        }
-
-        .alert-error .qq-upload-failed-text {
-            display: inline;
-        }
-
         .wizard {
             margin-bottom: 20px;
         }
@@ -174,7 +152,7 @@
                         <td class="text-center">{{ tab.format_text }}</td>
                         <td class="text-center">{{ tab.style_text }}</td>
                         <td class="text-center">{{ tab.difficulty_text }}</td>
-                        <td class="text-center">{{ tab.hits }}</td>
+                        <td class="text-center"><span class="label label-important">{{ tab.hits }}</span></td>
                         <td class="text-center">{{ tab.update_time }}</td>
                         <td class="text-center">
                             <div class="dropdown related_menu">
@@ -182,6 +160,9 @@
                                 <ul class="dropdown-menu pull-right" role="menu">
                                     <li class="text-left"><a href="{{ url_for('bp_admin_tab.edit', id=tab.id) }}"><i class="icon-pencil"></i> Edit</a></li>
                                     <li class="divider"></li>
+                                    {% if tab.format_id != 2 %}
+                                        <li class="text-left"><a href="{{ url_for('bp_admin_tab.tabfile_edit', tab_id=tab.id) }}"><i class="icon-file-text-alt"></i> Tab File(s)</a></li>
+                                    {% endif %}
                                     <li class="text-left"><a href="javascript:void(0);" onclick="DeleteArtist('{{ tab.id }}', this)"><i class="icon-remove"></i> Delete</a></li>
                                 </ul>
                             </div>
@@ -190,37 +171,22 @@
                 {% endfor %}
                 </tbody>
             </table>
-            <script type="text/javascript">
-                function DeleteArtist(id, link) {
-                    if (confirm('Are you sure you want to delete this tab?')) {
-                        $.ajax({
-                            url: '{{ url_for('bp_admin_tab.delete') }}',
-                            type: 'DELETE',
-                            data: { id : id },
-                            dataType: "text",
-                            success: function(result) {
-                                if (result == 'success')
-                                    $(link).closest('tr').remove();
-                                else
-                                    alert(result);
-                            }
-                        });
-                    }
-                }
-            </script>
+
         {% elif action == 'add' %}
             <ul class="breadcrumb">
                 <li>Tabs <span class="divider">/</span></li>
                 <li><a href="{{ url_for('bp_admin_tab.list') }}">Tab Management</a> <span class="divider">/</span></li>
-                <li>Add</li>
+                <li>Add Tab</li>
             </ul>
-
-            {{ macro.feedback_message() }}
 
             <div class="wizard">
                 <a class="current"><span class="badge  badge-inverse">1</span> Tab Information</a>
                 <a><span class="badge">2</span> Upload Tab Files</a>
             </div>
+
+            {{ macro.feedback_message() }}
+
+            {# TODO add text field for txt tab #}
 
             <div class="tabbable">
                 <form method="post" action="" enctype="multipart/form-data">
@@ -236,40 +202,12 @@
                     </div>
 
                     <div class="form-actions">
-                        {{ form.submit(class="btn btn-danger", value="next step") }}
+                        {{ form.submit(class="btn btn-danger", value="Submit and Go To Upload Tabs") }}
                     </div>
                 </form>
             </div>
-        {% elif action == 'upload' %}
-            <ul class="breadcrumb">
-                <li>Tabs <span class="divider">/</span></li>
-                <li><a href="{{ url_for('bp_admin_tab.list') }}">Tab Management</a> <span class="divider">/</span></li>
-                <li>Upload Tab Files</li>
-            </ul>
+        {% elif action == 'add' %}
 
-            {{ macro.feedback_message() }}
-
-            <div class="wizard">
-                <a><span class="badge">1</span> Tab Information</a>
-                <a class="current"><span class="badge badge-inverse">2</span> Upload Tab Files</a>
-            </div>
-
-            <!-- TODO add a upload step for add tab view -->
-            <div class="box form-container row-fluid form-horizontal">
-                <div class="control-group">
-                    <label class="control-label">Tab File(s)</label>
-                    <div class="controls">
-                        <div id="fileUpload">
-                            <noscript>
-                                <p>Please enable JavaScript to use Fine Uploader.</p>
-                            </noscript>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="form-actions">
-                <input class="btn btn-danger" id="submit" name="submit" type="submit" value="Submit">
-            </div>
         {% endif %}
     </div>
 {% endblock %}
@@ -278,6 +216,23 @@
     <script src="{{ url_for('static', filename='dataTables/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ url_for('static', filename='FineUploader/jquery.fineuploader-3.7.1.min.js') }}"></script>
     <script type="text/javascript" charset="utf-8">
+        function DeleteArtist(id, link) {
+            if (confirm('Are you sure you want to delete this tab?')) {
+                $.ajax({
+                    url: '{{ url_for('bp_admin_tab.delete') }}',
+                    type: 'DELETE',
+                    data: { id : id },
+                    dataType: "text",
+                    success: function(result) {
+                        if (result == 'success')
+                            $(link).closest('tr').remove();
+                        else
+                            alert(result);
+                    }
+                });
+            }
+        }
+
         $(function() {
             $('.gridTable').dataTable({
                 "aaSorting": [[ 6, "desc" ]],
@@ -286,25 +241,6 @@
             <!-- TODO change to loading data from api which returns json to selector -->
             $(".select2").select2({
                 placeholder: "Select a artist"
-            });
-            {# TODO display error message; delete file; #}
-            $('#fileUpload').fineUploader({
-                request: {
-                    endpoint: '{{ url_for('bp_admin_tab.uploadtab') }}'
-                },
-                text: {
-                    uploadButton: '<div><i class="icon-cloud-upload icon-white"></i> Select or drag file(s) to upload</div>'
-                },
-                template: '<table width=100% cellspacing=0 cellpadding=0><tr><td><div class="qq-uploader span12">' +
-                        '<pre class="qq-upload-drop-area"><span>{dragZoneText}</span></pre>' +
-                        '<div class="qq-upload-button btn btn-success span6">{uploadButtonText}</div>' +
-                        '<span class="qq-drop-processing"><span>{dropProcessingText}</span><span class="qq-drop-processing-spinner"></span></span>' +
-                        '<ul class="qq-upload-list" style="margin-top: 5px;"></ul>' +
-                        '</div></td></tr></table>',
-                classes: {
-                    success: 'alert alert-success',
-                    fail: 'alert alert-error'
-                }
             });
         });
     </script>

@@ -26,8 +26,8 @@ class qqFileUploader(object):
         self.uploadName = ''
 
     def getName(self):
-        if self.request.args.get(self.inputName, None):
-            return self.request.args.get(self.inputName)
+        if self.request.values.get('qqfilename', None):
+            return self.request.values.get('qqfilename')
         else:
             return self.request.files[self.inputName].filename
 
@@ -39,6 +39,7 @@ class qqFileUploader(object):
 
 
     def handleUpload(self, name=None):
+        check_dir(self.uploadDirectory)
 
         if not os.access(self.uploadDirectory, os.W_OK):
             return json.dumps({"error": "Server error. Uploads directory isn't writable or executable."})
@@ -56,12 +57,12 @@ class qqFileUploader(object):
         #     uFile = self.request[self.inputName]
         #     uSize = int(self.request.content_length)
 
-        uuid_f = hashlib.md5(str(uuid.uuid4())).hexdigest()
+        # uuid_f = hashlib.md5(str(uuid.uuid4())).hexdigest()
 
         if name is None:
             name = self.getName()
 
-        name = "%s_%s" % (uuid_f, name)
+        # name = "%s_%s" % (uuid_f, name)
 
         if uSize == 0:
             return json.dumps({"error": "File is empty."})
@@ -72,7 +73,7 @@ class qqFileUploader(object):
         if not (self._getExtensionFromFileName(name) in self.allowedExtensions and ".*" not in self.allowedExtensions):
             return json.dumps({"error": "File has an invalid extension, it should be one of %s." % ",".join(self.allowedExtensions)})
 
-        totalParts = int(self.request.values['qqtotalparts']) if 'qqtotalparts' in self.request.values else 1
+        # totalParts = int(self.request.values['qqtotalparts']) if 'qqtotalparts' in self.request.values else 1
 
         # if totalParts > 1:
         #     chunksFolder = self.chunksFolder

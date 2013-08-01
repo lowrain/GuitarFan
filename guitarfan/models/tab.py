@@ -40,7 +40,7 @@ class Tab(db.Model):
         self.update_time = time.strftime('%Y-%m-%d %H:%M')
 
     def __repr__(self):
-        return '<Score %r>' % self.name
+        return '<Tab %r>' % self.title
 
     @property
     def difficulty_text(self):

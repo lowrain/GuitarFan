@@ -47,9 +47,11 @@
             <a href="{{ url_for("bp_admin_administrator.login") }}">← Back to Home.</a>
         </form>
     </div>
-    <script>
+{% endblock %}
+{% block script %}
+<script>
     $(function() {
         $('#name').focus();
     });
-    </script>
+</script>
 {% endblock %}

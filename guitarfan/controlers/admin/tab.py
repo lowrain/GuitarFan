@@ -38,17 +38,11 @@ def add():
             db.session.add(tab)
             db.session.commit()
             flash(u'Add new tab successfully, please upload tab files', 'success')
-            return redirect(url_for('bp_admin_tab.Upload', id=tab.id))
+            return render_template('tabfile_edit.html', tab=tab, show_wizard=True)
         else:
             flash(validator.catch_errors(form.errors), 'error')
             return render_template('tab_management.html', action='add', form=form)
 
-
-@bp_admin_tab.route('/admin/tabs/upload/<string:id>', methods=['GET', 'POST'])
-@login_required
-def Upload(id):
-    if request.method == 'GET':
-        return render_template('tab_management.html', action='upload')
 
 
 @bp_admin_tab.route('/admin/tabs/<string:id>', methods=['GET', 'POST'])
@@ -58,23 +52,6 @@ def edit(id):
     return render_template('tab_management.html')
 
 
-@bp_admin_tab.route('/admin/tabs/upload', methods=['POST'])
-@login_required
-def uploadtab():
-    # TODO implement upload logic
-    if request.method == 'POST':
-        uploader = qqFileUploader(request, get_tabfile_upload_abspath(), [".jpg", ".jpeg", ".gif", ".png"])
-	return uploader.handleUpload()
-
-
-# @csrf_exempt
-# def upload_delete(request, need_to_delete):
-#
-# 	qqFileUploader.deleteFile(need_to_delete)
-#
-# 	return HttpResponse("ok")
-
-
 @bp_admin_tab.route('/admin/tabs', methods=['DELETE'])
 @login_required
 def delete():
@@ -82,3 +59,21 @@ def delete():
     db.session.delete(tab)
     db.session.commit()
     return 'success'
+
+
+@bp_admin_tab.route('/admin/tabfiles/<string:tab_id>', methods=['GET', 'POST'])
+@login_required
+def tabfile_edit(tab_id):
+    tab = Tab.query.filter_by(id=tab_id).first()
+    if request.method == 'GET':
+        return render_template('tabfile_edit.html', tab=tab)
+    # TODO impelment post request
+
+
+@bp_admin_tab.route('/admin/tabfiles/upload/<string:tab_id>', methods=['POST'])
+@login_required
+def tabfile_upload(tab_id):
+    if request.method == 'POST':
+        uploader = qqFileUploader(request, get_tabfile_upload_abspath() + '/' + str(tab_id), current_app.config['TAB_FILE_ALLOWED_EXTENSIONS'])
+	return uploader.handleUpload()
+
