@@ -27,7 +27,7 @@ def list():
 @bp_admin_tab.route('/admin/tabs/add', methods=['GET', 'POST'])
 @login_required
 def add():
-    # TODO implement add view
+    # TODO add tags fields
     form = TabFrom()
     if request.method == 'GET':
         return render_template('tab_management.html', action='add', form=form)
@@ -37,11 +37,18 @@ def add():
                       form.style.data, u'', form.audio_url.data,)
             db.session.add(tab)
             db.session.commit()
-            flash(u'Add new tab successfully', 'success')
-            return redirect(url_for('bp_admin_tab.list'))
+            flash(u'Add new tab successfully, please upload tab files', 'success')
+            return redirect(url_for('bp_admin_tab.Upload', id=tab.id))
         else:
             flash(validator.catch_errors(form.errors), 'error')
             return render_template('tab_management.html', action='add', form=form)
+
+
+@bp_admin_tab.route('/admin/tabs/upload/<string:id>', methods=['GET', 'POST'])
+@login_required
+def Upload(id):
+    if request.method == 'GET':
+        return render_template('tab_management.html', action='upload')
 
 
 @bp_admin_tab.route('/admin/tabs/<string:id>', methods=['GET', 'POST'])
