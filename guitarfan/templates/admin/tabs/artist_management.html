@@ -24,7 +24,7 @@
                 </div>
             </div>
 
-            <table class="gridTable table-hover table-bordered table-striped">
+            <table class="gridTable table-hover table-bordered table-striped table-condensed">
                 <thead>
                 <tr>
                     <th width="5%"></th>
@@ -126,12 +126,11 @@
 {% endblock %}
 
 {% block script %}
-    <script src="{{ url_for('static', filename='dataTables/js/jquery.dataTables.min.js') }}"></script>
     <script type="text/javascript" charset="utf-8">
         $(function() {
             $('.gridTable').dataTable({
                 "aaSorting": [[ 4, "desc" ]],
-                "sPaginationType": "full_numbers"
+                "sPaginationType": "bootstrap"
             });
             $(".select2").select2();
         });
