@@ -34,7 +34,7 @@ def add():
     elif request.method == 'POST':
         if form.validate_on_submit():
             tab = Tab(str(uuid1()), form.tab_title.data, form.format.data, form.artist.data.id, form.difficulty.data,
-                      form.style.data, form.audio_url.data,)
+                      form.style.data, form.audio_url.data)
             db.session.add(tab)
             db.session.commit()
             flash(u'Add new tab successfully, please upload tab files', 'success')
@@ -65,13 +65,21 @@ def delete():
     return 'success'
 
 
-@bp_admin_tab.route('/admin/tabfiles/<string:tab_id>', methods=['GET', 'POST'])
+@bp_admin_tab.route('/admin/tabfiles/<string:tab_id>', methods=['GET', 'PUT', 'DELETE'])
 @login_required
 def tabfile_edit(tab_id):
     tab = Tab.query.filter_by(id=tab_id).first()
     if request.method == 'GET':
         return render_template('tabfile_edit.html', tab=tab)
-    # TODO impelment post request
+    elif request.method == 'PUT':
+        filename = os.path.join(tab_id, request.form['filename'])
+        tabfile = TabFile(str(uuid1()), tab_id, filename)
+        db.session.add(tabfile)
+        db.session.commit()
+        return 'success'
+    # TODO implement post request -- Add
+
+    # TODO implement delete request -- Delete
 
 
 @bp_admin_tab.route('/admin/tabfiles/upload/<string:tab_id>', methods=['POST'])

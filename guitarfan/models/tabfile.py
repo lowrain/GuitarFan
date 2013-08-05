@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from flask import current_app
+
 import time
 from guitarfan.extensions.flasksqlalchemy import db
 
@@ -19,4 +21,12 @@ class TabFile(db.Model):
         self.update_time = time.strftime('%Y-%m-%d %H:%M')
 
     def __repr__(self):
-        return '<TabFile %r %r>' % (self.id, self.filename)
+        return '<TabFile %r %r>' % (self.id, self.file_basename)
+
+    @property
+    def file_url(self):
+        return '%s/%s' % (current_app.config['TAB_FILE_FOLDER'], self.filename)
+
+    @property
+    def file_basename(self):
+        return self.filename.split('/')[-1]

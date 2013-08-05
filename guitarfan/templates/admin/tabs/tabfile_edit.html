@@ -2,6 +2,7 @@
 
 {% block style %}
     <link rel="stylesheet" href="{{ url_for('static', filename='FineUploader/fineuploader-3.7.1.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='fancybox/jquery.fancybox.css') }}">
     <style>
         .qq-upload-button {
             display: block;
@@ -185,24 +186,26 @@
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label">Files</label>
+                <label class="control-label">Preview</label>
                 <div class="controls">
-                    <table class="table table-hover table-bordered table-striped" style="width:95%;">
-                        <thead>
-                        <tr>
-                            <th class="text-left" width="40%">title</th>
-                            <th>artist</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for tab in tabs %}
-                            <tr>
-                                <td>{{ tab.title }}</td>
-                                <td class="text-center">{{ tab.artist.name }}</td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
+                    <div class="row-fluid">
+                        {% if tab.tabfiles.count() > 0 %}
+                            <ul class="thumbnails">
+                                {% for tabfile in tab.tabfiles %}
+                                    <li class="span3">
+                                        <div class="thumbnail text-center">
+                                            <a href="{{ tabfile.file_url }}" class="fancybox" data-fancybox-group="gallery" title="{{ tabfile.file_basename }}">
+                                                <img style="width:200px; height:150px" src="{{ tabfile.file_url }}" title="{{ tabfile.file_basename }}">
+                                            </a>
+                                            {{ tabfile.file_basename }} <a href="#" title="delete this file" style="text-decoration: none"><i class="icon-trash"></i></a>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            No available tab file yet
+                        {% endif %}
+                    </div>
                 </div>
             </div>
             <div class="control-group">
@@ -218,18 +221,21 @@
                     </div>
                 </div>
             </div>
+            {% if show_wizard %}
+                <div class="form-actions">
+                    <input class="btn btn-danger" id="submit" name="submit" type="submit" value="Finish">
+                </div>
+            {% endif %}
         </div>
-        {% if show_wizard %}
-            <div class="form-actions">
-                <input class="btn btn-danger" id="submit" name="submit" type="submit" value="Finish">
-            </div>
-        {% endif %}
+
     </div>
 {% endblock %}
 
 {% block script %}
     <script src="{{ url_for('static', filename='dataTables/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ url_for('static', filename='FineUploader/jquery.fineuploader-3.7.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='fancybox/jquery.fancybox.js') }}"></script>
+
     <script type="text/javascript" charset="utf-8">
         $(function() {
             var uploader = $('#fileUpload').fineUploader({
@@ -270,11 +276,67 @@
             });
             uploader.on('complete', function(event, id, name, response) {
                 // TODO add stuff to update TabFile model #}
-                alert('id:' + id + '\n' + 'name:' + name + '\n' + 'response:' + response);
+                $.ajax({
+                    url: '{{ url_for('bp_admin_tab.tabfile_edit', tab_id=tab.id) }}',
+                    type: 'PUT',
+                    data: { filename: name },
+                    dataType: 'text',
+                    success: function(result) {
+                        if (result == 'success')
+                            alert(result);
+                        else
+                            alert(result);
+                    }
+                });
             });
             $('#triggerUpload').click(function() {
                 uploader.fineUploader('uploadStoredFiles');
             });
+
+            $('.fancybox').fancybox({
+                nextClick: true,
+                arrows: false,
+                closeBtn: false,
+                nextMethod : 'resizeIn',
+                nextSpeed  : 50,
+                prevMethod : false,
+                padding : 0,
+                helpers : {
+                    title : {
+                        type : 'over'
+                    }
+                }
+            });
+
+            (function ($, F) {
+                F.transitions.resizeIn = function() {
+                    var previous = F.previous,
+                            current  = F.current,
+                            startPos = previous.wrap.stop(true).position(),
+                            endPos   = $.extend({opacity : 1}, current.pos);
+
+                    startPos.width  = previous.wrap.width();
+                    startPos.height = previous.wrap.height();
+
+                    previous.wrap.stop(true).trigger('onReset').remove();
+
+                    delete endPos.position;
+
+                    current.inner.hide();
+
+                    current.wrap.css(startPos).animate(endPos, {
+                        duration : current.nextSpeed,
+                        easing   : current.nextEasing,
+                        step     : F.transitions.step,
+                        complete : function() {
+                            F._afterZoomIn();
+
+                            current.inner.fadeIn("fast");
+                        }
+                    });
+                };
+
+            }(jQuery, jQuery.fancybox));
         });
 
     </script>
