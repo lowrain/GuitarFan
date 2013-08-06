@@ -77,7 +77,7 @@
             </div>
             {%- if show_wizard -%}
                 <div class="form-actions">
-                    <input class="btn btn-danger" id="submit" name="submit" type="submit" value="Finish">
+                    <input class="btn btn-danger" id="submit" name="submit" type="submit" value="Finish" onclick="location.href='{{ url_for('bp_admin_tab.list') }}'">
                 </div>
             {%- endif -%}
         </div>
@@ -150,26 +150,23 @@
                     type: 'PUT',
                     data: { filename: name },
                     dataType: 'json',
-                    success: function(result) {
-                        if (result.data) {
+                    success: function(data) {
+                        if (data.tabfiles) {
                             var thumbTemplate =
                                     '<li class="span3">' +
-                                    '   <div class="thumbnail text-center">' +
-                                    '       <a href="{0}" class="fancybox" data-fancybox-group="gallery" title="{1}">' +
-                                    '           <img style="width:200px; height:150px" src="{0}" title="{1}">' +
-                                    '       </a>' +
-                                    '       {1} <a href="javascript:void(0)" class="deleteLink" style="text-decoration: none" data-id="{2}" title="delete file"><i class="icon-trash"></i></a>' +
-                                    '   </div>' +
-                                    '</li>';
+                                            '   <div class="thumbnail text-center">' +
+                                            '       <a href="{0}" class="fancybox" data-fancybox-group="gallery" title="{1}">' +
+                                            '           <img style="width:200px; height:150px" src="{0}" title="{1}">' +
+                                            '       </a>' +
+                                            '       {1} <a href="javascript:void(0)" class="deleteLink" style="text-decoration: none" data-id="{2}" title="delete file"><i class="icon-trash"></i></a>' +
+                                            '   </div>' +
+                                            '</li>';
                             var thumbsHTML = '<ul class="thumbnails">';
-                            for (var i= 0; i < result.data.length; i++) {
-                                var tabfile = result.data[i];
+                            $.each(data.tabfiles, function(i, tabfile) {
                                 thumbsHTML += thumbTemplate.format(tabfile.file_url, tabfile.file_basename, tabfile.id);
-                            }
-                            thumbsHTML += '</ul>'
+                            });
+                            thumbsHTML += '</ul>';
                             $('.thumb-container').html(thumbsHTML);
-                        } else {
-                            alert(result);
                         }
                     }
                 });

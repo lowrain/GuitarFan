@@ -46,7 +46,7 @@
                         <td class="text-center">{{ tab.update_time }}</td>
                         <td class="text-center">
                             {% if tab.tabfiles.count() > 0 %}
-                                <a href="#" style="text-decoration: none;" class="fancybox"><i class="icon-eye-open"></i></a>
+                                <a href="javascript:void(0)" style="text-decoration: none;" class="preview_link" data-id="{{ tab.id }}" title="preview tab"><i class="icon-eye-open"></i></a>
                             {% else %}
                                 <i class="icon-eye-close"></i>
                             {% endif %}
@@ -68,7 +68,6 @@
                 {% endfor %}
                 </tbody>
             </table>
-
         {% elif action == 'add' %}
             <ul class="breadcrumb">
                 <li>Tabs <span class="divider">/</span></li>
@@ -162,6 +161,39 @@
             $(".select2").select2({
                 placeholder: "Select a artist"
             });
+
+            $(".preview_link").click(function() {
+                var filesArray = [];
+                $.ajax({
+                    url: '/admin/tabfiles.json',
+                    type: 'GET',
+                    data: { tab_id : $(this).attr('data-id') },
+                    dataType: 'json',
+                    async: false,
+                    success: function(data) {
+                        $.each(data.tabfiles, function(i, tabfile){
+                            filesArray.push({'href': tabfile.file_url, 'title': tabfile.file_basename});
+                        });
+                    }
+                });
+                $.fancybox.open(filesArray, {
+                    nextClick: true,
+                    arrows: false,
+                    closeBtn: false,
+                    nextMethod : 'resizeIn',
+                    nextSpeed  : 50,
+                    prevMethod : false,
+                    padding : 0,
+                    helpers : {
+                        title : {
+                            type : 'over'
+                        }
+                    }
+                });
+                return false;
+            });
+
         });
+
     </script>
 {% endblock %}

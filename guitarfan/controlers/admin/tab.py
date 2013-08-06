@@ -81,7 +81,7 @@ def tabfile_edit(tab_id):
         db.session.add(tabfile)
         db.session.commit()
         tabfiles = TabFile.query.filter_by(tab_id=tab_id).all()
-        return jsonify(data=[tabfile.serialize for tabfile in tabfiles])
+        return jsonify(tabfiles=[tabfile.serialize for tabfile in tabfiles])
 
 
 @bp_admin_tab.route('/admin/tabfiles', methods=['DELETE'])
@@ -90,14 +90,23 @@ def tabfile_delete():
     tabfile = TabFile.query.filter_by(id=request.values['id']).first()
     db.session.delete(tabfile)
     db.session.commit()
-
     try:
         if os.path.isfile(tabfile.file_abspath()):
             os.remove(tabfile.file_abspath())
     except Exception as e:
         return '%s: %s' % ('error:', e.message)
-
     return 'success'
+
+
+# TODO move this method to API controller when implementing API
+@bp_admin_tab.route('/admin/tabfiles.json')
+@login_required
+def tabfiles_json():
+    if 'tab_id' in request.args:
+        tabfiles = TabFile.query.filter_by(tab_id=request.args['tab_id']).all()
+        return jsonify(tabfiles=[tabfile.serialize for tabfile in tabfiles])
+    else:
+        return jsonify(tabfiles=[])
 
 
 @bp_admin_tab.route('/admin/tabfiles/upload/<string:tab_id>', methods=['POST'])
@@ -107,4 +116,3 @@ def tabfile_upload(tab_id):
         uploader = qqFileUploader(request, os.path.join(get_tabfile_upload_abspath(), str(tab_id)),
                                   current_app.config['TAB_FILE_ALLOWED_EXTENSIONS'])
     return uploader.handleUpload()
-
