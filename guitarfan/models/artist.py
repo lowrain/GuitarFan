@@ -40,7 +40,6 @@ class Artist(db.Model):
     def category_text(self):
         return ArtistCategory.get_item_text(self.category_id)
 
-    # TODO modify photo path properties
     @property
     def photo_relative_path(self):
         nophoto_path = url_for('static', filename='images/nophoto.png')

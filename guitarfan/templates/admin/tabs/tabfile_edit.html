@@ -47,8 +47,8 @@
                                 {%- for tabfile in tab.tabfiles -%}
                                     <li class="span3">
                                         <div class="thumbnail text-center">
-                                            <a href="{{ tabfile.file_url }}" class="fancybox" data-fancybox-group="gallery" title="{{ tabfile.file_basename }}">
-                                                <img style="width:200px; height:150px" src="{{ tabfile.file_url }}" title="{{ tabfile.file_basename }}">
+                                            <a href="{{ tabfile.file_relpath }}" class="fancybox" data-fancybox-group="gallery" title="{{ tabfile.file_basename }}">
+                                                <img style="width:200px; height:150px" src="{{ tabfile.file_relpath }}" title="{{ tabfile.file_basename }}">
                                             </a>
                                             {{ tabfile.file_basename }}
                                             <a href="javascript:void(0)" class="deleteLink" style="text-decoration: none" data-id="{{ tabfile.id }}"><i class="icon-trash"></i></a>
@@ -144,7 +144,6 @@
                 }
             });
             uploader.on('complete', function(event, id, name, response) {
-                // TODO add new TabFile recored #}
                 $.ajax({
                     url: '{{ url_for('bp_admin_tab.tabfile_edit', tab_id=tab.id) }}',
                     type: 'PUT',
@@ -163,7 +162,7 @@
                                             '</li>';
                             var thumbsHTML = '<ul class="thumbnails">';
                             $.each(data.tabfiles, function(i, tabfile) {
-                                thumbsHTML += thumbTemplate.format(tabfile.file_url, tabfile.file_basename, tabfile.id);
+                                thumbsHTML += thumbTemplate.format(tabfile.file_relpath, tabfile.file_basename, tabfile.id);
                             });
                             thumbsHTML += '</ul>';
                             $('.thumb-container').html(thumbsHTML);

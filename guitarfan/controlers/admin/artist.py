@@ -80,7 +80,7 @@ def edit(id):
 
     elif request.method == 'POST':
         if form.validate_on_submit():
-        # update artist
+            # update artist
             artist.name = form.name.data
             artist.letter = form.letter.data
             artist.region_id = form.region.data
@@ -97,7 +97,6 @@ def edit(id):
             db.session.commit()
 
             flash(u'Update artist successfully', 'success')
-
             return redirect(url_for('bp_admin_artist.edit', id=artist.id))
         else:
             error_message = validator.catch_errors(form.errors)

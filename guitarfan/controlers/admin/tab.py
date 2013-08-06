@@ -54,6 +54,21 @@ def edit(id):
                    style=tab.style_id, tags=tab.tags, audio_url=tab.audio_url)
     if request.method == 'GET':
         return render_template('tab_management.html', action='edit', form=form)
+    elif request.method == 'POST':
+        if form.validate_on_submit():
+            tab.title = form.tab_title.data
+            tab.format_id = form.format.data
+            tab.difficulty_id = form.difficulty.data
+            tab.style_id = form.style.data
+            # tab.artist_id = form.artist.data
+            tab.audio_url = form.audio_url.data
+            db.session.commit()
+            flash(u'Update tab successfully', 'success')
+            return redirect(url_for('bp_admin_tab.edit', id=tab.id))
+        else:
+            flash(validator.catch_errors(form.errors), 'error')
+            return render_template('tab_management.html', action='edit', form=form)
+
     # TODO implement edit post
 
 

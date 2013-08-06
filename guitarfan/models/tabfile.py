@@ -34,7 +34,7 @@ class TabFile(db.Model):
         return '<TabFile %r %r>' % (self.id, self.file_basename)
 
     @property
-    def file_url(self):
+    def file_relpath(self):
         return os.path.join(current_app.config['TAB_FILE_FOLDER'], self.filename)
 
     def file_abspath(self):
@@ -51,4 +51,4 @@ class TabFile(db.Model):
                 'tab_id': self.tab_id,
                 'update_time': self.update_time,
                 'file_basename': self.file_basename,
-                'file_url': self.file_url}
+                'file_relpath': self.file_relpath}

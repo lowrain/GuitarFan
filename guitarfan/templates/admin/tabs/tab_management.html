@@ -172,7 +172,7 @@
                     async: false,
                     success: function(data) {
                         $.each(data.tabfiles, function(i, tabfile){
-                            filesArray.push({'href': tabfile.file_url, 'title': tabfile.file_basename});
+                            filesArray.push({'href': tabfile.file_relpath, 'title': tabfile.file_basename});
                         });
                     }
                 });
