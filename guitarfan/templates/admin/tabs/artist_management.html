@@ -56,7 +56,7 @@
                                     <!-- TODO implement add tab function -->
                                     <li class="text-left"><a href="javascript:void(0);"><i class="icon-plus"></i> Add Tab</a></li>
                                     {% if artist.tabs.count() == 0 %}
-                                        <li class="text-left"><a href="javascript:void(0);" onclick="DeleteArtist('{{ artist.id }}', this)"><i class="icon-remove"></i> Delete</a></li>
+                                        <li class="text-left"><a href="javascript:void(0);" onclick="deleteArtist('{{ artist.id }}', this)"><i class="icon-remove"></i> Delete</a></li>
                                     {% endif %}
                                 </ul>
                             </div>
@@ -134,7 +134,7 @@
             });
             $(".select2").select2();
         });
-        function DeleteArtist(id, link) {
+        function deleteArtist(id, link) {
             if (confirm('Are you sure you want to delete this artist?')) {
                 $.ajax({
                     url: '{{ url_for('bp_admin_artist.delete') }}',

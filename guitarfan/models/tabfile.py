@@ -1,10 +1,20 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
+import json
 from flask import current_app
 
-import time
+from time import strftime
 from guitarfan.extensions.flasksqlalchemy import db
+from guitarfan.utilities.oshelper import *
+
+
+# def dump_datetime(value):
+#     """Deserialize datetime object into string form for JSON processing."""
+#     if value is None:
+#         return None
+#     return [value.strftime("%Y-%m-%d"), value.strftime("%H:%M:%S")]
+
+
 
 class TabFile(db.Model):
     __tablename__ = 'tabfile'
@@ -18,15 +28,27 @@ class TabFile(db.Model):
         self.id = id
         self.tab_id = tab_id
         self.filename = filename
-        self.update_time = time.strftime('%Y-%m-%d %H:%M')
+        self.update_time = strftime('%Y-%m-%d %H:%M:%S')
 
     def __repr__(self):
         return '<TabFile %r %r>' % (self.id, self.file_basename)
 
     @property
     def file_url(self):
-        return '%s/%s' % (current_app.config['TAB_FILE_FOLDER'], self.filename)
+        return os.path.join(current_app.config['TAB_FILE_FOLDER'], self.filename)
+
+    def file_abspath(self):
+        return os.path.join(current_app.config['APP_PATH'], current_app.config['TAB_FILE_FOLDER'], self.filename)
 
     @property
     def file_basename(self):
         return self.filename.split('/')[-1]
+
+    @property
+    def serialize(self):
+        """Return object data in easily serializeable format"""
+        return {'id': self.id,
+                'tab_id': self.tab_id,
+                'update_time': self.update_time,
+                'file_basename': self.file_basename,
+                'file_url': self.file_url}

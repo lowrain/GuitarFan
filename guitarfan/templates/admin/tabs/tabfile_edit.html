@@ -1,35 +1,29 @@
 {% extends "tabs/base.html" %}
 
-{% block style %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='FineUploader/fineuploader-3.7.1.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='fancybox/jquery.fancybox.css') }}">
-{% endblock %}
+{%- block active_tabs_tab -%}active{%- endblock -%}
 
-{% block active_tabs_tab %}active{% endblock %}
-
-{% block main %}
+{%- block main -%}
     <div class="span9">
-        {% if show_wizard %}
+        {%- if show_wizard -%}
             <ul class="breadcrumb">
                 <li>Tabs <span class="divider">/</span></li>
                 <li><a href="{{ url_for('bp_admin_tab.list') }}">Tab Management</a> <span class="divider">/</span></li>
                 <li>Add</li>
             </ul>
-
             <div class="wizard">
                 <a><span class="badge">1</span> Tab Information</a>
                 <a class="current"><span class="badge badge-inverse">2</span> Upload Tab Files</a>
             </div>
-        {% else %}
+        {%- else -%}
             <ul class="breadcrumb">
                 <li>Tabs <span class="divider">/</span></li>
                 <li><a href="{{ url_for('bp_admin_tab.list') }}">Tab Management</a> <span class="divider">/</span></li>
                 <li><a href="{{ url_for('bp_admin_tab.edit', id=tab.id) }}">{{ tab.artist.name + ' - ' + tab.title }}</a> <span class="divider">/</span></li>
                 <li>Tab File(s)</li>
             </ul>
-        {% endif %}
+        {%- endif -%}
 
-        {{ macro.feedback_message() }}
+        {{- macro.feedback_message() -}}
 
         <div class="box form-container row-fluid form-horizontal">
             <div class="control-group">
@@ -48,22 +42,23 @@
                 <label class="control-label">Preview</label>
                 <div class="controls">
                     <div class="row-fluid">
-                        {% if tab.tabfiles.count() > 0 %}
+                        {%- if tab.tabfiles.count() > 0 -%}
                             <ul class="thumbnails">
-                                {% for tabfile in tab.tabfiles %}
+                                {%- for tabfile in tab.tabfiles -%}
                                     <li class="span3">
                                         <div class="thumbnail text-center">
                                             <a href="{{ tabfile.file_url }}" class="fancybox" data-fancybox-group="gallery" title="{{ tabfile.file_basename }}">
                                                 <img style="width:200px; height:150px" src="{{ tabfile.file_url }}" title="{{ tabfile.file_basename }}">
                                             </a>
-                                            {{ tabfile.file_basename }} <a href="#" title="delete this file" style="text-decoration: none"><i class="icon-trash"></i></a>
+                                            {{ tabfile.file_basename }}
+                                            <a href="javascript:void(0)" class="deleteLink" style="text-decoration: none" data-id="{{ tabfile.id }}"><i class="icon-trash"></i></a>
                                         </div>
                                     </li>
-                                {% endfor %}
+                                {%- endfor -%}
                             </ul>
-                        {% else %}
+                        {%- else -%}
                             No available tab file yet
-                        {% endif %}
+                        {%- endif -%}
                     </div>
                 </div>
             </div>
@@ -80,22 +75,39 @@
                     </div>
                 </div>
             </div>
-            {% if show_wizard %}
+            {%- if show_wizard -%}
                 <div class="form-actions">
                     <input class="btn btn-danger" id="submit" name="submit" type="submit" value="Finish">
                 </div>
-            {% endif %}
+            {%- endif -%}
         </div>
 
     </div>
-{% endblock %}
+{%- endblock -%}
 
-{% block script %}
-    <script src="{{ url_for('static', filename='FineUploader/jquery.fineuploader-3.7.1.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='fancybox/jquery.fancybox.js') }}"></script>
-
+{%- block script -%}
     <script type="text/javascript" charset="utf-8">
         $(function() {
+            $('.deleteLink').click(function() {
+                if (!confirm('Are you sure you want to delete this tab?')) {
+                    return false;
+                }
+                var _this = this;
+                $.ajax({
+                    url: '{{ url_for('bp_admin_tab.tabfile_delete') }}',
+                    type: 'DELETE',
+                    data: { id : $(this).attr('data-id') },
+                    dataType: "text",
+                    success: function(result) {
+                        if (result == 'success')
+                            $(_this).closest('li').remove();
+                        else
+                            alert(result);
+                    }
+                });
+            });
+
+
             var uploader = $('#fileUpload').fineUploader({
                 request: {
                     endpoint: '{{ url_for('bp_admin_tab.tabfile_upload', tab_id=tab.id) }}'
@@ -133,17 +145,20 @@
                 }
             });
             uploader.on('complete', function(event, id, name, response) {
-                // TODO add stuff to update TabFile model #}
+                // TODO add new TabFile recored #}
                 $.ajax({
                     url: '{{ url_for('bp_admin_tab.tabfile_edit', tab_id=tab.id) }}',
                     type: 'PUT',
                     data: { filename: name },
-                    dataType: 'text',
+                    dataType: 'json',
                     success: function(result) {
-                        if (result == 'success')
+                        if (result.data) {
+                            alert(result.data[0].tab_id);
+                            console.log(result.data[0]);
+
+                        } else {
                             alert(result);
-                        else
-                            alert(result);
+                        }
                     }
                 });
             });
@@ -166,6 +181,7 @@
                 }
             });
 
+            /* fancyBox: Fade content when changing gallery items */
             (function ($, F) {
                 F.transitions.resizeIn = function() {
                     var previous = F.previous,
@@ -196,6 +212,5 @@
 
             }(jQuery, jQuery.fancybox));
         });
-
     </script>
-{% endblock %}
+{%- endblock -%}

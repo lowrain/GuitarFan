@@ -36,7 +36,7 @@ class Tab(db.Model):
         self.audio_url = audio_url
         self.hit = 0
         # self.tags = tags
-        self.update_time = time.strftime('%Y-%m-%d %H:%M')
+        self.update_time = time.strftime('%Y-%m-%d %H:%M:%S')
 
     def __repr__(self):
         return '<Tab %r>' % self.title

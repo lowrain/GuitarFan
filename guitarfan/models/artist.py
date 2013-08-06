@@ -27,7 +27,7 @@ class Artist(db.Model):
         self.photo = photo
         self.category_id = category_id
         self.region_id = region_id
-        self.update_time = time.strftime('%Y-%m-%d %H:%M')
+        self.update_time = time.strftime('%Y-%m-%d %H:%M:%S')
 
     def __repr__(self):
         return '<Artist %r>' % self.name
@@ -40,6 +40,7 @@ class Artist(db.Model):
     def category_text(self):
         return ArtistCategory.get_item_text(self.category_id)
 
+    # TODO modify photo path properties
     @property
     def photo_relative_path(self):
         nophoto_path = url_for('static', filename='images/nophoto.png')
@@ -47,10 +48,8 @@ class Artist(db.Model):
         if self.photo == '':
             return nophoto_path
 
-        photo_path = current_app.config['ARTIST_PHOTO_FOLDER'] + '/' + self.photo
+        photo_path = os.path.join(current_app.config['ARTIST_PHOTO_FOLDER'], self.photo)
         if os.path.isfile(oshelper.get_abspath(photo_path)):
             return photo_path
         else:
             return nophoto_path
-
-

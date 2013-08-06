@@ -7,6 +7,7 @@ from flask import render_template, request, redirect, url_for, flash, Blueprint,
 from flask.ext.wtf import Form, TextField, HiddenField, PasswordField, SubmitField, QuerySelectField, SelectField
 from flask.ext.login import login_user, logout_user, login_required, current_user
 from sqlalchemy import or_
+from sqlalchemy.ext.serializer import loads, dumps
 
 from guitarfan.models import *
 from guitarfan.extensions.flasksqlalchemy import db
@@ -65,7 +66,7 @@ def delete():
     return 'success'
 
 
-@bp_admin_tab.route('/admin/tabfiles/<string:tab_id>', methods=['GET', 'PUT', 'DELETE'])
+@bp_admin_tab.route('/admin/tabfiles/<string:tab_id>', methods=['GET', 'PUT'])
 @login_required
 def tabfile_edit(tab_id):
     tab = Tab.query.filter_by(id=tab_id).first()
@@ -76,16 +77,30 @@ def tabfile_edit(tab_id):
         tabfile = TabFile(str(uuid1()), tab_id, filename)
         db.session.add(tabfile)
         db.session.commit()
-        return 'success'
-    # TODO implement post request -- Add
 
-    # TODO implement delete request -- Delete
+        # TODO convert sqlalchemy model list to json
+        tabfiles = TabFile.query.filter_by(tab_id=tab_id).all()
+        return jsonify(data=[tabfile.serialize for tabfile in tabfiles])
+
+
+@bp_admin_tab.route('/admin/tabfiles', methods=['DELETE'])
+@login_required
+def tabfile_delete():
+    tabfile = TabFile.query.filter_by(id=request.values['id']).first()
+    db.session.delete(tabfile)
+    db.session.commit()
+    try:
+        os.remove(tabfile.file_abspath())
+        return 'success'
+    except Exception as e:
+        return '%s: %s' % ('error:', e.message)
 
 
 @bp_admin_tab.route('/admin/tabfiles/upload/<string:tab_id>', methods=['POST'])
 @login_required
 def tabfile_upload(tab_id):
     if request.method == 'POST':
-        uploader = qqFileUploader(request, get_tabfile_upload_abspath() + '/' + str(tab_id), current_app.config['TAB_FILE_ALLOWED_EXTENSIONS'])
-	return uploader.handleUpload()
+        uploader = qqFileUploader(request, os.path.join(get_tabfile_upload_abspath(), str(tab_id)),
+                                  current_app.config['TAB_FILE_ALLOWED_EXTENSIONS'])
+    return uploader.handleUpload()
 

@@ -15,7 +15,7 @@ class Tag(db.Model):
     def __init__(self, id, name):
         self.id = id
         self.name = name
-        self.update_time = time.strftime('%Y-%m-%d %H:%M')
+        self.update_time = time.strftime('%Y-%m-%d %H:%M:%S')
 
     def __repr__(self):
         return '<Tag %r>' % self.name
