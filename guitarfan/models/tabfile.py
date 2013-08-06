@@ -38,7 +38,7 @@ class TabFile(db.Model):
         return os.path.join(current_app.config['TAB_FILE_FOLDER'], self.filename)
 
     def file_abspath(self):
-        return os.path.join(current_app.config['APP_PATH'], current_app.config['TAB_FILE_FOLDER'], self.filename)
+        return os.path.join(get_tabfile_upload_abspath(), self.filename)
 
     @property
     def file_basename(self):

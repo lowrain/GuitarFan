@@ -39,11 +39,10 @@ def add():
             db.session.add(tab)
             db.session.commit()
             flash(u'Add new tab successfully, please upload tab files', 'success')
-            return render_template('tabfile_edit.html', tab=tab, show_wizard=True)
+            return redirect(url_for('bp_admin_tab.tabfile_edit', tab_id=tab.id, show_wizard=True))
         else:
             flash(validator.catch_errors(form.errors), 'error')
             return render_template('tab_management.html', action='add', form=form)
-
 
 
 @bp_admin_tab.route('/admin/tabs/<string:id>', methods=['GET', 'POST'])
@@ -71,14 +70,15 @@ def delete():
 def tabfile_edit(tab_id):
     tab = Tab.query.filter_by(id=tab_id).first()
     if request.method == 'GET':
-        return render_template('tabfile_edit.html', tab=tab)
+        if 'show_wizard' in request.args:
+            return render_template('tabfile_edit.html', tab=tab, show_wizard=request.args['show_wizard'])
+        else:
+            return render_template('tabfile_edit.html', tab=tab)
     elif request.method == 'PUT':
         filename = os.path.join(tab_id, request.form['filename'])
         tabfile = TabFile(str(uuid1()), tab_id, filename)
         db.session.add(tabfile)
         db.session.commit()
-
-        # TODO convert sqlalchemy model list to json
         tabfiles = TabFile.query.filter_by(tab_id=tab_id).all()
         return jsonify(data=[tabfile.serialize for tabfile in tabfiles])
 
