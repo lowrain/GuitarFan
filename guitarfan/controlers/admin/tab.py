@@ -15,6 +15,7 @@ from forms.tab import *
 from guitarfan.utilities.oshelper import *
 from guitarfan.utilities.qqFileUploader import qqFileUploader
 
+
 bp_admin_tab = Blueprint('bp_admin_tab', __name__, template_folder="../../templates/admin/tabs")
 
 
@@ -48,12 +49,12 @@ def add():
 @bp_admin_tab.route('/admin/tabs/<string:id>', methods=['GET', 'POST'])
 @login_required
 def edit(id):
-    # TODO implement edit view
     tab = Tab.query.filter_by(id=id).first()
     form = TabFrom(id=tab.id, tab_title=tab.title, format=tab.format_id, difficulty=tab.difficulty_id,
                    style=tab.style_id, tags=tab.tags, audio_url=tab.audio_url)
     if request.method == 'GET':
         return render_template('tab_management.html', action='edit', form=form)
+    # TODO implement edit post
 
 
 @bp_admin_tab.route('/admin/tabs', methods=['DELETE'])
@@ -89,11 +90,14 @@ def tabfile_delete():
     tabfile = TabFile.query.filter_by(id=request.values['id']).first()
     db.session.delete(tabfile)
     db.session.commit()
+
     try:
-        os.remove(tabfile.file_abspath())
-        return 'success'
+        if os.path.isfile(tabfile.file_abspath()):
+            os.remove(tabfile.file_abspath())
     except Exception as e:
         return '%s: %s' % ('error:', e.message)
+
+    return 'success'
 
 
 @bp_admin_tab.route('/admin/tabfiles/upload/<string:tab_id>', methods=['POST'])

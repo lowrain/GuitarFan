@@ -1,9 +1,5 @@
 {% extends "tabs/base.html" %}
 
-{% block style %}
-    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='dataTables/css/jquery.dataTables.css') }}">
-{% endblock %}
-
 {% block active_tabs_tab %}active{% endblock %}
 
 {% block main %}
@@ -50,7 +46,7 @@
                         <td class="text-center">{{ tab.update_time }}</td>
                         <td class="text-center">
                             {% if tab.tabfiles.count() > 0 %}
-                                <a href="#" style="text-decoration: none;"><i class="icon-eye-open"></i></a>
+                                <a href="#" style="text-decoration: none;" class="fancybox"><i class="icon-eye-open"></i></a>
                             {% else %}
                                 <i class="icon-eye-close"></i>
                             {% endif %}
