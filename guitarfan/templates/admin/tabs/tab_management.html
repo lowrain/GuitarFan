@@ -183,7 +183,7 @@
                     }
                 },
                 initSelection : function (element, callback) {
-                    var data = { id: element.val(), text: '{{ artist.name if artist }}' };
+                    var data = { id: '{{ artist.id if artist }}', text: '{{ artist.name if artist }}' };
                     callback(data);
                 },
                 dropdownCssClass: "bigdrop"
@@ -194,14 +194,13 @@
             });
 
             $(".preview_link").click(function() {
-                var filesArray = [];
-                $.ajax({
+               $.ajax({
                     url: '/admin/tabfiles.json',
                     type: 'GET',
                     data: { tab_id : $(this).attr('data-id') },
                     dataType: 'json',
                     success: function(data) {
-                        filesArray = $.map(data.tabfiles, function(tabfile){
+                        var filesArray = filesArray = $.map(data.tabfiles, function(tabfile){
                             return {'href': tabfile.file_relpath, 'title': tabfile.file_basename};
                         });
 

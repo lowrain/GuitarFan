@@ -30,12 +30,14 @@ def list():
 @login_required
 def add():
     # TODO add tags fields
-    form = TabFrom()
+    artist_id = request.args['artist_id'] if 'artist_id' in request.args else ''
+    form = TabFrom(artist=artist_id)
     if request.method == 'GET':
-        return render_template('tab_management.html', action='add', form=form)
+        return render_template('tab_management.html', action='add', form=form,
+                               artist=Artist.query.filter_by(id=artist_id).first())
     elif request.method == 'POST':
         if form.validate_on_submit():
-            tab = Tab(str(uuid1()), form.tab_title.data, form.format.data, form.artist.data.id, form.difficulty.data,
+            tab = Tab(str(uuid1()), form.tab_title.data, form.format.data, form.artist.data, form.difficulty.data,
                       form.style.data, form.audio_url.data)
             db.session.add(tab)
             db.session.commit()
