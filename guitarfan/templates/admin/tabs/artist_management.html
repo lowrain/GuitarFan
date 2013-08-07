@@ -36,12 +36,20 @@
                 <tbody>
                 {% for artist in artists %}
                     <tr>
-                        <td class="text-center">{{ artist.letter }}</td>
+                        <td class="text-center"><span class="label label-info">{{ artist.letter }}</span></td>
                         <td>{{ artist.name }}</td>
                         <td class="text-center">{{ artist.region_text }}</td>
                         <td class="text-center">{{ artist.category_text }}</td>
                         <td class="text-center">{{ artist.tabs.count() }}</td>
-                        <td class="text-center">{{ ('<span class="label label-success">Yes</span>' if artist.photo != '' else '<span class="label label-warning">No</span>')|safe }}</td>
+                        <td class="text-center">
+                            {% if artist.photo and artist.photo != '' %}
+                                <a href="{{ artist.photo_relative_path }}" style="text-decoration: none;" class="preview_link">
+                                    <i class="icon-eye-open"></i>
+                                </a>
+                            {% else %}
+                                <i class="icon-eye-close"></i>
+                            {% endif %}
+                        </td>
                         <td class="text-center">{{ artist.update_time }}</td>
                         <td class="text-center">
                             <div class="dropdown related_menu">
@@ -132,6 +140,11 @@
                     { "sType": "numeric", aTargets: [ 4 ]}
                 ]
             });
+
+            $(".preview_link").fancybox({
+                padding : 0
+            });
+
             $(".select2").select2();
         });
         function deleteArtist(id, link) {
