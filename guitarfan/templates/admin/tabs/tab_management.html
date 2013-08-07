@@ -89,11 +89,11 @@
                     {{ form.hidden_tag() }}
                     <div class="box form-container row-fluid form-horizontal">
                         {{ macro.create_wtf_field(form.tab_title, class="span6") }}
-                        {{ macro.create_wtf_field(form.artist, class="select2 span4") }}
-                        {{ macro.create_wtf_field(form.format, class="select2 span2") }}
-                        {{ macro.create_wtf_field(form.difficulty, class="select2 span2") }}
-                        {{ macro.create_wtf_field(form.style, class="select2 span2") }}
-                        {{ macro.create_wtf_field(form.tags, class="select2 span10") }}
+                        {{ macro.create_wtf_field(form.artist, class="artist_select2 span4") }}
+                        {{ macro.create_wtf_field(form.format, class="span2") }}
+                        {{ macro.create_wtf_field(form.difficulty, class="span2") }}
+                        {{ macro.create_wtf_field(form.style, class="span2") }}
+                        {{ macro.create_wtf_field(form.tags, class="tag_select2 span10") }}
                         {{ macro.create_wtf_field(form.audio_url, class="span10") }}
                     </div>
 
@@ -116,11 +116,11 @@
                     {{ form.hidden_tag() }}
                     <div class="box form-container row-fluid form-horizontal">
                         {{ macro.create_wtf_field(form.tab_title, class="span6") }}
-                        {{ macro.create_wtf_field(form.artist, class="select2 span4") }}
-                        {{ macro.create_wtf_field(form.format, class="select2 span2") }}
-                        {{ macro.create_wtf_field(form.difficulty, class="select2 span2") }}
-                        {{ macro.create_wtf_field(form.style, class="select2 span2") }}
-                        {{ macro.create_wtf_field(form.tags, class="select2 span10") }}
+                        {{ macro.create_wtf_field(form.artist, class="artist_select2 span4") }}
+                        {{ macro.create_wtf_field(form.format, class="span2") }}
+                        {{ macro.create_wtf_field(form.difficulty, class="span2") }}
+                        {{ macro.create_wtf_field(form.style, class="span2") }}
+                        {{ macro.create_wtf_field(form.tags, class="tag_select2 span10") }}
                         {{ macro.create_wtf_field(form.audio_url, class="span10") }}
                     </div>
 
@@ -157,9 +157,38 @@
                 "aaSorting": [[ 6, "desc" ]],
                 "sPaginationType": "bootstrap"
             });
+
             <!-- TODO change to loading data from api which returns json to selector -->
-            $(".select2").select2({
-                placeholder: "Select a artist"
+            $(".artist_select2").select2({
+                placeholder: "select a artist",
+                minimumInputLength: 1,
+                ajax: {
+                    url: "{{ url_for('bp_admin_artist.artists_json') }}",
+                    dataType: 'json',
+                    data: function (term, page) {
+                        return {
+                            q: term
+                        };
+                    },
+                    results: function (data, page) {
+                        var dataSource = $.map(data.artists, function(artist){
+                            return {id: artist.id, text: artist.name};
+                        });
+
+                        return {results: dataSource};
+                    }
+                },
+                initSelection : function (element, callback) {
+                    var data = { id: element.val(), text: '{{ artist.name if artist }}' };
+                    callback(data);
+                },
+                dropdownCssClass: "bigdrop"
+            });
+
+
+
+            $(".tag_select2").select2({
+                placeholder: 'select tag(s)'
             });
 
             $(".preview_link").click(function() {
@@ -169,31 +198,31 @@
                     type: 'GET',
                     data: { tab_id : $(this).attr('data-id') },
                     dataType: 'json',
-                    async: false,
                     success: function(data) {
-                        $.each(data.tabfiles, function(i, tabfile){
-                            filesArray.push({'href': tabfile.file_relpath, 'title': tabfile.file_basename});
+                        filesArray = $.map(data.tabfiles, function(tabfile){
+                            return {'href': tabfile.file_relpath, 'title': tabfile.file_basename};
+                        });
+
+                        $.fancybox.open(filesArray, {
+                            nextClick: true,
+                            arrows: false,
+                            closeBtn: false,
+                            nextMethod : 'resizeIn',
+                            nextSpeed  : 50,
+                            prevMethod : false,
+                            padding : 0,
+                            helpers : {
+                                title : {
+                                    type : 'over'
+                                }
+                            }
                         });
                     }
                 });
-                $.fancybox.open(filesArray, {
-                    nextClick: true,
-                    arrows: false,
-                    closeBtn: false,
-                    nextMethod : 'resizeIn',
-                    nextSpeed  : 50,
-                    prevMethod : false,
-                    padding : 0,
-                    helpers : {
-                        title : {
-                            type : 'over'
-                        }
-                    }
-                });
+
                 return false;
             });
 
         });
-
     </script>
 {% endblock %}

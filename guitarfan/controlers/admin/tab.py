@@ -51,16 +51,16 @@ def add():
 def edit(id):
     tab = Tab.query.filter_by(id=id).first()
     form = TabFrom(id=tab.id, tab_title=tab.title, format=tab.format_id, difficulty=tab.difficulty_id,
-                   style=tab.style_id, tags=tab.tags, audio_url=tab.audio_url)
+                   style=tab.style_id, tags=tab.tags, audio_url=tab.audio_url, artist=tab.artist_id)
     if request.method == 'GET':
-        return render_template('tab_management.html', action='edit', form=form)
+        return render_template('tab_management.html', action='edit', form=form, artist=tab.artist)
     elif request.method == 'POST':
         if form.validate_on_submit():
             tab.title = form.tab_title.data
             tab.format_id = form.format.data
             tab.difficulty_id = form.difficulty.data
             tab.style_id = form.style.data
-            # tab.artist_id = form.artist.data
+            tab.artist_id = form.artist.data
             tab.audio_url = form.audio_url.data
             db.session.commit()
             flash(u'Update tab successfully', 'success')
@@ -68,8 +68,6 @@ def edit(id):
         else:
             flash(validator.catch_errors(form.errors), 'error')
             return render_template('tab_management.html', action='edit', form=form)
-
-    # TODO implement edit post
 
 
 @bp_admin_tab.route('/admin/tabs', methods=['DELETE'])

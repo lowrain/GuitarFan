@@ -52,3 +52,16 @@ class Artist(db.Model):
             return photo_path
         else:
             return nophoto_path
+
+    @property
+    def serialize(self):
+        """Return object data in easily serializeable format"""
+        return {'id': self.id,
+                'name': self.name,
+                'letter': self.letter,
+                'category_id': self.category_id,
+                'category_text': self.category_text,
+                'region_id': self.region_id,
+                'region_text': self.region_text,
+                'photo_relative_path': self.photo_relative_path,
+                'update_time': self.update_time}

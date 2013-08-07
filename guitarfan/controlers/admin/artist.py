@@ -5,7 +5,7 @@ import os
 from uuid import uuid1
 from random import random
 
-from flask import render_template, request, redirect, url_for, flash, Blueprint, current_app
+from flask import render_template, request, redirect, url_for, flash, Blueprint, current_app, jsonify
 from flask.ext.login import login_user, logout_user, login_required, current_user
 from sqlalchemy import or_
 from werkzeug.utils import secure_filename
@@ -23,6 +23,15 @@ bp_admin_artist = Blueprint('bp_admin_artist', __name__, template_folder="../../
 def list():
     artists = Artist.query.all()
     return render_template('artist_management.html', action='list', artists=artists)
+
+
+# TODO move this method to API controller
+@bp_admin_artist.route('/admin/artists.json')
+@login_required
+def artists_json():
+    if 'q' in request.args:
+        artists = Artist.query.filter(Artist.name.like('%'+request.args['q']+'%')).order_by(Artist.name.asc())
+    return jsonify(artists=[artist.serialize for artist in artists])
 
 
 @bp_admin_artist.route('/admin/artists/add', methods=['GET', 'POST'])
@@ -77,7 +86,6 @@ def edit(id):
     photo_relative_path = artist.photo_relative_path + '?dummy=' + str(random())
     if request.method == 'GET':
         return render_template('artist_management.html', action='edit', form=form, photo_path=photo_relative_path)
-
     elif request.method == 'POST':
         if form.validate_on_submit():
             # update artist

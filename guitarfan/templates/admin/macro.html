@@ -5,7 +5,7 @@
                 <div class="alert alert-{{ category }}">
                     <a class="close" data-dismiss="alert" href="#">×</a>
                     {% for msg in message.split(';') %}
-                    <i class="icon-info-sign"></i> {{ msg }}<br>
+                        <i class="icon-info-sign"></i> {{ msg }}<br>
                     {% endfor %}
                 </div>
             {% endfor %}
@@ -30,7 +30,7 @@
 {%- endmacro %}
 
 {% macro create_wtf_field(field)  -%}
-       <div class="control-group">
+    <div class="control-group">
         <label class="control-label inline">{{ field.label.text }}{% if field.flags.required %} <span class="required">*</span>{% endif %}</label>
         <div class="controls">
             {{ field(**kwargs) }}
