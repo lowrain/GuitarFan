@@ -27,9 +27,9 @@
                     <th width="28%" class="text-left">artist</th>
                     <th width="10%">region</th>
                     <th width="15%">category</th>
-                    <th width="20%">update time</th>
                     <th width="8%">tabs</th>
                     <th width="8%">photo</th>
+                    <th width="20%">update time</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -40,9 +40,9 @@
                         <td>{{ artist.name }}</td>
                         <td class="text-center">{{ artist.region_text }}</td>
                         <td class="text-center">{{ artist.category_text }}</td>
-                        <td class="text-center">{{ artist.update_time }}</td>
-                        <td class="text-center"><span class="label label-info">{{ artist.tabs.count() }}</span></td>
+                        <td class="text-center">{{ artist.tabs.count() }}</td>
                         <td class="text-center">{{ ('<span class="label label-success">Yes</span>' if artist.photo != '' else '<span class="label label-warning">No</span>')|safe }}</td>
+                        <td class="text-center">{{ artist.update_time }}</td>
                         <td class="text-center">
                             <div class="dropdown related_menu">
                                 <a title="Related Objects" class="relate_menu dropdown-toggle" data-toggle="dropdown"><i class="icon icon-list"></i></a>
@@ -125,8 +125,12 @@
     <script type="text/javascript" charset="utf-8">
         $(function() {
             $('.gridTable').dataTable({
-                "aaSorting": [[ 4, "desc" ]],
-                "sPaginationType": "bootstrap"
+                "aaSorting": [[ 6, "desc" ]],
+                "sPaginationType": "bootstrap",
+                aoColumnDefs: [
+                    { bSortable: false, aTargets: [ -1 ]},
+                    { "sType": "numeric", aTargets: [ 4 ]}
+                ]
             });
             $(".select2").select2();
         });

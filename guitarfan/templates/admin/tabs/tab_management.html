@@ -29,8 +29,8 @@
                     <th width="8%">style</th>
                     <th width="8%">difficulty</th>
                     <th width="8%">hits</th>
-                    <th width="18%">update time</th>
                     <th width="8%">preview</th>
+                    <th width="18%">update time</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -42,8 +42,7 @@
                         <td class="text-center">{{ tab.format_text }}</td>
                         <td class="text-center">{{ tab.style_text }}</td>
                         <td class="text-center">{{ tab.difficulty_text }}</td>
-                        <td class="text-center"><span class="label label-important">{{ tab.hits }}</span></td>
-                        <td class="text-center">{{ tab.update_time }}</td>
+                        <td class="text-center">{{ tab.hits }}</td>
                         <td class="text-center">
                             {% if tab.tabfiles.count() > 0 %}
                                 <a href="javascript:void(0)" style="text-decoration: none;" class="preview_link" data-id="{{ tab.id }}" title="preview tab"><i class="icon-eye-open"></i></a>
@@ -51,6 +50,7 @@
                                 <i class="icon-eye-close"></i>
                             {% endif %}
                         </td>
+                        <td class="text-center">{{ tab.update_time }}</td>
                         <td class="text-center">
                             <div class="dropdown related_menu">
                                 <a title="Related Objects" class="relate_menu dropdown-toggle" data-toggle="dropdown"><i class="icon icon-list"></i></a>
@@ -154,20 +154,24 @@
 
         $(function() {
             $('.gridTable').dataTable({
-                "aaSorting": [[ 6, "desc" ]],
-                "sPaginationType": "bootstrap"
+                "aaSorting": [[ 7, "desc" ]],
+                "sPaginationType": "bootstrap",
+                aoColumnDefs: [
+                    { "sType": "numeric", aTargets: [ 5 ]},
+                    { "sType": "string", aTargets: [ 6 ]},
+                    { bSortable: false, aTargets: [ -1 ]}
+                ]
             });
 
-            <!-- TODO change to loading data from api which returns json to selector -->
             $(".artist_select2").select2({
                 placeholder: "select a artist",
                 minimumInputLength: 1,
                 ajax: {
                     url: "{{ url_for('bp_admin_artist.artists_json') }}",
                     dataType: 'json',
-                    data: function (term, page) {
+                    data: function (keyWord, page) {
                         return {
-                            q: term
+                            q: keyWord
                         };
                     },
                     results: function (data, page) {
@@ -184,8 +188,6 @@
                 },
                 dropdownCssClass: "bigdrop"
             });
-
-
 
             $(".tag_select2").select2({
                 placeholder: 'select tag(s)'
