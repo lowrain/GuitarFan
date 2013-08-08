@@ -58,7 +58,7 @@
                                     <li class="text-left"><a href="{{ url_for('bp_admin_tab.edit', id=tab.id) }}"><i class="icon-pencil"></i> Edit</a></li>
                                     <li class="divider"></li>
                                     {% if tab.format_id != 2 %}
-                                        <li class="text-left"><a href="{{ url_for('bp_admin_tab.tabfile_edit', tab_id=tab.id) }}"><i class="icon-file-text-alt"></i> Tab File(s)</a></li>
+                                        <li class="text-left"><a href="{{ url_for('bp_admin_tabfile.edit', tab_id=tab.id) }}"><i class="icon-file-text-alt"></i> Tab File(s)</a></li>
                                     {% endif %}
                                     <li class="text-left"><a href="javascript:void(0);" onclick="deleteTab('{{ tab.id }}', this)"><i class="icon-remove"></i> Delete</a></li>
                                 </ul>
@@ -167,7 +167,7 @@
                 placeholder: "select a artist",
                 minimumInputLength: 1,
                 ajax: {
-                    url: "{{ url_for('bp_admin_artist.artists_json') }}",
+                    url: "{{ url_for('bp_admin_artist.list_json') }}",
                     dataType: 'json',
                     data: function (keyWord, page) {
                         return {
@@ -194,8 +194,9 @@
             });
 
             $(".preview_link").click(function() {
-               $.ajax({
-                    url: '/admin/tabfiles.json',
+                $.ajax({
+                    {#                    url: '/admin/tabfiles.json',#}
+                    url: '{{ url_for('bp_admin_tabfile.list_json') }}',
                     type: 'GET',
                     data: { tab_id : $(this).attr('data-id') },
                     dataType: 'json',
@@ -207,7 +208,7 @@
                         $.fancybox.open(filesArray, {
                             nextClick: true,
                             arrows: false,
-{#                            closeBtn: false,#}
+                            {#                            closeBtn: false,#}
                             nextMethod : 'resizeIn',
                             nextSpeed  : 50,
                             prevMethod : false,

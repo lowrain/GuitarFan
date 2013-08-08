@@ -94,7 +94,7 @@
                 }
                 var _this = this;
                 $.ajax({
-                    url: '{{ url_for('bp_admin_tab.tabfile_delete') }}',
+                    url: '{{ url_for('bp_admin_tabfile.delete') }}',
                     type: 'DELETE',
                     data: { id : $(this).attr('data-id') },
                     dataType: "text",
@@ -109,7 +109,7 @@
 
             var uploader = $('#fileUpload').fineUploader({
                 request: {
-                    endpoint: '{{ url_for('bp_admin_tab.tabfile_upload', tab_id=tab.id) }}'
+                    endpoint: '{{ url_for('bp_admin_tabfile.upload', tab_id=tab.id) }}'
                 },
                 maxAutoAttempts: 3,
                 autoUpload: false,
@@ -149,7 +149,7 @@
                 }
 
                 $.ajax({
-                    url: '{{ url_for('bp_admin_tab.tabfile_edit', tab_id=tab.id) }}',
+                    url: '{{ url_for('bp_admin_tabfile.edit', tab_id=tab.id) }}',
                     type: 'PUT',
                     data: { filename: name },
                     dataType: 'json',

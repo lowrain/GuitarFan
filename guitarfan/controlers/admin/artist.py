@@ -28,7 +28,7 @@ def list():
 # TODO move this method to API controller
 @bp_admin_artist.route('/admin/artists.json')
 @login_required
-def artists_json():
+def list_json():
     if 'q' in request.args:
         artists = Artist.query.filter(Artist.name.like('%'+request.args['q']+'%')).order_by(Artist.name.asc())
     return jsonify(artists=[artist.serialize for artist in artists])
