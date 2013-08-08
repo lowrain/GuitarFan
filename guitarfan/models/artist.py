@@ -18,7 +18,7 @@ class Artist(db.Model):
     region_id = db.Column(db.Integer, nullable=False, default=1)
     category_id = db.Column(db.Integer, nullable=False, default=1)
     update_time = db.Column(db.String(20), nullable=False)
-    tabs = db.relationship('Tab', backref='artist', lazy='dynamic')
+    tabs = db.relationship('Tab', backref='artist', cascade='all,delete-orphan', lazy='dynamic')
 
     def __init__(self, id, name, letter, photo, region_id, category_id):
         self.id = id

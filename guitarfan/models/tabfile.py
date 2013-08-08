@@ -22,7 +22,7 @@ class TabFile(db.Model):
     id = db.Column(db.String(50), primary_key=True, unique=True)
     filename = db.Column(db.String(200), nullable=False)
     update_time = db.Column(db.String(20), nullable=False)
-    tab_id = db.Column(db.String(50), db.ForeignKey('tab.id'))
+    tab_id = db.Column(db.String(50), db.ForeignKey('tab.id', ondelete='CASCADE'))
 
     def __init__(self, id, tab_id, filename):
         self.id = id

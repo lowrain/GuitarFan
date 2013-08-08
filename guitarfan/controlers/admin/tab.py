@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from uuid import uuid1
+import shutil
 
 from flask import render_template, request, redirect, url_for, flash, Blueprint, jsonify
 from flask.ext.wtf import Form, TextField, HiddenField, PasswordField, SubmitField, QuerySelectField, SelectField
@@ -75,9 +76,17 @@ def edit(id):
 @bp_admin_tab.route('/admin/tabs', methods=['DELETE'])
 @login_required
 def delete():
-    tab = Tab.query.filter_by(id=request.values['id']).first()
+    tab_id = request.values['id']
+    tab = Tab.query.filter_by(id=tab_id).first()
     db.session.delete(tab)
     db.session.commit()
+
+    try:
+        tabfiles_folder_path = os.path.join(get_tabfile_upload_abspath(), tab_id)
+        if os.path.isdir(tabfiles_folder_path):
+            shutil.rmtree(tabfiles_folder_path)
+    except Exception as e:
+        return '%s: %s' % ('error:', e.message)
     return 'success'
 
 
@@ -118,7 +127,7 @@ def tabfile_delete():
 @login_required
 def tabfiles_json():
     if 'tab_id' in request.args:
-        tabfiles = TabFile.query.filter_by(tab_id=request.args['tab_id']).all()
+        tabfiles = TabFile.query.filter_by(tab_id=request.args['tab_id']).all().order_by(TabFile.file_basename.asc())
         return jsonify(tabfiles=[tabfile.serialize for tabfile in tabfiles])
     else:
         return jsonify(tabfiles=[])

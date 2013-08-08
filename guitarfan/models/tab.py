@@ -7,8 +7,8 @@ from enums import *
 
 # tag-tab link table
 tag_tab = db.Table('tag_tab',
-                db.Column('tag_id', db.Integer, db.ForeignKey('tag.id')),
-                db.Column('tab_id', db.Integer, db.ForeignKey('tab.id')))
+                db.Column('tag_id', db.Integer, db.ForeignKey('tag.id', ondelete='CASCADE'), primary_key=True),
+                db.Column('tab_id', db.Integer, db.ForeignKey('tab.id', ondelete='CASCADE')), primary_key=True)
 
 class Tab(db.Model):
     __tablename__ = 'tab'
@@ -22,9 +22,8 @@ class Tab(db.Model):
     artist_id = db.Column(db.String(50), db.ForeignKey('artist.id'))
     hits = db.Column(db.Integer, nullable=False, default=0)
     update_time = db.Column(db.String(20), nullable=False)
-    # tags = db.relationship('Tag', secondary=tag_tab, backref=db.backref('tag_tab', lazy='dynamic'))
-    tags = db.relationship('Tag', secondary=tag_tab, backref='tabs', lazy='dynamic')
-    tabfiles = db.relationship('TabFile', backref='tab', lazy='dynamic')
+    tags = db.relationship('Tag', secondary=tag_tab, backref='tabs', lazy='dynamic', passive_deletes=True)
+    tabfiles = db.relationship('TabFile', backref='tab', cascade='all,delete-orphan', lazy='dynamic', passive_deletes=True)
 
     def __init__(self, id, title, format_id, artist_id, difficulty_id, style_id, audio_url):
         self.id = id
