@@ -90,6 +90,7 @@ def delete():
     return 'success'
 
 
+# TODO create a new controler module for tabfile
 @bp_admin_tab.route('/admin/tabfiles/<string:tab_id>', methods=['GET', 'PUT'])
 @login_required
 def tabfile_edit(tab_id):

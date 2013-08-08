@@ -57,7 +57,6 @@
                                 <ul class="dropdown-menu pull-right" role="menu">
                                     <li class="text-left"><a href="{{ url_for('bp_admin_artist.edit', id=artist.id) }}"><i class="icon-pencil"></i> Edit</a></li>
                                     <li class="divider"></li>
-                                    <!-- TODO implement add tab function -->
                                     <li class="text-left"><a href="{{ url_for('bp_admin_tab.add', artist_id=artist.id) }}"><i class="icon-plus"></i> Add Tab</a></li>
                                     {% if artist.tabs.count() == 0 %}
                                         <li class="text-left"><a href="javascript:void(0);" onclick="deleteArtist('{{ artist.id }}', this)"><i class="icon-remove"></i> Delete</a></li>
