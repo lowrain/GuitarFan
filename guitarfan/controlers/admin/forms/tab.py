@@ -1,12 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import string
-from flask.ext.wtf import Form, TextField, HiddenField, BooleanField, PasswordField, SubmitField, \
-    SelectField, FileField, QuerySelectField, QuerySelectMultipleField, HiddenInput, Required, URL, Optional, \
-    FileAllowed, FileRequired, EqualTo, Regexp, Email, length
+from flask.ext.wtf import Form, TextField, HiddenField, SubmitField, SelectField, QuerySelectMultipleField, \
+    HiddenInput, Required, URL, Optional
 
-from guitarfan.utilities import validator
 from guitarfan.models import *
 
 class TabFrom(Form):

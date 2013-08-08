@@ -1,21 +1,18 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import os
 from uuid import uuid1
 import shutil
 
-from flask import render_template, request, redirect, url_for, flash, Blueprint, jsonify
-from flask.ext.wtf import Form, TextField, HiddenField, PasswordField, SubmitField, QuerySelectField, SelectField
-from flask.ext.login import login_user, logout_user, login_required, current_user
-from sqlalchemy import or_
-from sqlalchemy.ext.serializer import loads, dumps
+from flask import render_template, request, redirect, url_for, flash, Blueprint
+from flask.ext.login import login_required
 
-from guitarfan.models import *
 from guitarfan.extensions.flasksqlalchemy import db
+from guitarfan.utilities import oshelper
+from guitarfan.utilities import validator
+from guitarfan.models import *
 from forms.tab import *
-from guitarfan.utilities.oshelper import *
-from guitarfan.utilities.qqFileUploader import qqFileUploader
-
 
 bp_admin_tab = Blueprint('bp_admin_tab', __name__, template_folder="../../templates/admin/tabs")
 
@@ -42,7 +39,7 @@ def add():
                       form.style.data, form.audio_url.data)
             db.session.add(tab)
             db.session.commit()
-            flash(u'Add new tab successfully, please upload tab files', 'success')
+            flash(u'Add new tab success, please upload tab files', 'success')
             return redirect(url_for('bp_admin_tabfile.edit', tab_id=tab.id, show_wizard=True))
         else:
             flash(validator.catch_errors(form.errors), 'error')
@@ -66,8 +63,8 @@ def edit(id):
             tab.artist_id = form.artist.data
             tab.audio_url = form.audio_url.data
             db.session.commit()
-            flash(u'Update tab successfully', 'success')
-            return redirect(url_for('bp_admin_tab.edit', id=tab.id))
+            flash(u'Update tab success', 'success')
+            return redirect(url_for('bp_admin_tab.edit', id=id))
         else:
             flash(validator.catch_errors(form.errors), 'error')
             return render_template('tab_management.html', action='edit', form=form)
@@ -82,7 +79,7 @@ def delete():
     db.session.commit()
 
     try:
-        tabfiles_folder_path = os.path.join(get_tabfile_upload_abspath(), tab_id)
+        tabfiles_folder_path = os.path.join(oshelper.get_tabfile_upload_abspath(), tab_id)
         if os.path.isdir(tabfiles_folder_path):
             shutil.rmtree(tabfiles_folder_path)
     except Exception as e:

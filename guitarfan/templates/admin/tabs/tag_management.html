@@ -10,6 +10,8 @@
                 <li>Tag Management</li>
             </ul>
 
+            {{ macro.feedback_message() }}
+
             <div class="navbar">
                 <div class="navbar-inner">
                     <div class="btn-group">
@@ -17,6 +19,109 @@
                     </div>
                 </div>
             </div>
+
+            <table class="gridTable table-hover table-bordered table-striped table-condensed">
+                <thead>
+                <tr>
+                    <th width="52%">tag name</th>
+                    <th width="15%">tabs</th>
+                    <th width="25%">update time</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for tag in tags %}
+                    <tr>
+                        <td>{{ tag.name }}</td>
+                        <td class="text-center">{{ tag.tabs.count() }}</td>
+                        <td class="text-center">{{ tag.update_time }}</td>
+                        <td class="text-center">
+                            <div class="dropdown related_menu">
+                                <a title="Related Objects" class="relate_menu dropdown-toggle" data-toggle="dropdown"><i class="icon icon-list"></i></a>
+                                <ul class="dropdown-menu pull-right" role="menu">
+                                    <li class="text-left"><a href="{{ url_for('bp_admin_tag.edit', id=tag.id) }}"><i class="icon-pencil"></i> Edit</a></li>
+                                    <li class="divider"></li>
+                                    <li class="text-left"><a href="{{ '' }}"><i class="icon-plus"></i> Add Tab</a></li>
+                                    <li class="text-left"><a href="javascript:void(0);" onclick="deleteTag('{{ tag.id }}', this)"><i class="icon-remove"></i> Delete</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% elif action == 'add' %}
+            <ul class="breadcrumb">
+                <li>Tabs <span class="divider">/</span></li>
+                <li><a href="{{ url_for('bp_admin_tag.list') }}">Tag Management</a> <span class="divider">/</span></li>
+                <li>Add Tag</li>
+            </ul>
+
+            {{ macro.feedback_message() }}
+
+            <div class="tabbable">
+                <form method="post" action="">
+                    {{ form.hidden_tag() }}
+                    <div class="box form-container row-fluid form-horizontal">
+                        {{ macro.create_wtf_field(form.name, class="span8") }}
+                    </div>
+
+                    <div class="form-actions">
+                        {{ form.submit(class="btn btn-danger", value="Submit") }}
+                    </div>
+                </form>
+            </div>
+        {% elif action == 'edit' %}
+            <ul class="breadcrumb">
+                <li>Tabs <span class="divider">/</span></li>
+                <li><a href="{{ url_for('bp_admin_tag.list') }}">Tag Management</a> <span class="divider">/</span></li>
+                <li>Edit Tag</li>
+            </ul>
+
+            {{ macro.feedback_message() }}
+
+            <div class="tabbable">
+                <form method="post" action="">
+                    {{ form.hidden_tag() }}
+                    <div class="box form-container row-fluid form-horizontal">
+                        {{ macro.create_wtf_field(form.name, class="span8") }}
+                    </div>
+
+                    <div class="form-actions">
+                        {{ form.submit(class="btn btn-danger", value="Submit") }}
+                    </div>
+                </form>
+            </div>
         {% endif %}
     </div>
+{% endblock %}
+
+{% block script %}
+    <script>
+        function deleteTag(id, link) {
+            if (confirm('Are you sure you want to delete this tag?')) {
+                $.ajax({
+                    url: '{{ url_for('bp_admin_tag.delete') }}',
+                    type: 'DELETE',
+                    data: { id : id },
+                    dataType: "text",
+                    success: function(result) {
+                        if (result == 'success')
+                            $(link).closest('tr').remove();
+                        else
+                            alert(result);
+                    }
+                });
+            }
+        }
+
+        $(function() {
+            $('.gridTable').dataTable({
+                "aaSorting": [[ 2, "desc" ]],
+                "sPaginationType": "bootstrap",
+                aoColumnDefs: [{ bSortable: false, aTargets: [ -1 ]}]
+            });
+        });
+
+    </script>
 {% endblock %}

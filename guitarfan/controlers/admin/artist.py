@@ -63,7 +63,7 @@ def add():
             # flush data
             db.session.commit()
 
-            flash(u'Add new artist successfully', 'success')
+            flash(u'Add new artist success', 'success')
 
             if not uploadfailed:
                 return redirect(url_for('bp_admin_artist.list'))
@@ -104,8 +104,8 @@ def edit(id):
             # flush data
             db.session.commit()
 
-            flash(u'Update artist successfully', 'success')
-            return redirect(url_for('bp_admin_artist.edit', id=artist.id))
+            flash(u'Update artist success', 'success')
+            return redirect(url_for('bp_admin_artist.edit', id=id))
         else:
             error_message = validator.catch_errors(form.errors)
             flash(error_message, 'error')
