@@ -8,7 +8,7 @@
     <meta name="author" content="lowrain">
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='bootstrap/css/bootstrap.css') }}">
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='bootstrap/css/bootstrap-responsive.css') }}">
-{#     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='FlatUI/css/flat-ui.css') }}">#}
+    {#     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='FlatUI/css/flat-ui.css') }}">#}
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='FontAwesome/css/font-awesome.css') }}">
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='dataTables/css/jquery.dataTables.css') }}">
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='select2/css/select2.css') }}">
@@ -41,8 +41,9 @@
                 </a>
                 <a class="brand" href="/index.html"><i class="icon-home"></i> {{ config['APP_NAME'] }}</a>
                 <ul class="nav">
-                    <li class="{% block active_tabs %}{% endblock %}"><a href="{{ url_for('bp_admin_tab.list') }}"><i class="icon-music"></i> Tabs</a></li>
                     <li class="{% block active_dashboard %}{% endblock %}"><a href="{{ url_for('bp_admin_administrator.list') }}"><i class="icon-dashboard"></i> Dashboard</a></li>
+                    <li class="{% block active_tabs %}{% endblock %}"><a href="{{ url_for('bp_admin_tab.list') }}"><i class="icon-music"></i> Tabs</a></li>
+                <li><a href="javascript:void(0)"><i class="icon-envelope"></i> Feedbacks</a></li>
                 </ul>
                 <ul class="nav pull-right">
                     <li class="dropdown">

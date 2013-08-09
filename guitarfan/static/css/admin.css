@@ -42,7 +42,6 @@ body {
     padding: 15px 0 15px 20px;
 }
 
-
 .form-actions.fixed{
     position: fixed;
     _position: absolute;
@@ -65,10 +64,14 @@ body {
     font-weight:bold;
 }
 
-
 /*
  * DataTable Styles
  */
+div.dataTables_wrapper .dataTables_length label,
+div.dataTables_wrapper .dataTables_filter label,
+div.dataTables_wrapper .dataTables_paginate ul {
+    font-size: 12px;
+}
 
 div.dataTables_length label {
     float: left;
@@ -83,6 +86,10 @@ div.dataTables_filter label {
     float: right;
 }
 
+div.dataTables_filter input {
+    margin-bottom: 0;
+}
+
 div.dataTables_info {
     padding-top: 8px;
 }
@@ -92,9 +99,9 @@ div.dataTables_paginate {
     margin: 0;
 }
 
-table.table {
+table.gridTable {
     clear: both;
-    margin-bottom: 6px !important;
+    margin-bottom: 5px;
     max-width: none !important;
 }
 
