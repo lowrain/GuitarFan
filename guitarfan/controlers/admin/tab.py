@@ -36,7 +36,7 @@ def add():
     elif request.method == 'POST':
         if form.validate_on_submit():
             tab = Tab(str(uuid1()), form.tab_title.data, form.format.data, form.artist.data, form.difficulty.data,
-                      form.style.data, form.audio_url.data)
+                      form.style.data, form.audio_url.data, form.tags.data)
             db.session.add(tab)
             db.session.commit()
             flash(u'Add new tab success, please upload tab files', 'success')
@@ -49,9 +49,9 @@ def add():
 @bp_admin_tab.route('/admin/tabs/<string:id>', methods=['GET', 'POST'])
 @login_required
 def edit(id):
-    tab = Tab.query.filter_by(id=id).first()
+    tab = Tab.query.get(id)
     form = TabFrom(id=tab.id, tab_title=tab.title, format=tab.format_id, difficulty=tab.difficulty_id,
-                   style=tab.style_id, tags=tab.tags, audio_url=tab.audio_url, artist=tab.artist_id)
+                   style=tab.style_id, audio_url=tab.audio_url, tags=tab.tags, artist=tab.artist_id)
     if request.method == 'GET':
         return render_template('tab_management.html', action='edit', form=form, artist=tab.artist)
     elif request.method == 'POST':
@@ -62,6 +62,7 @@ def edit(id):
             tab.style_id = form.style.data
             tab.artist_id = form.artist.data
             tab.audio_url = form.audio_url.data
+            tab.set_tags(form.tags.data)
             db.session.commit()
             flash(u'Update tab success', 'success')
             return redirect(url_for('bp_admin_tab.edit', id=id))
@@ -74,7 +75,7 @@ def edit(id):
 @login_required
 def delete():
     tab_id = request.values['id']
-    tab = Tab.query.filter_by(id=tab_id).first()
+    tab = Tab.query.get(tab_id)
     db.session.delete(tab)
     db.session.commit()
 

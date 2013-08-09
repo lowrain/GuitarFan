@@ -3,12 +3,14 @@
 
 import time
 from guitarfan.extensions.flasksqlalchemy import db
+from guitarfan.models.tag import Tag
 from enums import *
+
 
 # tag-tab link table
 tag_tab = db.Table('tag_tab',
-                   db.Column('tag_id', db.Integer, db.ForeignKey('tag.id', ondelete='CASCADE'), primary_key=True),
-                   db.Column('tab_id', db.Integer, db.ForeignKey('tab.id', ondelete='CASCADE')), primary_key=True)
+                   db.Column('tag_id', db.Integer, db.ForeignKey('tag.id')),
+                   db.Column('tab_id', db.Integer, db.ForeignKey('tab.id')))
 
 class Tab(db.Model):
     __tablename__ = 'tab'
@@ -22,10 +24,10 @@ class Tab(db.Model):
     artist_id = db.Column(db.String(50), db.ForeignKey('artist.id'))
     hits = db.Column(db.Integer, nullable=False, default=0)
     update_time = db.Column(db.String(20), nullable=False)
-    tags = db.relationship('Tag', secondary=tag_tab, lazy='dynamic', passive_deletes=True)
+    tags = db.relationship('Tag', secondary=tag_tab, backref='tabs')
     tabfiles = db.relationship('TabFile', backref='tab', cascade='all,delete-orphan', lazy='dynamic', passive_deletes=True)
 
-    def __init__(self, id, title, format_id, artist_id, difficulty_id, style_id, audio_url):
+    def __init__(self, id, title, format_id, artist_id, difficulty_id, style_id, audio_url, tags):
         self.id = id
         self.title = title
         self.format_id = format_id
@@ -34,8 +36,8 @@ class Tab(db.Model):
         self.style_id = style_id
         self.audio_url = audio_url
         self.hit = 0
-        # self.tags = tags
         self.update_time = time.strftime('%Y-%m-%d %H:%M:%S')
+        self.set_tags(tags)
 
     def __repr__(self):
         return '<Tab %r>' % self.title
@@ -52,3 +54,14 @@ class Tab(db.Model):
     def format_text(self):
         return TabFormat.get_item_text(self.format_id)
 
+    def set_tags(self, tags):
+        while self.tags:
+            del self.tags[0]
+        if tags:
+            for tag in tags:
+                if isinstance(tag, Tag):
+                    self.tags.append(Tag.query.get(tag.id))
+
+    def append_tag(self, tag):
+        if isinstance(tag, Tag):
+            self.tags.append(Tag.query.get(tag.id))

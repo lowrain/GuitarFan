@@ -40,7 +40,6 @@ def add():
     form = ArtistFrom()
     if request.method == 'GET':
         return render_template('artist_management.html', action='add', form=form)
-
     elif request.method == 'POST':
         if form.validate_on_submit():
             artist_id = str(uuid1())
@@ -79,7 +78,7 @@ def add():
 @bp_admin_artist.route('/admin/artists/<string:id>', methods=['GET', 'POST'])
 @login_required
 def edit(id):
-    artist = Artist.query.filter_by(id=id).first()
+    artist = Artist.query.get(id)
     form = ArtistFrom(id=artist.id, name=artist.name, letter=artist.letter, photo=artist.letter,
                       region=artist.region_id, category=artist.category_id)
 
@@ -115,7 +114,7 @@ def edit(id):
 @bp_admin_artist.route('/admin/artists', methods=['DELETE'])
 @login_required
 def delete():
-    artist = Artist.query.filter_by(id=request.values['id']).first()
+    artist = Artist.query.get(request.values['id'])
     if artist.tabs.count() == 0:
         db.session.delete(artist)
         db.session.commit()

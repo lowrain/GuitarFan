@@ -20,7 +20,7 @@ bp_admin_tabfile = Blueprint('bp_admin_tabfile', __name__, template_folder="../.
 @bp_admin_tabfile.route('/admin/tabfiles/<string:tab_id>', methods=['GET', 'PUT'])
 @login_required
 def edit(tab_id):
-    tab = Tab.query.filter_by(id=tab_id).first()
+    tab = Tab.query.get(tab_id)
     if request.method == 'GET':
         if 'show_wizard' in request.args:
             return render_template('tabfile_edit.html', tab=tab, show_wizard=request.args['show_wizard'])
@@ -38,7 +38,7 @@ def edit(tab_id):
 @bp_admin_tabfile.route('/admin/tabfiles', methods=['DELETE'])
 @login_required
 def delete():
-    tabfile = TabFile.query.filter_by(id=request.values['id']).first()
+    tabfile = TabFile.query.get(request.values['id'])
     db.session.delete(tabfile)
     db.session.commit()
     try:

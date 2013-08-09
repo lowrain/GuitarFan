@@ -42,7 +42,7 @@ def add():
 @bp_admin_tag.route('/admin/tags/<string:id>', methods=['GET', 'POST'])
 @login_required
 def edit(id):
-    tag = Tag.query.filter_by(id=id).first()
+    tag = Tag.query.get(id)
     form = TagFrom(id=tag.id, name=tag.name)
     if request.method == 'GET':
         return render_template('tag_management.html', action='edit', form=form)
@@ -61,7 +61,7 @@ def edit(id):
 @login_required
 def delete():
     tag_id = request.values['id']
-    tag = Tag.query.filter_by(id=tag_id).first()
+    tag = Tag.query.get(id=tag_id)
     db.session.delete(tag)
     db.session.commit()
     return 'success'

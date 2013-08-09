@@ -91,7 +91,7 @@ def add():
 @bp_admin_administrator.route('/admin/administrators/<string:id>', methods=['GET', 'POST'])
 @login_required
 def edit(id):
-    administrator = Administrator.query.filter_by(id=id).first()
+    administrator = Administrator.query.get(id)
     form = EditAdministratorForm(status=administrator.status)
     if request.method == 'GET':
         return render_template('dashboard/administrator_management.html', action='edit', form=form, administrator=administrator)
@@ -113,7 +113,7 @@ def edit(id):
 @bp_admin_administrator.route('/admin/administrators', methods=['DELETE'])
 @login_required
 def delete():
-    administrator = Administrator.query.filter_by(id=request.values['id']).first()
+    administrator = Administrator.query.get(request.values['id'])
     db.session.delete(administrator)
     db.session.commit()
     # flash(u'Delete administrator successfully', 'success')
@@ -135,7 +135,7 @@ def delete():
 @bp_admin_administrator.route('/admin/administrators/<string:id>/status/<int:status>')
 @login_required
 def update_status(id, status):
-    administrator = Administrator.query.filter_by(id=id).first()
+    administrator = Administrator.query.get(id)
     administrator.status = status
     db.session.commit()
 
