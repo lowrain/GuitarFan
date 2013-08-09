@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from sqlalchemy import func
+
 import time
 from guitarfan.extensions.flasksqlalchemy import db
 

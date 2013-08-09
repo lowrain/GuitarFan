@@ -4,7 +4,7 @@
 from uuid import uuid1
 
 from flask import render_template, request, redirect, url_for, flash, Blueprint
-from flask.ext.login import login_user, logout_user, login_required
+from flask.ext.login import login_user, logout_user, login_required, current_user
 from sqlalchemy import or_
 
 from guitarfan.models.administrator import Administrator
@@ -99,8 +99,8 @@ def edit(id):
         if form.validate_on_submit():
             if 8 <= len(form.new_password.data) <= 20:
                 administrator.update_password(form.new_password.data)
-
-            administrator.status = form.status.data
+            if current_user.name != administrator.name:
+                administrator.status = form.status.data
             db.session.commit()
 
             flash(u'Update administrator successfully', 'success')
@@ -116,20 +116,7 @@ def delete():
     administrator = Administrator.query.get(request.values['id'])
     db.session.delete(administrator)
     db.session.commit()
-    # flash(u'Delete administrator successfully', 'success')
-    # return redirect(url_for('bp_admin_administrator.list'))
     return 'success'
-
-
-# @bp_admin_administrator.route('/admin/administrators/<string:id>', methods=['DELETE'])
-# @login_required
-# def delete(id):
-#     administrator = Administrator.query.filter_by(id=id).first()
-#     # db.session.delete(administrator)
-#     # db.session.commit()
-#     flash(u'Delete administrator successfully', 'success')
-#     # return redirect(url_for('bp_admin_administrator.list'))
-#     return 'true'
 
 
 @bp_admin_administrator.route('/admin/administrators/<string:id>/status/<int:status>')

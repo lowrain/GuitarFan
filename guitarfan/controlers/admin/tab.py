@@ -27,7 +27,6 @@ def list():
 @bp_admin_tab.route('/admin/tabs/add', methods=['GET', 'POST'])
 @login_required
 def add():
-    # TODO add tags fields
     artist_id = request.args['artist_id'] if 'artist_id' in request.args else ''
     form = TabFrom(artist=artist_id)
     if request.method == 'GET':
@@ -62,7 +61,6 @@ def edit(id):
             tab.style_id = form.style.data
             tab.artist_id = form.artist.data
             tab.audio_url = form.audio_url.data
-            tab.set_tags(form.tags.data)
             db.session.commit()
             flash(u'Update tab success', 'success')
             return redirect(url_for('bp_admin_tab.edit', id=id))

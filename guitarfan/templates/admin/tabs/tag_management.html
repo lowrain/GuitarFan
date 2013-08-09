@@ -3,7 +3,7 @@
 {% block active_tabs_tag %}active{% endblock %}
 
 {% block main %}
-    <div class="span9">
+    <div class="span10">
         {% if action == 'list' %}
             <ul class="breadcrumb">
                 <li>Tabs <span class="divider">/</span></li>
@@ -33,7 +33,7 @@
                 {% for tag in tags %}
                     <tr>
                         <td>{{ tag.name }}</td>
-                        <td class="text-center">{{ tag.tabs.count() }}</td>
+                        <td class="text-center">{{ tag.tabs|length }}</td>
                         <td class="text-center">{{ tag.update_time }}</td>
                         <td class="text-center">
                             <div class="dropdown related_menu">
