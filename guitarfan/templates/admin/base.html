@@ -43,7 +43,7 @@
                 <ul class="nav">
                     <li class="{% block active_dashboard %}{% endblock %}"><a href="{{ url_for('bp_admin_administrator.list') }}"><i class="icon-dashboard"></i> Dashboard</a></li>
                     <li class="{% block active_tabs %}{% endblock %}"><a href="{{ url_for('bp_admin_tab.list') }}"><i class="icon-music"></i> Tabs</a></li>
-                <li><a href="javascript:void(0)"><i class="icon-envelope"></i> Feedbacks</a></li>
+                    <li><a href="javascript:void(0)"><i class="icon-envelope"></i> Feedbacks</a></li>
                 </ul>
                 <ul class="nav pull-right">
                     <li class="dropdown">
@@ -73,7 +73,8 @@
                 Theme by <a href="http://twitter.github.com/bootstrap" target="_blank">Twitter Bootstrap</a>,
                 Power by <a href="http://flask.pocoo.org/" target="_blank">Python/Flask</a>.</p>
         </div>
-        <script src="{{ url_for('static', filename='FlatUI/js/jquery-1.8.3.min.js') }}"></script>
+        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script type="text/javascript">window.jQuery || document.write('<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js') }}"><\/script>')</script>
         <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
         <script src="{{ url_for('static', filename='select2/js/select2.min.js') }}"></script>
         <script src="{{ url_for('static', filename='dataTables/js/jquery.dataTables.min.js') }}"></script>
