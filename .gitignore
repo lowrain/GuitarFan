@@ -8,6 +8,7 @@ init_db.py
 .DS_Store
 
 *.db
+*.json
 supervisord.conf
 
 /guitarfan/static/artists
