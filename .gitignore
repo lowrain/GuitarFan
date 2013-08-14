@@ -5,11 +5,14 @@ init_db.py
 *.key
 
 .idea
+*/.idea
 .DS_Store
 
 *.db
-*.json
 supervisord.conf
 
 /guitarfan/static/artists
 /guitarfan/static/tabs
+
+/tabcrawler/tabs
+/tabcrawler/json
