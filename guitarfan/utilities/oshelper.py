@@ -35,3 +35,8 @@ def upload_file(file, upload_path, new_filename):
     except Exception as e:
         flash(u'Upload file failed' + e.message + u'. Please try again!', 'warning')
         return ''
+
+
+def get_extension(fileName):
+    filename, extension = os.path.splitext(fileName)
+    return extension.lower()

@@ -1,5 +1,6 @@
 from urlparse import urljoin
 from urllib2 import *
+import json
 
 from scrapy.contrib.linkextractors.sgml import SgmlLinkExtractor
 from scrapy.contrib.spiders import CrawlSpider, Rule
@@ -17,8 +18,7 @@ class SoSoSpider(CrawlSpider):
     rules = (
         Rule(SgmlLinkExtractor(allow='singers/[a]\.htm', tags='a'), follow=True),
         # Rule(SgmlLinkExtractor(allow='search/4_.+\.htm', tags='a'), callback='parse_tab_item'),
-        Rule(SgmlLinkExtractor(allow='search/4_734b7a4270722f4c774c50473162625a\.htm', tags='a'), callback='parse_tab_item'),
-        # Rule(SgmlLinkExtractor(allow='search/\d{5}\.htm', tags='a'), callback='parse_tab_item'),
+        Rule(SgmlLinkExtractor(allow='search/4_734b4c466f773d3d\.htm', tags='a'), callback='parse_tab_item'),
     )
 
     def parse_artist_item(self, response):
@@ -50,10 +50,12 @@ class SoSoSpider(CrawlSpider):
 
         hxs = HtmlXPathSelector(response)
 
+        artist = hxs.select('//p[1]/strong/span/text()').extract()[0]
 
-        artist = hxs.select('//p[1]').select('strong/span/text()').extract()[0]
+        if not filter_artist(artist):
+            return
 
-        title_links = hxs.select('//p[2]').select("a[contains(@href, '.htm')]")
+        title_links = hxs.select("//p[2]/a[contains(@href, '.htm')]")
         for index, link in enumerate(title_links):
             tab_type = link.select('following-sibling::text()').extract()[0].strip()
             if tab_type == 'img':
@@ -65,6 +67,7 @@ class SoSoSpider(CrawlSpider):
                 request = Request(tab_url, callback=self.parse_imgs)
                 request.meta['item'] = item
                 yield request
+                # yield item
 
 
     def parse_imgs(self, response):
@@ -82,6 +85,16 @@ class SoSoSpider(CrawlSpider):
 
         return item
 
+
+def filter_artist(artist_name):
+    with open('json/soso_artists.json') as json_data:
+        letter_artist_list = json.load(json_data)
+
+    for letter_dict in letter_artist_list:
+        if artist_name in letter_dict['artists']:
+            return True
+
+    return False
 
 
 

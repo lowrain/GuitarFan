@@ -61,7 +61,7 @@ def edit(id):
 @login_required
 def delete():
     tag_id = request.values['id']
-    tag = Tag.query.get(id=tag_id)
+    tag = Tag.query.filter_by(id=tag_id).first()
     db.session.delete(tag)
     db.session.commit()
     return 'success'

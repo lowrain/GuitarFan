@@ -37,7 +37,9 @@ class Tab(db.Model):
         self.audio_url = audio_url
         self.hit = 0
         self.update_time = time.strftime('%Y-%m-%d %H:%M:%S')
-        self.set_tags(tags)
+        if tags:
+            self.set_tags(tags)
+
 
     def __repr__(self):
         return '<Tab %r>' % self.title
@@ -55,11 +57,12 @@ class Tab(db.Model):
         return TabFormat.get_item_text(self.format_id)
 
     def set_tags(self, value):
-        for tag in self.tags:
-            self.tags.remove(tag)
-        if value:
-            for tag in value:
-                self.append_tag(tag)
+        if self.tags:
+            for tag in self.tags:
+                self.tags.remove(tag)
+            if value:
+                for tag in value:
+                    self.append_tag(tag)
 
     def append_tag(self, tag):
         if tag and isinstance(tag, Tag):

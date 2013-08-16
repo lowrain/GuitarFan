@@ -147,7 +147,6 @@
                 if (response.error) {
                     return;
                 }
-
                 $.ajax({
                     url: '{{ url_for('bp_admin_tabfile.edit', tab_id=tab.id) }}',
                     type: 'PUT',

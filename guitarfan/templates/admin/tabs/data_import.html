@@ -1,0 +1,109 @@
+{% extends "tabs/base.html" %}
+
+{% block active_import_tag %}active{% endblock %}
+
+{% block main %}
+    <div class="span10">
+        <ul class="breadcrumb">
+            <li>Tabs <span class="divider">/</span></li>
+            <li>Import Data</li>
+        </ul>
+
+        {{ macro.feedback_message() }}
+
+        <div class="well">
+            <span class="label label-info">File Structure Sample:</span>
+            <p>
+                <small class="small" style="font-family: Monaco">
+                    |PathToDataSouceFolder<br>
+                    |----A<br>
+                    |&nbsp;&nbsp;&nbsp;&nbsp;|----ArtistA<br>
+                    |&nbsp;&nbsp;&nbsp;&nbsp;|----ArtistB<br>
+                    |&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|----TabA<br>
+                    |&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|----TabB<br>
+                    |&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|----File1<br>
+                    |&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|----File2<br>
+                    |----B<br>
+                    |----C<br>
+                    . . . . . .<br>
+                </small>
+            </p>
+            <input class="span7" id="import_path" name="import_path" type="text" placeholder="input data source path, such as '/FolderA/FolderB'">
+            <input class="btn btn-danger" id="submit" name="submit" type="submit" value="Import">
+            <div id="progressbar" style="width:250px; height:20px; display: none">
+                <div class="progress progress-striped active" style="display: none">
+                    <div class="bar" style="width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="well result-info" style="display: none">
+            <p class="label label-info">Import Result Information:</p>
+            <div class="content"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script>
+        $(function(){
+            $('#submit').click(function() {
+                $.ajax({
+                    url: '{{ url_for('bp_admin_data.data_import') }}',
+                    type: 'POST',
+                    data: {path: $('#import_path').val()},
+                    dataType: 'json',
+                    catch: false,
+                    beforeSend: function() { start_import() },
+                    complete: function() { end_import() },
+                    success: function(data) {
+                        var msg = ''
+                        if (data.result == 'success') {
+                            msg = '<p class="text-success">Imported artists: {0}</p>'.format(data.msg.artists);
+                            msg += '<p class="text-success">Imported tabs:  {0}</p>'.format(data.msg.tabs);
+                            for (error in data.msg.errors) {
+                                msg += '<p class="text-warning">Error: {0}/{1}/{2}/{3}</p>'.format(error.artist, error.tab, error.fileName, error.errorInfo);
+                            }
+                            msg += '</div>'
+                        }
+                        else {
+                            msg = '<p class="text-error">Import faild: {0}</div>'.format(data.msg);
+                        }
+                        $('.result-info .content').html(msg);
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                        msg = '<p class="text-error">Import faild: {0} - {1}</div>'.format(textStatus, errorThrown);
+                        $('.result-info .content').html(msg);
+                    }
+                });
+            });
+        });
+
+        function start_import() {
+            $('.progress').fadeIn();
+            $('input').prop('disabled', true);
+            $.fancybox.open({
+                href: '#progressbar',
+                modal: true,
+                minHeight: 20,
+                height:20,
+                closeBtn: false,
+                helpers : {
+                    overlay : {closeClick: false}
+                }
+            });
+        }
+
+        function end_import() {
+            $('.progress').fadeOut();
+            $('.result-info').show();
+            $('input').prop('disabled', false);
+            {#            $.fancybox({#}
+            {#                content: '<p class="text-success" style="margin-bottom:0">'+msg+'</p>',#}
+            {#                minHeight: 20,#}
+            {#                closeBtn: false#}
+            {#            });#}
+            $.fancybox.close();
+            $('.result-info').show();
+        }
+    </script>
+{% endblock %}

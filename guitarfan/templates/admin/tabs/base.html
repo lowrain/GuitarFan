@@ -18,8 +18,10 @@
                 <li class="{% block active_tabs_tag %}{% endblock %}">
                     <a href="{{ url_for('bp_admin_tag.list') }}"><i class="icon-tags"></i> Tags Mangement</a>
                 </li>
-                <li class="nav-header">Crawler</li>
-                <li><a href="javascript:void(0)"><i class="icon-bug"></i> Execute</a></li>
+                <li class="nav-header">Data</li>
+                <li class="{% block active_import_tag %}{% endblock %}">
+                    <a href="{{ url_for('bp_admin_data.data_import') }}"><i class="icon-rocket"></i> Import</a>
+                </li>
             </ul>
         </div>
     </div>

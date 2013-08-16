@@ -61,6 +61,7 @@ def edit(id):
             tab.style_id = form.style.data
             tab.artist_id = form.artist.data
             tab.audio_url = form.audio_url.data
+            tab.set_tags(form.tags.data)
             db.session.commit()
             flash(u'Update tab success', 'success')
             return redirect(url_for('bp_admin_tab.edit', id=id))
@@ -72,6 +73,9 @@ def edit(id):
 @bp_admin_tab.route('/admin/tabs', methods=['DELETE'])
 @login_required
 def delete():
+    if 'id' not in request.values:
+        return 'invalid id'
+
     tab_id = request.values['id']
     tab = Tab.query.get(tab_id)
     db.session.delete(tab)
