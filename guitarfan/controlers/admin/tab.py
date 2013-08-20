@@ -5,12 +5,13 @@ import os
 from uuid import uuid1
 import shutil
 
-from flask import render_template, request, redirect, url_for, flash, Blueprint
+from flask import render_template, request, redirect, url_for, flash, Blueprint, jsonify
 from flask.ext.login import login_required
+from sqlalchemy import func
 
 from guitarfan.extensions.flasksqlalchemy import db
-from guitarfan.utilities import oshelper
-from guitarfan.utilities import validator
+from guitarfan.utilities import oshelper, validator
+from guitarfan.utilities.datatables import ColumnDT, DataTables
 from guitarfan.models import *
 from forms.tab import *
 
@@ -22,6 +23,29 @@ bp_admin_tab = Blueprint('bp_admin_tab', __name__, template_folder="../../templa
 def list():
     tabs = Tab.query.all()
     return render_template('tab_management.html', action='list', tabs=tabs)
+
+
+@bp_admin_tab.route('/admin/tabs.json')
+@login_required
+def list_dataTables_json():
+    # defining columns
+    columns = []
+    columns.append(ColumnDT('title'))
+    columns.append(ColumnDT('artist.name'))
+    # columns.append(ColumnDT('format_text'))
+    # columns.append(ColumnDT('style_text'))
+    # columns.append(ColumnDT('difficulty_text'))
+    # columns.append(ColumnDT('hits'))
+    columns.append(ColumnDT('update_time'))
+
+    # defining the initial query depending on your purpose
+    query = Tab.query
+
+    # instantiating a DataTable for the query and table needed
+    rowTable = DataTables(request, Tab, query, columns)
+
+    # returns what is needed by DataTable
+    return jsonify(rowTable.output_result())
 
 
 @bp_admin_tab.route('/admin/tabs/add', methods=['GET', 'POST'])

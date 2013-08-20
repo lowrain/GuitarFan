@@ -73,7 +73,9 @@
                 Theme by <a href="http://twitter.github.com/bootstrap" target="_blank">Twitter Bootstrap</a>,
                 Power by <a href="http://flask.pocoo.org/" target="_blank">Python/Flask</a>.</p>
         </div>
-        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    </footer>
+
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script type="text/javascript">window.jQuery || document.write('<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js') }}"><\/script>')</script>
         <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
         <script src="{{ url_for('static', filename='select2/js/select2.min.js') }}"></script>
@@ -84,7 +86,7 @@
 
         <!-- TODO implement boostrap affix -->
         {% block script -%}{%- endblock %}
-    </footer>
+
 {%- endblock %}
 </body>
 </html>
