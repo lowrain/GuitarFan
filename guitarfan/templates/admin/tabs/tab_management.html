@@ -22,55 +22,22 @@
 
             <table class="gridTable table-hover table-bordered table-striped table-condensed">
                 <thead>
-                <tr>
-                    <th class="text-left" width="22%">title</th>
-                    <th width="12%">artist</th>
-{#                    <th width="8%">format</th>#}
-{#                    <th width="8%">style</th>#}
-{#                    <th width="8%">difficulty</th>#}
-{#                    <th width="8%">hits</th>#}
-{#                    <th width="8%">preview</th>#}
-                    <th width="18%">update time</th>
-                    {#                    <th></th>#}
-                </tr>
+                    <tr>
+                        <th class="text-left" width="25%">title</th>
+                        <th width="20%">artist</th>
+                        <th width="8%">format</th>
+                        <th width="8%">style</th>
+                        <th width="8%">difficulty</th>
+                        <th width="5%">hits</th>
+                        <th width="18%">update time</th>
+                        <th width="5%">files</th>
+                        <th></th>
+                    </tr>
                 </thead>
-                {#                <tbody>#}
-                {#                {% for tab in tabs %}#}
-                {#                    <tr>#}
-                {#                        <td>{{ tab.title }}</td>#}
-                {#                        <td class="text-center">{{ tab.artist.name }}</td>#}
-                {#                        <td class="text-center">{{ tab.format_text }}</td>#}
-                {#                        <td class="text-center">{{ tab.style_text }}</td>#}
-                {#                        <td class="text-center">{{ tab.difficulty_text }}</td>#}
-                {#                        <td class="text-center">{{ tab.hits }}</td>#}
-                {#                        <td class="text-center">#}
-                {#                            {% if tab.tabfiles.count() > 0 %}#}
-                {#                                <a href="javascript:void(0)" style="text-decoration: none;" class="preview_link" data-id="{{ tab.id }}" title="preview tab"><i class="icon-eye-open"></i></a>#}
-                {#                            {% else %}#}
-                {#                                <i class="icon-eye-close"></i>#}
-                {#                            {% endif %}#}
-                {#                        </td>#}
-                {#                        <td class="text-center">{{ tab.update_time }}</td>#}
-                {#                        <td class="text-center">#}
-                {#                            <div class="dropdown related_menu">#}
-                {#                                <a title="Related Objects" class="relate_menu dropdown-toggle" data-toggle="dropdown"><i class="icon icon-list"></i></a>#}
-                {#                                <ul class="dropdown-menu pull-right" role="menu">#}
-                {#                                    <li class="text-left"><a href="{{ url_for('bp_admin_tab.edit', id=tab.id) }}"><i class="icon-pencil"></i> Edit</a></li>#}
-                {#                                    <li class="divider"></li>#}
-                {#                                    {% if tab.format_id != 2 %}#}
-                {#                                        <li class="text-left"><a href="{{ url_for('bp_admin_tabfile.edit', tab_id=tab.id) }}"><i class="icon-file-text-alt"></i> Tab File(s)</a></li>#}
-                {#                                    {% endif %}#}
-                {#                                    <li class="text-left"><a href="javascript:void(0);" onclick="deleteTab('{{ tab.id }}', this)"><i class="icon-remove"></i> Delete</a></li>#}
-                {#                                </ul>#}
-                {#                            </div>#}
-                {#                        </td>#}
-                {#                    </tr>#}
-                {#                {% endfor %}#}
-                {#                </tbody>#}
                 <tbody>
-                <tr>
-                    <td colspan="5" class="dataTables_empty">Loading...</td>
-                </tr>
+                    <tr>
+                        <td colspan="5" class="dataTables_empty">Loading...</td>
+                    </tr>
                 </tbody>
             </table>
         {% elif action == 'add' %}
@@ -158,25 +125,14 @@
         }
 
         $(function() {
-            // TODO server side pagination
-            {#            $('.gridTable').dataTable({#}
-            {#                "aaSorting": [[ 7, "desc" ]],#}
-            {#                "sPaginationType": "bootstrap",#}
-            {#                aoColumnDefs: [#}
-            {#                    { "sType": "numeric", aTargets: [ 5 ]},#}
-            {#                    { "sType": "string", aTargets: [ 6 ]},#}
-            {#                    { bSortable: false, aTargets: [ -1 ]}#}
-            {#                ]#}
-            {#            });#}
-
-
             $('.gridTable').dataTable( {
                 'bProcessing': true,
                 'bServerSide': true,
                 'sAjaxSource': '{{ url_for('bp_admin_tab.list_dataTables_json') }}',
-                "sPaginationType": "bootstrap"
+                "sPaginationType": "bootstrap",
+                "aaSorting": [[ 6, "desc" ]],
+                "aoColumnDefs": [{ "sClass": "center", "aTargets": [ 2, 3, 4, 5, 6, 7 ] }]
             } );
-
 
             $(".artist_select2").select2({
                 placeholder: "select a artist",

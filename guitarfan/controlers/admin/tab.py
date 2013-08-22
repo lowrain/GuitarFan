@@ -32,14 +32,16 @@ def list_dataTables_json():
     columns = []
     columns.append(ColumnDT('title'))
     columns.append(ColumnDT('artist.name'))
-    # columns.append(ColumnDT('format_text'))
-    # columns.append(ColumnDT('style_text'))
-    # columns.append(ColumnDT('difficulty_text'))
-    # columns.append(ColumnDT('hits'))
+    columns.append(ColumnDT('format_id', None, format_text))
+    columns.append(ColumnDT('style_id', None, style_text))
+    columns.append(ColumnDT('difficulty_id', None, difficulty_text))
+    columns.append(ColumnDT('hits'))
     columns.append(ColumnDT('update_time'))
+    columns.append(ColumnDT('id', None, tabfiles_preview))
+    columns.append(ColumnDT('id', None, operations))
 
     # defining the initial query depending on your purpose
-    query = Tab.query
+    query = Tab.query.join(Artist)
 
     # instantiating a DataTable for the query and table needed
     rowTable = DataTables(request, Tab, query, columns)
@@ -112,3 +114,52 @@ def delete():
     except Exception as e:
         return '%s: %s' % ('error:', e.message)
     return 'success'
+
+
+# dataTables filter methods
+def difficulty_text(difficulty_id):
+    return DifficultyDegree.get_item_text(difficulty_id)
+
+
+def style_text(style_id):
+    return MusicStyle.get_item_text(style_id)
+
+
+def format_text(format_id):
+    return TabFormat.get_item_text(format_id)
+
+
+def tabfiles_preview(id):
+    tabfiles = TabFile.query.filter_by(tab_id=id)
+    if tabfiles and tabfiles.count() > 0:
+        return '<a href="javascript:void(0)" style="text-decoration: none;" class="preview_link" data-id="%s" ' \
+               'title="preview tab"><i class="icon-eye-open"></i></a>' % id
+    else:
+        return '<i class="icon-eye-close"></i>'
+
+
+def operations(id):
+    tab = Tab.query.get(id)
+
+    if not tab:
+        return ''
+
+    html = """
+    <div class="dropdown related_menu">
+        <a title="Related Objects" class="relate_menu dropdown-toggle" data-toggle="dropdown"><i class="icon icon-list"></i></a>
+        <ul class="dropdown-menu pull-right" role="menu">
+        <li class="text-left"><a href="%s"><i class="icon-pencil"></i> Edit</a></li>
+            <li class="divider"></li>
+    """ % url_for('bp_admin_tab.edit', id=id)
+
+    if tab.format_id != 2:
+         html += '<li class="text-left"><a href="%s"><i class="icon-file-text-alt"></i> Tab File(s)</a></li>' \
+                 % url_for('bp_admin_tabfile.edit', tab_id=id)
+
+    html += """
+            <li class="text-left"><a href="javascript:void(0);" onclick="deleteTab('%s', this)"><i class="icon-remove"></i> Delete</a></li>
+        </ul>
+    </div>
+    """ % id
+
+    return html
