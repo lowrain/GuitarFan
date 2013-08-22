@@ -23,20 +23,20 @@
             <table class="gridTable table-hover table-bordered table-striped table-condensed">
                 <thead>
                     <tr>
-                        <th class="text-left" width="25%">title</th>
-                        <th width="20%">artist</th>
+                        <th width="23%" class="text-left">title</th>
+                        <th width="20%" class="text-left">artist</th>
                         <th width="8%">format</th>
                         <th width="8%">style</th>
                         <th width="8%">difficulty</th>
-                        <th width="5%">hits</th>
-                        <th width="18%">update time</th>
-                        <th width="5%">files</th>
+                        <th width="6%">hits</th>
+                        <th width="6%">files</th>
+                        <th width="16%" class="text-left">update time</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td colspan="5" class="dataTables_empty">Loading...</td>
+                        <td colspan="9" class="dataTables_empty">Loading...</td>
                     </tr>
                 </tbody>
             </table>
@@ -107,7 +107,7 @@
 
 {% block script %}
     <script type="text/javascript" charset="utf-8">
-        function deleteTab(id, link) {
+        function deleteTab(id) {
             if (confirm('Are you sure you want to delete this tab?')) {
                 $.ajax({
                     url: '{{ url_for('bp_admin_tab.delete') }}',
@@ -116,7 +116,7 @@
                     dataType: "text",
                     success: function(result) {
                         if (result == 'success')
-                            $(link).closest('tr').remove();
+                            dataTable.fnDraw();
                         else
                             alert(result);
                     }
@@ -125,13 +125,15 @@
         }
 
         $(function() {
-            $('.gridTable').dataTable( {
-                'bProcessing': true,
+            dataTable = $('.gridTable').dataTable( {
                 'bServerSide': true,
                 'sAjaxSource': '{{ url_for('bp_admin_tab.list_dataTables_json') }}',
                 "sPaginationType": "bootstrap",
-                "aaSorting": [[ 6, "desc" ]],
-                "aoColumnDefs": [{ "sClass": "center", "aTargets": [ 2, 3, 4, 5, 6, 7 ] }]
+                "aaSorting": [[ 7, "desc" ]],
+                "aoColumnDefs": [
+                    { "sClass": "center", "aTargets": [ 2, 3, 4, 5, 6, -1 ] },
+                    { bSortable: false, aTargets: [ -1 ]}
+                ]
             } );
 
             $(".artist_select2").select2({

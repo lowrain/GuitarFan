@@ -25,22 +25,22 @@ def list():
     return render_template('tab_management.html', action='list', tabs=tabs)
 
 
-@bp_admin_tab.route('/admin/tabs.json')
+@bp_admin_tab.route('/admin/tabs.dataTables_json')
 @login_required
 def list_dataTables_json():
     # defining columns
     columns = []
     columns.append(ColumnDT('title'))
     columns.append(ColumnDT('artist.name'))
-    columns.append(ColumnDT('format_id', None, format_text))
-    columns.append(ColumnDT('style_id', None, style_text))
-    columns.append(ColumnDT('difficulty_id', None, difficulty_text))
+    columns.append(ColumnDT('format_id', None, col_format))
+    columns.append(ColumnDT('style_id', None, col_style))
+    columns.append(ColumnDT('difficulty_id', None, col_difficulty))
     columns.append(ColumnDT('hits'))
+    columns.append(ColumnDT('id', None, col_files_preview))
     columns.append(ColumnDT('update_time'))
-    columns.append(ColumnDT('id', None, tabfiles_preview))
-    columns.append(ColumnDT('id', None, operations))
+    columns.append(ColumnDT('id', None, col_operations))
 
-    # defining the initial query depending on your purpose
+    # defining the initial query
     query = Tab.query.join(Artist)
 
     # instantiating a DataTable for the query and table needed
@@ -117,19 +117,19 @@ def delete():
 
 
 # dataTables filter methods
-def difficulty_text(difficulty_id):
+def col_difficulty(difficulty_id):
     return DifficultyDegree.get_item_text(difficulty_id)
 
 
-def style_text(style_id):
+def col_style(style_id):
     return MusicStyle.get_item_text(style_id)
 
 
-def format_text(format_id):
+def col_format(format_id):
     return TabFormat.get_item_text(format_id)
 
 
-def tabfiles_preview(id):
+def col_files_preview(id):
     tabfiles = TabFile.query.filter_by(tab_id=id)
     if tabfiles and tabfiles.count() > 0:
         return '<a href="javascript:void(0)" style="text-decoration: none;" class="preview_link" data-id="%s" ' \
@@ -138,7 +138,7 @@ def tabfiles_preview(id):
         return '<i class="icon-eye-close"></i>'
 
 
-def operations(id):
+def col_operations(id):
     tab = Tab.query.get(id)
 
     if not tab:
@@ -153,11 +153,14 @@ def operations(id):
     """ % url_for('bp_admin_tab.edit', id=id)
 
     if tab.format_id != 2:
-         html += '<li class="text-left"><a href="%s"><i class="icon-file-text-alt"></i> Tab File(s)</a></li>' \
-                 % url_for('bp_admin_tabfile.edit', tab_id=id)
+         html += """
+            <li class="text-left"><a href="%s"><i class="icon-file-text-alt"></i> Tab File(s)</a></li>
+            """ % url_for('bp_admin_tabfile.edit', tab_id=id)
 
     html += """
-            <li class="text-left"><a href="javascript:void(0);" onclick="deleteTab('%s', this)"><i class="icon-remove"></i> Delete</a></li>
+            <li class="text-left"><a href="javascript:void(0);" onclick="deleteTab('%s')">
+                <i class="icon-remove"></i> Delete</a>
+            </li>
         </ul>
     </div>
     """ % id

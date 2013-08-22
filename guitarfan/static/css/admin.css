@@ -95,6 +95,7 @@ div.dataTables_filter input {
 
 div.dataTables_info {
     padding-top: 8px;
+    font-size: 12px;
 }
 
 div.dataTables_paginate {
@@ -209,7 +210,6 @@ div.DTTT_print_info p {
     font-size: 14px;
     line-height: 20px;
 }
-
 
 
 /*

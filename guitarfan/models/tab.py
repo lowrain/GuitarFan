@@ -44,17 +44,17 @@ class Tab(db.Model):
     def __repr__(self):
         return '<Tab %r>' % self.title
 
-    # @property
-    # def difficulty_text(self):
-    #     return DifficultyDegree.get_item_text(self.difficulty_id)
-    #
-    # @property
-    # def style_text(self):
-    #     return MusicStyle.get_item_text(self.style_id)
-    #
-    # @property
-    # def format_text(self):
-    #     return TabFormat.get_item_text(self.format_id)
+    @property
+    def difficulty_text(self):
+        return DifficultyDegree.get_item_text(self.difficulty_id)
+
+    @property
+    def style_text(self):
+        return MusicStyle.get_item_text(self.style_id)
+
+    @property
+    def format_text(self):
+        return TabFormat.get_item_text(self.format_id)
 
     def set_tags(self, value):
         if self.tags:

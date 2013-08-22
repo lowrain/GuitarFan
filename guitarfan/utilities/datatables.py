@@ -7,6 +7,8 @@ from sqlalchemy.orm.properties import RelationshipProperty
 
 from collections import namedtuple
 
+
+# TODO still has chinese string sorting issue
 ColumnTuple = namedtuple('ColumnDT', ['column_name', 'mData', 'filter'])
 
 

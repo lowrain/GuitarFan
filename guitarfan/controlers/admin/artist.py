@@ -12,7 +12,8 @@ from werkzeug.utils import secure_filename
 
 from guitarfan.models import *
 from guitarfan.extensions.flasksqlalchemy import db
-import guitarfan.utilities.oshelper as oshelper
+from guitarfan.utilities import oshelper, validator
+from guitarfan.utilities.datatables import ColumnDT, DataTables
 from forms.artist import *
 
 bp_admin_artist = Blueprint('bp_admin_artist', __name__, template_folder="../../templates/admin/tabs")
@@ -23,6 +24,30 @@ bp_admin_artist = Blueprint('bp_admin_artist', __name__, template_folder="../../
 def list():
     artists = Artist.query.all()
     return render_template('artist_management.html', action='list', artists=artists)
+
+
+@bp_admin_artist.route('/admin/artists.dataTables_json')
+@login_required
+def list_dataTables_json():
+    # defining columns
+    columns = []
+    columns.append(ColumnDT('letter', None, col_letter))
+    columns.append(ColumnDT('name'))
+    columns.append(ColumnDT('region_id', None, col_region))
+    columns.append(ColumnDT('category_id', None, col_category))
+    columns.append(ColumnDT('id', None, col_tabs))
+    columns.append(ColumnDT('id', None, col_photo))
+    columns.append(ColumnDT('update_time'))
+    columns.append(ColumnDT('id', None, col_operations))
+
+    # defining the initial query
+    query = Artist.query
+
+    # instantiating a DataTable for the query and table needed
+    rowTable = DataTables(request, Artist, query, columns)
+
+    # returns what is needed by DataTable
+    return jsonify(rowTable.output_result())
 
 
 # TODO move this method to API controller
@@ -121,3 +146,54 @@ def delete():
         return 'success'
     else:
         return u"This artist still has tab(s), can't delete"
+
+
+# dataTables filter methods
+def col_letter(letter):
+    return '<span class="label label-info">%s</span>' % letter
+
+
+def col_region(region_id):
+    return ArtistRegion.get_item_text(region_id)
+
+
+def col_category(category_id):
+    return ArtistCategory.get_item_text(category_id)
+
+
+def col_tabs(id):
+    total_tabs = Tab.query.filter_by(artist_id=id).count()
+    return total_tabs
+
+
+def col_photo(id):
+    artist = Artist.query.get(id)
+    if artist and artist.photo and artist.photo != '':
+        return '<a href="%s" style="text-decoration: none;" class="preview_link"><i class="icon-eye-open"></i></a>' % artist.photo_relative_path
+    else:
+        return '<i class="icon-eye-close"></i>'
+
+
+def col_operations(id):
+    html = """
+    <div class="dropdown related_menu">
+        <a title="Related Objects" class="relate_menu dropdown-toggle" data-toggle="dropdown"><i class="icon icon-list"></i></a>
+        <ul class="dropdown-menu pull-right" role="menu">
+            <li class="text-left"><a href="%s"><i class="icon-pencil"></i> Edit</a></li>
+            <li class="divider"></li>
+            <li class="text-left"><a href="%s"><i class="icon-plus"></i> Add Tab</a></li>
+    """ % (url_for('bp_admin_artist.edit', id=id), url_for('bp_admin_tab.add', artist_id=id))
+
+    if col_tabs(id) == 0:
+        html += """
+            <li class="text-left"><a href="javascript:void(0);" onclick="deleteArtist('%s')">
+                <i class="icon-remove"></i> Delete</a>
+            </li>
+        """ % id
+
+    html += """
+        </ul>
+    </div>
+    """
+
+    return html

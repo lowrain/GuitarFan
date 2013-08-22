@@ -23,9 +23,9 @@
             <table class="gridTable table-hover table-bordered table-striped table-condensed">
                 <thead>
                 <tr>
-                    <th width="52%">tag name</th>
-                    <th width="15%">tabs</th>
-                    <th width="25%">update time</th>
+                    <th width="73%" class="text-left">tag name</th>
+                    <th width="6%">tabs</th>
+                    <th width="16%" class="text-left">update time</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -34,7 +34,7 @@
                     <tr>
                         <td>{{ tag.name }}</td>
                         <td class="text-center">{{ tag.tabs|length }}</td>
-                        <td class="text-center">{{ tag.update_time }}</td>
+                        <td>{{ tag.update_time }}</td>
                         <td class="text-center">
                             <div class="dropdown related_menu">
                                 <a title="Related Objects" class="relate_menu dropdown-toggle" data-toggle="dropdown"><i class="icon icon-list"></i></a>
