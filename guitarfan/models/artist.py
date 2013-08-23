@@ -13,7 +13,7 @@ class Artist(db.Model):
 
     id = db.Column(db.String(50), primary_key=True, unique=True)
     name = db.Column(db.String(50), nullable=False)
-    letter = db.Column(db.String(1))
+    letter = db.Column(db.String(5))
     photo = db.Column(db.String)
     region_id = db.Column(db.Integer, nullable=False, default=1)
     category_id = db.Column(db.Integer, nullable=False, default=1)

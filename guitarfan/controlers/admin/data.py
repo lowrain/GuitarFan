@@ -57,7 +57,7 @@ def data_import():
                 # create artist if not exist or just fetch it
                 artist = Artist.query.filter_by(name=artist_dir_name).first()
                 if artist is None:
-                    artist = Artist(str(uuid1()), artist_dir_name, '', '', 1, 0)
+                    artist = Artist(str(uuid1()), artist_dir_name, letter_dir_name, '', 1, 1)
                     db.session.add(artist)
                     result_info['artists'] += 1
 

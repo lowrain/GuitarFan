@@ -15,8 +15,8 @@ def get_letter_choices():
     letterChoices = []
     for l in letters:
         letterChoices.append((l, l))
-
-    letterChoices.append(('0', 'Other'))
+    letterChoices.append(('0-9', '0-9'))
+    letterChoices.append(('Other', 'Other'))
     return letterChoices
 
 
