@@ -1,7 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from flask.ext.wtf import Form, TextField, HiddenField, SubmitField, HiddenInput, Required
+from flask.ext.wtf import Form
+from wtforms.fields import TextField, HiddenField, SubmitField
+from wtforms.widgets import HiddenInput
+from wtforms.validators import Required
 
 from guitarfan.utilities import validator
 from guitarfan.models import *

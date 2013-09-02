@@ -1,8 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from flask.ext.wtf import Form, TextField, HiddenField, SubmitField, SelectField, QuerySelectMultipleField, \
-    HiddenInput, Required, URL, Optional
+from flask.ext.wtf import Form
+from wtforms.fields import TextField, HiddenField, SubmitField, SelectField
+from wtforms.widgets import HiddenInput
+from wtforms.ext.sqlalchemy.fields import QuerySelectMultipleField
+from wtforms.validators import Required, URL, Optional
 
 from guitarfan.models import *
 

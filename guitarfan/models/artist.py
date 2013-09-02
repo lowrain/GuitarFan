@@ -13,11 +13,11 @@ class Artist(db.Model):
 
     id = db.Column(db.String(50), primary_key=True, unique=True)
     name = db.Column(db.String(50), nullable=False)
-    letter = db.Column(db.String(5))
+    letter = db.Column(db.String(5), nullable=False, index=True)
     photo = db.Column(db.String)
     region_id = db.Column(db.Integer, nullable=False, default=1)
     category_id = db.Column(db.Integer, nullable=False, default=1)
-    update_time = db.Column(db.String(20), nullable=False)
+    update_time = db.Column(db.String(20), nullable=False, index=True)
     tabs = db.relationship('Tab', backref='artist', cascade='all,delete-orphan', lazy='dynamic')
 
     def __init__(self, id, name, letter, photo, region_id, category_id):

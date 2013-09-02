@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from flask import current_app
-from flask.ext.wtf import ValidationError
+from wtforms.validators import ValidationError
 
 def catch_errors(errors):
     messages = ''

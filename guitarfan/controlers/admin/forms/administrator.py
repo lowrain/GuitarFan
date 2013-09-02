@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from flask.ext.wtf import Form, TextField, HiddenField, BooleanField, PasswordField, SubmitField, Required, EqualTo, \
-    Regexp, Email, Optional, length
+from flask.ext.wtf import Form
+from wtforms.fields import TextField, PasswordField, SubmitField, BooleanField
+from wtforms.validators import Required, Regexp, Email, Optional, EqualTo
 
 from guitarfan.utilities import validator
 from guitarfan.models.administrator import Administrator

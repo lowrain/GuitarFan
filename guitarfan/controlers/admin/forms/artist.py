@@ -2,8 +2,11 @@
 # -*- coding: utf-8 -*-
 
 import string
-from flask.ext.wtf import Form, StringField, TextField, HiddenField, BooleanField, PasswordField, SubmitField, \
-    SelectField, FileField, HiddenInput, Required, FileAllowed, FileRequired, EqualTo, Regexp, Email, length
+
+from wtforms.fields import TextField, HiddenField, SubmitField, SelectField, FileField
+from wtforms.widgets import HiddenInput
+from wtforms.validators import Required
+from flask.ext.wtf import Form
 
 from guitarfan.utilities import validator
 from guitarfan.models.artist import Artist
