@@ -74,7 +74,7 @@ class DifficultyDegree(EnumBase):
     intermediate = 2
     advanced = 3
 
-    _descriptions = {beginner: u'初级', intermediate: u'中级', advanced: u'高级'}
+    _descriptions = {beginner: u'入门', intermediate: u'中级', advanced: u'高级'}
 
 
 class TabFormat(EnumBase):

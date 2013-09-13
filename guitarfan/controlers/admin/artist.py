@@ -1,14 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import os
 from uuid import uuid1
 from random import random
 
-from flask import render_template, request, redirect, url_for, flash, Blueprint, current_app, jsonify
-from flask.ext.login import login_user, logout_user, login_required, current_user
-from sqlalchemy import or_
-from werkzeug.utils import secure_filename
+from flask import render_template, request, redirect, url_for, flash, Blueprint, jsonify
+from flask.ext.login import login_user, logout_user, login_required
 
 from guitarfan.models import *
 from guitarfan.extensions.flasksqlalchemy import db

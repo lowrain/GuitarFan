@@ -12,7 +12,7 @@ Guitar tabs web app for guitar fans, powered by Python/Flask, under developing..
 * Language: Python 2.7.2
 * Framework: Flask + Blueprint + Flask-Login + Flask-WTF
 * Architecture: MVC + RESTful
-* UI: Responsive by Bootstrap + Flat UI + FontAwesome + jQuery + jQuery.dataTables + FineUploader + select2 + fancyBox
+* UI: Responsive by Bootstrap2/3 + Flat UI + FontAwesome + jQuery + jQuery.dataTables + FineUploader + select2 + fancyBox
 * Data: SQLAlchemy + SQLite
 * IDE & Tools: PyCharm, SQLite Professional, iTerm, Git, and Google+ssh(what can I say - -#) of course...
 
