@@ -32,7 +32,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </a>
-                <a class="brand" href="/" target="_blank"><i class="icon-home"></i> {{ config['APP_NAME'] }}</a>
+                <a class="brand" href="/" target="_"><i class="icon-home"></i> {{ config['APP_NAME'] }}</a>
                 <ul class="nav">
                     <li class="{% block active_dashboard %}{% endblock %}"><a href="{{ url_for('bp_admin_administrator.list') }}"><i class="icon-dashboard"></i> Dashboard</a></li>
                     <li class="{% block active_tabs %}{% endblock %}"><a href="{{ url_for('bp_admin_tab.list') }}"><i class="icon-music"></i> Tabs</a></li>

@@ -1,0 +1,168 @@
+/*---------- Common Items ----------------------*/
+html,body {
+    /*-webkit-font-smoothing:antialiased;*/
+    height:100%;
+    font-family: Helvetica, Arial, sans-serif;
+    color: #999;
+    background-color:#fff;
+    font-size: 12px;
+}
+
+a {
+    color: #37a;
+}
+a:hover {
+    color: #fff;
+    /*font-family: Arial, Helvetica, sans-serif;*/
+    background-color: #37a;
+    text-decoration: none;
+}
+a.open-new-window {
+    color: #dedede;
+}
+a.open-new-window:hover {
+    color: #37a;
+    background-color: #fff;
+}
+.greyBox {
+    background-color: #f9f9f9;
+}
+/*---------- Common Items End ------------------*/
+/*---------- Navbar Customizations -------------*/
+.gt-navbar {
+    background:rgba(46,46,46,0.8);
+    /*font-weight: bold;*/
+    height: 54px;
+    border-bottom: 1px solid #333;
+}
+.gt-navbar .navbar-brand {
+    color: #fff;
+    padding-right: 30px;
+    font-size: 20px;
+}
+.gt-navbar .navbar-nav > li > a {
+    height: 53px;
+    color: #aaa;
+    font-size: 14px;
+}
+.gt-navbar .navbar-nav > li > a:hover {
+    background:rgba(46,46,46,0.8);
+}
+.gt-navbar .navbar-nav > li.active > a,
+.gt-navbar .navbar-nav > li.active > a:hover {
+    background:rgba(46,46,46,0.8);
+}
+.gt-navbar .navbar-nav > li.active:after {
+    position:absolute;
+    top:46px;
+    left:30px;
+    content:'';
+    border-left:8px solid transparent;
+    border-right:8px solid transparent;
+    border-bottom:8px solid #eee;
+}
+/*---------- Navbar Customizations END ----------*/
+/*---------- Landing ----------------------------*/
+.gt-landing {
+    background: url(../images/landing01.jpg) no-repeat center center;
+    /*margin-top: -60px;*/
+    /*padding-top:160px;*/
+    text-align:center;
+    margin-left:-2px;
+    margin-bottom: 20px;
+    padding-top: 220px;
+    height:300px;
+    -webkit-background-size:cover;
+    -moz-background-size:cover;
+    background-size:cover;
+    text-align: center;
+}
+/*---------- Landing END ------------------------*/
+/*---------- Tabs -------------------------------*/
+.gt-tabs {
+    border-bottom: 1px solid #ddd;
+}
+.gt-tabs .gt-icon-wrap {
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    background-color: #f9f9f9;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 25px;
+    color: #e84c3d;
+    text-align: center;
+}
+.gt-tabs h4 {
+    line-height: 40px;
+    margin-left: 15px;
+    font-size: 15px;
+    color: #aaa;
+}
+.gt-tabs ul {
+    padding: 0 10px;
+    /*background-color: #f9f9f9;*/
+    /*-webkit-border-radius: 5px;*/
+    /*-moz-border-radius: 5px;*/
+    /*border-radius: 5px;*/
+}
+.gt-tabs ul li {
+    padding: 3px 0;
+    border-bottom: 1px dashed #ddd;
+}
+.gt-tabs .label {
+    font-size: 9px;
+    /*background-color: #999;*/
+}
+.gt-tabs .gt-tabs-hot .badge {
+    margin-right: 5px;
+    padding: 2px 5px;
+    font-size: 11px;
+    color: #ffffff;
+    border-radius: 5px;
+}
+.gt-tabs .gt-tag a:hover {
+    background-color: #eee;
+}
+.gt-tabs .gt-tag h4
+{
+    background-color: #fff;
+    padding: 10px 10px;
+    margin: 0px;
+    color: #1ba5a0;
+    font-size: 13px;
+    line-height: 13px;
+    border-bottom: 1px solid #eee;
+}
+#stylecloud, #tagcloud {
+    padding: 5px 15px 10px 15px;
+}
+/*---------- Tabs END ---------------------------*/
+/*---------- Video ------------------------------*/
+.gt-video {
+    border-top: 1px solid #FFFDFD;
+    background: #F7F7F7;
+    padding: 20px 0;
+}
+/*---------- Video END --------------------------*/
+/*---------- Footer -----------------------------*/
+.footer {
+    background-color:#303133;
+    width:100%;
+    padding:30px 0;
+    color:#ccc;
+    text-align: center;
+    font-size: 12px;
+    border-top: solid 4px #c0392b;
+}
+.footer a {
+    font-size: 22px;
+    color:#ccc;
+    text-decoration: none;
+}
+.footer a:hover {
+    color:#e84c3d;
+    background-color: #303133;
+}
+/*---------- Footer END -------------------------*/

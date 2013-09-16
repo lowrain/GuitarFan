@@ -32,7 +32,7 @@ SQLALCHEMY_DATABASE_URI = 'sqlite:///' + APP_PATH + '/data/sqlite.db'
 
 # web config
 PORT = 8888
-HOST = '127.0.0.1'
+HOST = '0.0.0.0'
 SESSION_PROTECTION = 'strong'
 SECRET_KEY = 'b\n\x90\\\x13\x044Q\x9a>\x99v\x08\x8ez[\x11 \x82\x83'
 DEBUG = True

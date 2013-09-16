@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang=“zh-CN”>
 <head>
     <meta charset="utf-8">
     <title>Guitar123</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
     <meta name="description" content="">
     <meta name="author" content="lowrain">
     <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap3/css/bootstrap.css') }}" media="screen">
@@ -12,22 +13,321 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='bootflat/css/bootflat-extensions.css') }}" media="screen">
     <link rel="stylesheet" href="{{ url_for('static', filename='bootflat/css/bootflat-square.css') }}" media="screen">
     <link rel="stylesheet" href="{{ url_for('static', filename='fancybox/jquery.fancybox.css') }}" media="screen">
+    <link rel="stylesheet" href="{{ url_for('static', filename='jqcloud/jqcloud.css') }}" media="screen">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" media="screen">
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <script src="{{ url_for('static', filename='js/head.min.js') }}"></script>
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="{{ url_for('static', filename='bootflat/js/html5shiv.js') }}"></script>
     <script src="{{ url_for('static', filename='bootflat/js/respond.min.js') }}"></script>
     <![endif]-->
-    <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
 </head>
 <body>
-    <h1>Hello, world!</h1>
-    <script src="//code.jquery.com/jquery.js"></script>
-    <script type="text/javascript">window.jQuery || document.write('<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js') }}"><\/script>')</script>
-    <script src="{{ url_for('static', filename='bootstrap3/js/bootstrap.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='fancybox/jquery.fancybox.pack.js') }}"></script>
+<!-- navigation -->
+<header class="navbar navbar-inverse navbar-fixed-top gt-navbar">
+    <div class="container">
+        <div class="navbar-header">
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="/" class="navbar-brand"><i class="icon-apple"></i> Guitar123</a>
+        </div>
+        <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a href="/"><i class="icon-home"></i> 首页</a>
+                </li>
+                <li>
+                    <a href="/tabs"><i class="icon-file-text"></i> 曲谱</a>
+                </li>
+                <li>
+                    <a href="/video"><i class="icon-youtube-play"></i> 视频</a>
+                </li>
+                <li>
+                    <a href="/fm"><i class="icon-music"></i> FM</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<!-- index landing -->
+<div class="gt-landing">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                <form>
+                    <div class="input-group input-group-square">
+                        <input type="text" class="form-control" placeholder="输入歌曲名或艺人名进行搜索">
+                        <span class="input-group-btn">
+                          <button class="btn btn-info" type="submit"><i class="icon-search"></i> 搜索</button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- content -->
+<div class="gt-tabs">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7 col-sm-8 col-md-offset-1">
+                <div class="row">
+                    <div class="col-md-6 col-sm-12 gt-tabs-new">
+                        <div class="gt-icon-wrap pull-left"><i class="icon-rocket"></i></div>
+                        <h4 class="pull-left">最新加入 · · · · · ·</h4>
+                        <div class="clearfix"></div>
+                        <ul class="list-unstyled">
+                            <li class="clearfix">
+                                <i class="icon-double-angle-right pull-left"></i>
+                                <a href="#" class="pull-left">风雨无阻</a>
+                                &nbsp;<a href="#" class="open-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
+                                <span class="label label-info pull-right">周华健</span>
+                            </li>
+                            <li class="clearfix">
+                                <i class="icon-double-angle-right pull-left"></i>
+                                <a href="#" class="pull-left">我是一只小小鸟</a>
+                                &nbsp;<a href="#" class="open-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
+                                <span class="label label-info pull-right">赵传</span>
+                            </li>
+                            <li class="clearfix">
+                                <i class="icon-double-angle-right pull-left"></i>
+                                <a href="#" class="pull-left">幸福的子弹</a>
+                                &nbsp;<a href="#" class="open-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
+                                <span class="label label-info pull-right">郑钧</span>
+                            </li>
+                            <li class="clearfix">
+                                <i class="icon-double-angle-right pull-left"></i>
+                                <a href="#" class="pull-left">大海</a>
+                                &nbsp;<a href="#" class="open-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
+                                <span class="label label-info pull-right">张雨生</span>
+                            </li>
+                            <li class="clearfix">
+                                <i class="icon-double-angle-right pull-left"></i>
+                                <a href="#" class="pull-left">爱我别走</a>
+                                &nbsp;<a href="#" class="open-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
+                                <span class="label label-info pull-right">张震岳</span>
+                            </li>
+                            <li class="clearfix">
+                                <i class="icon-double-angle-right pull-left"></i>
+                                <a href="#" class="pull-left">永远的画面</a>
+                                &nbsp;<a href="#" class="open-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
+                                <span class="label label-info pull-right">张惠妹</span>
+                            </li>
+                            <li class="clearfix">
+                                <i class="icon-double-angle-right pull-left"></i>
+                                <a href="#" class="pull-left">她来听我的演唱会</a>
+                                &nbsp;<a href="#" class="open-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
+                                <span class="label label-info pull-right">张学友</span>
+                            </li>
+                            <li class="clearfix">
+                                <i class="icon-double-angle-right pull-left"></i>
+                                <a href="#" class="pull-left">情网</a>
+                                &nbsp;<a href="#" class="open-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
+                                <span class="label label-info pull-right">张学友</span>
+                            </li>
+                            <li class="clearfix">
+                                <i class="icon-double-angle-right pull-left"></i>
+                                <a href="#" class="pull-left">隐形的翅膀</a>
+                                &nbsp;<a href="#" class="open-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
+                                <span class="label label-info pull-right">张含韵</span>
+                            </li>
+                            <li class="clearfix">
+                                <i class="icon-double-angle-right pull-left"></i>
+                                <a href="#" class="pull-left">黑色幽默</a>
+                                &nbsp;<a href="#" class="open-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
+                                <span class="label label-info pull-right">周杰伦</span>
+                            </li>
+                        </ul>
+                        <div class="text-right"><a href="#">更多 »</a></div>
+                    </div>
+                    <div class="col-md-6 col-sm-12 gt-tabs-hot">
+                        <div class="gt-icon-wrap pull-left"><i class="glyphicon glyphicon-fire"></i></div>
+                        <h4 class="pull-left">最热曲谱 · · · · · ·</h4>
+                        <div class="clearfix"></div>
+                        <ul class="list-unstyled">
+                            <li class="clearfix">
+                                <span class="badge pull-left">1</span>
+                                <a href="#" class="pull-left">风雨无阻</a>
+                                &nbsp;<a href="#" class="open-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
+                                <span class="label label-info pull-right">周华健</span>
+                            </li>
+                            <li class="clearfix">
+                                <span class="badge pull-left">2</span>
+                                <a href="#" class="pull-left">我是一只小小鸟</a>
+                                &nbsp;<a href="#" class="open-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
+                                <span class="label label-info pull-right">赵传</span>
+                            </li>
+                            <li class="clearfix">
+                                <span class="badge pull-left">3</span>
+                                <a href="#" class="pull-left">幸福的子弹</a>
+                                &nbsp;<a href="#" class="open-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
+                                <span class="label label-info pull-right">郑钧</span>
+                            </li>
+                            <li class="clearfix">
+                                <span class="badge pull-left">4</span>
+                                <a href="#" class="pull-left">大海</a>
+                                &nbsp;<a href="#" class="open-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
+                                <span class="label label-info pull-right">张雨生</span>
+                            </li>
+                            <li class="clearfix">
+                                <span class="badge pull-left">5</span>
+                                <a href="#" class="pull-left">爱我别走</a>
+                                &nbsp;<a href="#" class="open-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
+                                <span class="label label-info pull-right">张震岳</span>
+                            </li>
+                            <li class="clearfix">
+                                <span class="badge pull-left">6</span>
+                                <a href="#" class="pull-left">永远的画面</a>
+                                &nbsp;<a href="#" class="open-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
+                                <span class="label label-info pull-right">张惠妹</span>
+                            </li>
+                            <li class="clearfix">
+                                <span class="badge pull-left">7</span>
+                                <a href="#" class="pull-left">她来听我的演唱会</a>
+                                &nbsp;<a href="#" class="open-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
+                                <span class="label label-info pull-right">张学友</span>
+                            </li>
+                            <li class="clearfix">
+                                <span class="badge pull-left">8</span>
+                                <a href="#" class="pull-left">情网</a>
+                                &nbsp;<a href="#" class="open-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
+                                <span class="label label-info pull-right">张学友</span>
+                            </li>
+                            <li class="clearfix">
+                                <span class="badge pull-left">9</span>
+                                <a href="#" class="pull-left">隐形的翅膀</a>
+                                &nbsp;<a href="#" class="open-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
+                                <span class="label label-info pull-right">张含韵</span>
+                            </li>
+                            <li class="clearfix">
+                                <span class="badge pull-left">10</span>
+                                <a href="#" class="pull-left">黑色幽默</a>
+                                &nbsp;<a href="#" class="open-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
+                                <span class="label label-info pull-right">周杰伦</span>
+                            </li>
+                        </ul>
+                        <div class="text-right"><a href="#">更多 »</a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-4">
+                <div class="gt-style"></div>
+                <div class="gt-tag">
+                    <h4><i class="icon-leaf"></i> 音乐风格</h4>
+                    <div id="stylecloud">
+                        <a href="#" rel="7" style="font-size: 14.218487394957982pt; color: rgb(189, 121, 133);">流行</a>
+                        <a href="#" rel="0.1" style="font-size: 9pt; color: rgb(130, 182, 234);">民族</a>
+                        <a href="#" rel="2" style="font-size: 10.436974789915967pt; color: rgb(146, 165, 206);">摇滚</a>
+                        <a href="#" rel="3" style="font-size: 11.193277310924369pt; color: rgb(155, 156, 192);">民谣</a>
+                        <a href="#" rel="4" style="font-size: 11.949579831932773pt; color: rgb(163, 147, 177);">古典</a>
+                        <a href="#" rel="5" style="font-size: 12.705882352941178pt; color: rgb(172, 138, 162);">儿歌</a>
+                        <a href="#" rel="6" style="font-size: 13.46218487394958pt; color: rgb(180, 129, 148);">爵士</a>
+                        <a href="#" rel="7" style="font-size: 14.218487394957982pt; color: rgb(189, 121, 133);">乡村</a>
+                        <a href="#" rel="8" style="font-size: 14.974789915966387pt; color: rgb(197, 112, 118);">R&B</a>
+                        <a href="#" rel="5" style="font-size: 12.705882352941178pt; color: rgb(172, 138, 162);">蓝调</a>
+
+                    </div>
+                </div>
+
+                <div class="gt-tag">
+                    <h4><i class="icon-tags"></i> 曲谱标签</h4>
+                    <div id="tagcloud">
+                        <a href="#" rel="0.1" style="font-size: 9pt; color: rgb(130, 182, 234);">Lorem</a>
+                        <a href="#" rel="2" style="font-size: 10.436974789915967pt; color: rgb(146, 165, 206);">ipsum</a>
+                        <a href="#" rel="3" style="font-size: 11.193277310924369pt; color: rgb(155, 156, 192);">dolor</a>
+                        <a href="#" rel="4" style="font-size: 11.949579831932773pt; color: rgb(163, 147, 177);">sit</a>
+                        <a href="#" rel="5" style="font-size: 12.705882352941178pt; color: rgb(172, 138, 162);">amet,</a>
+                        <a href="#" rel="6" style="font-size: 13.46218487394958pt; color: rgb(180, 129, 148);">consectetur</a>
+                        <a href="#" rel="7" style="font-size: 14.218487394957982pt; color: rgb(189, 121, 133);">adipisicing</a>
+                        <a href="#" rel="8" style="font-size: 14.974789915966387pt; color: rgb(197, 112, 118);">elit,</a>
+                        <a href="#" rel="5" style="font-size: 12.705882352941178pt; color: rgb(172, 138, 162);">sed</a>
+                        <a href="#" rel="7" style="font-size: 14.218487394957982pt; color: rgb(189, 121, 133);">do</a>
+                        <a href="#" rel="3" style="font-size: 11.193277310924369pt; color: rgb(155, 156, 192);">eiusmod</a>
+                        <a href="#" rel="1" style="font-size: 9.680672268907562pt; color: rgb(138, 174, 221);">tempor</a>
+                        <a href="#" rel="12" style="font-size: 18pt; color: rgb(231, 76, 60);">incididunt</a>
+                        <a href="#" rel="1" style="font-size: 9.680672268907562pt; color: rgb(138, 174, 221);">ut</a>
+                        <a href="#" rel="2" style="font-size: 10.436974789915967pt; color: rgb(146, 165, 206);">labore</a>
+                        <a href="#" rel="5" style="font-size: 12.705882352941178pt; color: rgb(172, 138, 162);">et</a>
+                        <a href="#" rel="7" style="font-size: 14.218487394957982pt; color: rgb(189, 121, 133);">dolore</a>
+                        <a href="#" rel="1" style="font-size: 9.680672268907562pt; color: rgb(138, 174, 221);">magna</a>
+                        <a href="#" rel="4" style="font-size: 11.949579831932773pt; color: rgb(163, 147, 177);">aliqua.</a>
+                        <a href="#" rel="1" style="font-size: 9.680672268907562pt; color: rgb(138, 174, 221);">Ut</a>
+                        <a href="#" rel="2" style="font-size: 10.436974789915967pt; color: rgb(146, 165, 206);">enim</a>
+                        <a href="#" rel="10" style="font-size: 16.48739495798319pt; color: rgb(214, 94, 89);">ad</a>
+                        <a href="#" rel="4" style="font-size: 11.949579831932773pt; color: rgb(163, 147, 177);">minim</a>
+                        <a href="#" rel="1" style="font-size: 9.680672268907562pt; color: rgb(138, 174, 221);">veniam,</a>
+                        <a href="#" rel="1" style="font-size: 9.680672268907562pt; color: rgb(138, 174, 221);">quis</a>
+                        <a href="#" rel="8" style="font-size: 14.974789915966387pt; color: rgb(197, 112, 118);">nostrud</a>
+                        <a href="#" rel="1" style="font-size: 9.680672268907562pt; color: rgb(138, 174, 221);">exercitation</a>
+                        <a href="#" rel="3" style="font-size: 11.193277310924369pt; color: rgb(155, 156, 192);">ullamco</a>
+                        <a href="#" rel="1" style="font-size: 9.680672268907562pt; color: rgb(138, 174, 221);">laboris</a>
+                        <a href="#" rel="11" style="font-size: 17.2436974789916pt; color: rgb(223, 85, 75);">nisi</a>
+                        <a href="#" rel="10" style="font-size: 16.48739495798319pt; color: rgb(214, 94, 89);">ut</a>
+                        <a href="#" rel="3" style="font-size: 11.193277310924369pt; color: rgb(155, 156, 192);">aliquip</a>
+                        <a href="#" rel="5" style="font-size: 12.705882352941178pt; color: rgb(172, 138, 162);">ex</a>
+                        <a href="#" rel="1" style="font-size: 9.680672268907562pt; color: rgb(138, 174, 221);">ea</a>
+                        <a href="#" rel="1" style="font-size: 9.680672268907562pt; color: rgb(138, 174, 221);">commodo</a>
+                        <a href="#" rel="6" style="font-size: 13.46218487394958pt; color: rgb(180, 129, 148);">consequat.</a>
+                        <a href="#" rel="1" style="font-size: 9.680672268907562pt; color: rgb(138, 174, 221);">Duis</a>
+                        <a href="#" rel="1" style="font-size: 9.680672268907562pt; color: rgb(138, 174, 221);">aute</a>
+                        <a href="#" rel="1" style="font-size: 9.680672268907562pt; color: rgb(138, 174, 221);">irure</a>
+                        <a href="#" rel="1" style="font-size: 9.680672268907562pt; color: rgb(138, 174, 221);">dolor</a>
+                        <a href="#" rel="1" style="font-size: 9.680672268907562pt; color: rgb(138, 174, 221);">in</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="gt-video">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1">
+                <div class="row">
+                    <div class="col-sm-6 col-md-3">
+                        <a href="#" class="thumbnail img-thumbnail-square" style="width:100%; height:180px"></a>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <a href="#" class="thumbnail img-thumbnail-square" style="width:100%; height:180px"></a>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <a href="#" class="thumbnail img-thumbnail-square" style="width:100%; height:180px"></a>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <a href="#" class="thumbnail img-thumbnail-square" style="width:100%; height:180px"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer">
+    <p>Copyright © 2013 - Guitar123&nbsp;&nbsp;|&nbsp;&nbsp;Created and Maintained by <span style="color:#e84c3d">@lowrain</span>&nbsp;&nbsp;
+        <a href="mailto:jinzm1982@gmail.com" title="意见反馈"><i class="icon-envelope"></i></a>&nbsp;
+        <a title="GitHub" href="https://github.com/lowrain" target="_blank"><i class="icon-github"></i></a>&nbsp;
+        <a class="jiathis_follow_tsina" rel="http://weibo.com/jinzemin" href="javascript:void(0);" title="关注站长"><i class="icon-weibo"></i></a>
+    </p>
+    <p class="text-muted">声明：本站所有曲谱均来自网络，如有版权问题请联系站长</p>
+</div>
+<script>
+    head.js("{{ url_for('static', filename='js/jquery.min.js') }}",
+            "{{ url_for('static', filename='bootstrap3/js/bootstrap.min.js') }}",
+            "{{ url_for('static', filename='fancybox/jquery.fancybox.pack.js') }}",
+            "{{ url_for('static', filename='jqcloud/jqcloud-1.0.4.js') }}",
+            "//v3.jiathis.com/code/jia.js");
+    head.ready(function() {
+        $('.open-new-window').tooltip();
+    });
+</script>
+{#<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>#}
+{#<script src="{{ url_for('static', filename='bootstrap3/js/bootstrap.min.js') }}"></script>#}
+{#<script src="{{ url_for('static', filename='fancybox/jquery.fancybox.pack.js') }}"></script>#}
+{#<script src="{{ url_for('static', filename='jqcloud/jqcloud-1.0.4.js') }}"></script>#}
+{#<script src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>#}
 </body>
 </html>
