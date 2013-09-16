@@ -20,8 +20,6 @@ $(".gt-styles, .gt-tags").hover(
 );
 
 $(function() {
-    var landingImgUrl = '../static/images/landing' + parseInt(Math.random()*7+1) + '.jpg';
-    $('.gt-landing').css('background-image', 'url(' + landingImgUrl + ')');
     $('.gt-landing .input-group').removeClass("hidden");
     $('.gt-landing .input-group').addClass("animated fadeInDown");
 });

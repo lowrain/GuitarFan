@@ -56,7 +56,7 @@
     </div>
 </header>
 <!-- index landing -->
-<div class="gt-landing">
+<div class="gt-landing" id="gt-landing">
     <div class="container">
         <div class="row">
             <div class="col-sm-6 col-sm-offset-3">
@@ -300,6 +300,9 @@
     <p class="text-muted">声明：本站所有曲谱均来自网络，如有版权问题请联系站长</p>
 </div>
 <script>
+    var landingImgUrl = '../static/images/landing' + parseInt(Math.random()*7+1) + '.jpg';
+    document.getElementById('gt-landing').style.backgroundImage = 'url(' + landingImgUrl + ')';
+
     head.js("{{ url_for('static', filename='js/jquery.min.js') }}",
             "{{ url_for('static', filename='bootstrap3/js/bootstrap.min.js') }}",
             "{{ url_for('static', filename='fancybox/jquery.fancybox.pack.js') }}",
@@ -307,6 +310,7 @@
             "{{ url_for('static', filename='jqcloud/jqcloud-1.0.4.js') }}",
             "{{ url_for('static', filename='js/custom.js') }}",
             "//v3.jiathis.com/code/jia.js");
+
     head.ready(function() {
         $('.link-new-window').tooltip();
     });
