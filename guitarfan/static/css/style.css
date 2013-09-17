@@ -334,3 +334,8 @@ i.icon-bgdark {
 /*---------- Bootstrap Overwrite ----------------*/
 
 /*---------- Bootstrap Overwrite END ------------*/
+
+
+.error-info {
+    padding: 20px 0;
+}

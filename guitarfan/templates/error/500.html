@@ -1,1 +1,19 @@
-500 server error
+{% extends "site/base.html" %}
+
+{% block body %}
+    <div class="error-info">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-5 text-center">
+                    <img src="{{ url_for('static', filename='images/500.jpg') }}" />
+                </div>
+                <div class="col-sm-5">
+                    <br><br><br><br>
+                    <p class="">啊啊啊究竟发生了什么好痛苦>_<，麻烦联系一下魂淡站长让他救救我吧~~</p>
+                    <a class="btn btn-success btn-square" href="/"><i class="icon-home"></i> 返回首页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a class="btn btn-info btn-square" href="mailto:jinzm1982@gmail.com"><i class="icon-envelope"></i> 联系站长</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
