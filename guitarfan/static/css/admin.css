@@ -1,6 +1,7 @@
 body {
     padding-top: 60px;
     padding-bottom: 40px;
+    font-family: arial, sans-serif;
 }
 input[type="text"] {
     margin-bottom: 0px;

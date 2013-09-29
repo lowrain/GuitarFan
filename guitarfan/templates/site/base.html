@@ -40,39 +40,46 @@
         </div>
         <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
             <ul class="nav navbar-nav">
-                <li class="active">
+                <li class="{% block active_navbar_home %}{% endblock %}">
                     <a href="/"><i class="icon-home"></i> 首页</a>
                 </li>
-                <li>
+                <li class="{% block active_navbar_tabs %}{% endblock %}">
                     <a href="/tabs"><i class="icon-file-text"></i> 曲谱</a>
                 </li>
-                <li>
+                <li class="{% block active_navbar_video %}{% endblock %}">
                     <a href="/video"><i class="icon-youtube-play"></i> 视频</a>
                 </li>
-                <li>
+                <li class="{% block active_navbar_fm %}{% endblock %}">
                     <a href="/fm"><i class="icon-music"></i> FM</a>
                 </li>
             </ul>
+            {% block navbar_search %}
+            <div class="form-search search-only pull-right navbar-search">
+                <form>
+                    <input type="text" class="form-control search-query" placeholder="输入歌曲名或艺人名进行搜索">
+                </form>
+            </div>
+            {% endblock %}
         </nav>
     </div>
 </header>
 <!-- index landing -->
-    <div class="gt-landing" id="gt-landing">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6 col-sm-offset-3">
-                    <form>
-                        <div class="input-group input-group-square">
-                            <input type="text" class="form-control" placeholder="输入歌曲名或艺人名进行搜索">
+<div class="gt-landing" id="gt-landing">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                <form>
+                    <div class="input-group input-group-square">
+                        <input type="text" class="form-control" placeholder="输入歌曲名或艺人名进行搜索">
                         <span class="input-group-btn">
                           <button class="btn btn-info" type="submit"><i class="icon-search"></i></button>
                         </span>
-                        </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+</div>
 {% block body %}
 
 {% endblock %}
@@ -88,7 +95,7 @@
 {% block script_before_headjs %}{% endblock %}
 <script>
     var landingImgUrl = '../static/images/landing' + parseInt(Math.random()*7+1) + '.jpg';
-        document.getElementById('gt-landing').style.backgroundImage = 'url(' + landingImgUrl + ')';
+    document.getElementById('gt-landing').style.backgroundImage = 'url(' + landingImgUrl + ')';
     head.js("{{ url_for('static', filename='js/jquery.min.js') }}",
             "{{ url_for('static', filename='bootstrap3/js/bootstrap.min.js') }}",
             "{{ url_for('static', filename='fancybox/jquery.fancybox.pack.js') }}",
@@ -97,8 +104,8 @@
             "{{ url_for('static', filename='js/custom.js') }}",
             "//v3.jiathis.com/code/jia.js");
     head.ready(function() {
-            $('.link-new-window').tooltip();
-        });
+        $('.link-new-window').tooltip();
+    });
 </script>
 {% block script_after_headjs %}{% endblock %}
 {#<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>#}
