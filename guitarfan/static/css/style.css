@@ -36,7 +36,7 @@ a.link-artist {
     background-color: #fff;
 }
 a.link-artist:hover {
-    color:#1ba5a0;
+    color:#4fbeba;
 }
 /*---------- Links END -------------------------*/
 /*---------- Icons Customizations --------------*/
@@ -242,7 +242,7 @@ i.icon-bgdark {
     padding-left: 30px;
 }
 /*---------- Navbar Customizations END ----------*/
-/*---------- Index Landing ----------------------*/
+/*---------- Landing Box ------------------------*/
 .gt-landing {
     background: no-repeat center center;
     /*margin-top: -60px;*/
@@ -257,83 +257,7 @@ i.icon-bgdark {
     background-size:cover;
     text-align: center;
 }
-/*---------- Index Landing END ------------------*/
-/*---------- Index Tabs -------------------------*/
-.gt-tabs {
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 15px;
-}
-/*.gt-tabs .gt-icon-wrap {*/
-/*-webkit-border-radius: 50%;*/
-/*-moz-border-radius: 50%;*/
-/*border-radius: 50%;*/
-/*background-color: #f9f9f9;*/
-/*width: 50px;*/
-/*height: 50px;*/
-/*line-height: 50px;*/
-/*font-size: 25px;*/
-/*color: #e84c3d;*/
-/*text-align: center;*/
-/*}*/
-.gt-tabs h4 {
-    margin-top: 20px;
-    margin-left: 15px;
-    font-size: 15px;
-    color: #aaa;
-}
-.gt-tabs h4.active {
-    color: #e96b56;
-}
-.gt-tabs ul {
-    padding: 10px 10px 0 5px;
-    /*background-color: #f9f9f9;*/
-    /*-webkit-border-radius: 5px;*/
-    /*-moz-border-radius: 5px;*/
-    /*border-radius: 5px;*/
-}
-.gt-tabs ul li {
-    padding: 4px 0;
-    border-bottom: 1px dashed #ddd;
-}
-.gt-tabs .label {
-    font-size: 9px;
-    /*background-color: #999;*/
-}
-.gt-tabs .gt-tabs-hot .badge {
-    margin-right: 5px;
-    padding: 2px 5px;
-    font-size: 11px;
-    color: #ffffff;
-    border-radius: 5px;
-}
-.gt-tabs .gt-tags a:hover, .gt-tabs .gt-styles a:hover {
-    background-color: #eee;
-}
-.gt-tabs .gt-tags h4, .gt-tabs .gt-styles h4
-{
-    background-color: #fff;
-    padding: 10px 10px;
-    margin: 0px;
-    color: #1ba5a0;
-    font-size: 14px;
-    line-height: 14px;
-    border-bottom: 1px solid #f7f7f7;
-}
-.gt-tabs .gt-tags h4.active, .gt-tabs .gt-styles h4.active {
-    color: #fff;
-    background-color: #1ba5a0;
-}
-#stylecloud, #tagcloud {
-    padding: 5px 15px 10px 15px;
-}
-/*---------- Tabs END ---------------------------*/
-/*---------- Video ------------------------------*/
-.gt-video {
-    border-top: 1px solid #FFFDFD;
-    background: #F7F7F7;
-    padding: 20px 0;
-}
-/*---------- Video END --------------------------*/
+/*---------- Landing Box END --------------------*/
 /*---------- Footer -----------------------------*/
 .footer {
     background-color:#303133;
@@ -355,10 +279,127 @@ i.icon-bgdark {
 }
 /*---------- Footer END -------------------------*/
 /*---------- Bootstrap Overwrite ----------------*/
-
 /*---------- Bootstrap Overwrite END ------------*/
-
-
-.error-info {
+/*---------- Index Page -------------------------*/
+.gt-index-tabs {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 15px;
+}
+/*.gt-tabs .gt-icon-wrap {*/
+/*-webkit-border-radius: 50%;*/
+/*-moz-border-radius: 50%;*/
+/*border-radius: 50%;*/
+/*background-color: #f9f9f9;*/
+/*width: 50px;*/
+/*height: 50px;*/
+/*line-height: 50px;*/
+/*font-size: 25px;*/
+/*color: #e84c3d;*/
+/*text-align: center;*/
+/*}*/
+.gt-index-tabs h4 {
+    margin-top: 20px;
+    margin-left: 15px;
+    font-size: 15px;
+    color: #aaa;
+}
+.gt-index-tabs h4.active {
+    color: #e96b56;
+}
+.gt-index-tabs ul {
+    padding: 10px 10px 0 5px;
+    /*background-color: #f9f9f9;*/
+    /*-webkit-border-radius: 5px;*/
+    /*-moz-border-radius: 5px;*/
+    /*border-radius: 5px;*/
+}
+.gt-index-tabs ul li {
+    padding: 4px 0;
+    border-bottom: 1px dashed #ddd;
+}
+.gt-index-tabs .label {
+    font-size: 9px;
+    /*background-color: #999;*/
+}
+.gt-index-tabs .hot-box .badge {
+    margin-right: 5px;
+    padding: 2px 5px;
+    font-size: 11px;
+    color: #ffffff;
+    border-radius: 5px;
+}
+.gt-index-videos {
+    border-top: 1px solid #FFFDFD;
+    background-color: #F7F7F7;
     padding: 20px 0;
 }
+/*---------- Index Page END ---------------------*/
+/*---------- Tabs Page --------------------------*/
+.gt-tabs-header {
+    border-bottom: 1px solid #d3d7d7;
+    background-color: #F7F7F7;
+    padding-top: 70px;
+    padding-bottom:15px;
+}
+.gt-tabs-header .btn {
+    min-width:30px;
+    margin-right: 5px;
+    margin-bottom: 3px;
+}
+.gt-tabs-header a {
+    margin-right: 7px;
+    color: #4fbeba;
+    padding:2px
+}
+.gt-tabs-header a:hover {
+    background-color: #d3d7d7;
+}
+.gt-tabs-header a.active {
+    color: #FFF;
+    background-color: #4fbeba;
+}
+.gt-tabs-header .letters{
+    margin-bottom: 7px;
+}
+.gt-tabs-header .categories, .gt-tabs-header .regions {
+    font-size: 14px;
+}
+.gt-tabs-header .artists {
+    background-color: #FFF;
+    margin-top: 10px;
+    padding: 20px;
+    background-color: #FFF;
+    border: 1px solid #d3d7d7;
+    border-radius: 4px;
+}
+.gt-tabs-list {
+    padding: 20px;
+}
+/*---------- Tabs Page END ----------------------*/
+/*---------- Error Page -------------------------*/
+.gt-error-info {
+    padding: 20px 0;
+}
+/*---------- Error Page END ---------------------*/
+/*---------- Right Slide ------------------------*/
+.gt-tags a:hover, .gt-styles a:hover {
+    background-color: #EEE;
+}
+.gt-tags h4, .gt-styles h4
+{
+    background-color: #FFF;
+    padding: 10px 10px;
+    margin: 0px;
+    color: #4fbeba;
+    font-size: 14px;
+    line-height: 14px;
+    border-bottom: 1px solid #f7f7f7;
+}
+.gt-tags h4.active, .gt-styles h4.active {
+    color: #FFF;
+    background-color: #4fbeba;
+}
+#stylecloud, #tagcloud {
+    padding: 5px 15px 10px 15px;
+}
+/*---------- Right Slide END --------------------*/

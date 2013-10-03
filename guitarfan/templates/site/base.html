@@ -26,7 +26,7 @@
     <![endif]-->
 </head>
 <body>
-<!-- navigation -->
+<!-- top nav -->
 <header class="navbar navbar-inverse navbar-fixed-top gt-navbar">
     <div class="container">
         <div class="navbar-header">
@@ -47,7 +47,7 @@
                     <a href="/tabs"><i class="icon-file-text"></i> 曲谱</a>
                 </li>
                 <li class="{% block active_navbar_video %}{% endblock %}">
-                    <a href="/video"><i class="icon-youtube-play"></i> 视频</a>
+                    <a href="/videos"><i class="icon-youtube-play"></i> 视频</a>
                 </li>
                 <li class="{% block active_navbar_fm %}{% endblock %}">
                     <a href="/fm"><i class="icon-music"></i> FM</a>
@@ -63,6 +63,8 @@
         </nav>
     </div>
 </header>
+
+{% block landing %}
 <!-- index landing -->
 <div class="gt-landing" id="gt-landing">
     <div class="container">
@@ -80,34 +82,44 @@
         </div>
     </div>
 </div>
-{% block body %}
-
+<script>
+    var landingDiv = document.getElementById('gt-landing');
+    if (landingDiv) {
+        var landingImgUrl = '../static/images/landing' + parseInt(Math.random()*7+1) + '.jpg';
+        landingDiv.style.backgroundImage = 'url(' + landingImgUrl + ')';
+    }
+</script>
 {% endblock %}
+
+{% block body %}{% endblock %}
+
 <!-- footer -->
 <div class="footer">
     <p>Copyright © 2013 - Guitar123&nbsp;&nbsp;|&nbsp;&nbsp;Created and Maintained by <span style="color:#e84c3d">@lowrain</span>&nbsp;&nbsp;
         <a href="mailto:jinzm1982@gmail.com" title="意见反馈"><i class="icon-envelope"></i></a>&nbsp;
         <a title="GitHub" href="https://github.com/lowrain" target="_blank"><i class="icon-github"></i></a>&nbsp;
-        <a class="jiathis_follow_tsina" rel="http://weibo.com/jinzemin" href="javascript:void(0);" title="关注站长"><i class="icon-weibo"></i></a>
+        <a class="jiathis_follow_tsina" href="http://weibo.com/jinzemin" title="关注站长" target="_blank"><i class="icon-weibo"></i></a>
     </p>
     <p class="text-muted">声明：本站所有曲谱均来自网络，如有版权问题请联系站长</p>
 </div>
+
 {% block script_before_headjs %}{% endblock %}
+
 <script>
-    var landingImgUrl = '../static/images/landing' + parseInt(Math.random()*7+1) + '.jpg';
-    document.getElementById('gt-landing').style.backgroundImage = 'url(' + landingImgUrl + ')';
     head.js("{{ url_for('static', filename='js/jquery.min.js') }}",
             "{{ url_for('static', filename='bootstrap3/js/bootstrap.min.js') }}",
             "{{ url_for('static', filename='fancybox/jquery.fancybox.pack.js') }}",
             "{{ url_for('static', filename='animate/animate.js') }}",
             "{{ url_for('static', filename='jqcloud/jqcloud-1.0.4.js') }}",
-            "{{ url_for('static', filename='js/custom.js') }}",
-            "//v3.jiathis.com/code/jia.js");
+            "{{ url_for('static', filename='js/custom.js') }}");
+{#            "//v3.jiathis.com/code/jia.js");#}
     head.ready(function() {
         $('.link-new-window').tooltip();
     });
 </script>
+
 {% block script_after_headjs %}{% endblock %}
+
 {#<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>#}
 {#<script src="{{ url_for('static', filename='bootstrap3/js/bootstrap.min.js') }}"></script>#}
 {#<script src="{{ url_for('static', filename='fancybox/jquery.fancybox.pack.js') }}"></script>#}

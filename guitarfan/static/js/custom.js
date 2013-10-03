@@ -1,4 +1,4 @@
-$(".gt-tabs-hot, .gt-tabs-new").hover(
+$(".gt-index-tabs .hot-box, .gt-index-tabs .new-box").hover(
     function () {
         $(this).find('.icon').addClass("animated active rotateIn");
         $(this).find('h4').addClass("animated active fadeInRight");
