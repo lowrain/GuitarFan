@@ -7,36 +7,59 @@ html,body {
     background-color:#fff;
     font-size: 12px;
 }
+.ajax-loader {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -8px; /* -1 * image width / 2 */
+    margin-top: -5px;  /* -1 * image height / 2 */
+    display: block;
+}
 /*---------- Common Items End ------------------*/
 /*---------- Links -----------------------------*/
 a {
-    color: #37a;
+    color: #888;
     transition: all 0.5s ease-out;
     -moz-transition: all 0.5s ease-out;
     -webkit-transition: all 0.5s ease-out;
     -o-transition: all 0.5s ease-out;
 }
 a:hover {
-    color: #fff;
-    /*font-family: Arial, Helvetica, sans-serif;*/
-    background-color: #37a;
+    color: #83bf73;
     text-decoration: none;
+}
+a.link-list-tab {
+    font-size:13px;
+}
+a.link-list-tab:hover {
+    color: #fff;
+    background-color: #83bf73;
+    text-decoration: none;
+    border-radius: 3px;
+    padding: 1px 3px;
 }
 a.link-new-window {
     color: #dedede;
     margin-left: 3px;
 }
 a.link-new-window:hover {
-    color: #37a;
+    color: #666;
     background-color: #fff;
+    padding-left: 3px;
 }
-a.link-artist {
+a.link-list-artist {
     color: #999;
     font-size: 11px;
     background-color: #fff;
 }
-a.link-artist:hover {
-    color:#4fbeba;
+a.link-list-artist:hover {
+    color:#83bf73;
+}
+a.link-more {
+    padding-right: 3px;
+}
+a.link-more:hover {
+    padding-right: 0px;
 }
 /*---------- Links END -------------------------*/
 /*---------- Icons Customizations --------------*/
@@ -279,6 +302,14 @@ i.icon-bgdark {
 }
 /*---------- Footer END -------------------------*/
 /*---------- Bootstrap Overwrite ----------------*/
+.alert.alert-info {
+    background-color: #3bc492;
+    border: 1px solid #3bc492;
+}
+.btn.btn-info {
+    background-color: #3bc492;
+    border: 1px solid #3bc492;
+}
 /*---------- Bootstrap Overwrite END ------------*/
 /*---------- Index Page -------------------------*/
 .gt-index-tabs {
@@ -326,7 +357,14 @@ i.icon-bgdark {
     padding: 2px 5px;
     font-size: 11px;
     color: #ffffff;
-    border-radius: 5px;
+    border-radius: 3px;
+    background-color: #dedede;
+}
+.gt-index-tabs .new-box .icon-angle-right {
+    margin-right: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #dedede;
 }
 .gt-index-videos {
     border-top: 1px solid #FFFDFD;
@@ -348,7 +386,7 @@ i.icon-bgdark {
 }
 .gt-tabs-header a {
     margin-right: 7px;
-    color: #4fbeba;
+    color: #3bc492;
     padding:2px
 }
 .gt-tabs-header a:hover {
@@ -356,7 +394,7 @@ i.icon-bgdark {
 }
 .gt-tabs-header a.active {
     color: #FFF;
-    background-color: #4fbeba;
+    background-color: #3bc492;
 }
 .gt-tabs-header .letters{
     margin-bottom: 7px;
@@ -390,14 +428,14 @@ i.icon-bgdark {
     background-color: #FFF;
     padding: 10px 10px;
     margin: 0px;
-    color: #4fbeba;
+    color: #3bc492;
     font-size: 14px;
     line-height: 14px;
     border-bottom: 1px solid #f7f7f7;
 }
 .gt-tags h4.active, .gt-styles h4.active {
     color: #FFF;
-    background-color: #4fbeba;
+    background-color: #3bc492;
 }
 #stylecloud, #tagcloud {
     padding: 5px 15px 10px 15px;
