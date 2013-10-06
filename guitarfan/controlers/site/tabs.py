@@ -15,4 +15,6 @@ bp_frontend_tabs = Blueprint('bp_frontend_tabs', __name__, template_folder="../.
 def tabs():
     letters = map(chr, range(65, 91))
     letters.append('Other')
-    return render_template('tabs.html', letters=letters)
+    regions = ArtistRegion.get_described_items()
+    categories = ArtistCategory.get_described_items()
+    return render_template('tabs.html', letters=letters, regions=regions, categories=categories)

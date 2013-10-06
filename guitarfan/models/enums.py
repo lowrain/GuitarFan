@@ -38,7 +38,7 @@ class ArtistCategory(EnumBase):
     female = 2
     group = 3
     band = 4
-    other = 0
+    other = 100
 
     _descriptions = {male: u'男艺人', female: u'女艺人', group: u'组合', band: u'乐队', other: u'其他'}
 
@@ -48,7 +48,7 @@ class ArtistRegion(EnumBase):
     ht = 2
     jk = 3
     ue = 4
-    other = 0
+    other = 100
 
     _descriptions = {hl: u'内地', ht: u'港台', jk: u'日韩', ue: u'欧美', other: u'其他'}
 
@@ -64,7 +64,7 @@ class MusicStyle(EnumBase):
     jazz = 8
     child = 9
     national = 10
-    other = 0
+    other = 100
 
     _descriptions = {pop: u'流行', rock: u'摇滚', fork: u'民谣', rnb: u'R&B', blues: u'蓝调', classic: u'古典', country:u'乡村',
                      jazz: u'爵士', child: u'儿歌', national: u'民族', other: u'其他'}

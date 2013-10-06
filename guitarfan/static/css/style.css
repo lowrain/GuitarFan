@@ -36,11 +36,11 @@ a.link-list-tab:hover {
     background-color: #83bf73;
     text-decoration: none;
     border-radius: 3px;
-    padding: 1px 3px;
 }
 a.link-new-window {
     color: #dedede;
     margin-left: 3px;
+    font-size: 80%;
 }
 a.link-new-window:hover {
     color: #666;
@@ -49,11 +49,11 @@ a.link-new-window:hover {
 }
 a.link-list-artist {
     color: #999;
-    font-size: 11px;
-    background-color: #fff;
+    font-size: 13px;
 }
 a.link-list-artist:hover {
     color:#83bf73;
+    background-color: #f7f7f7;
 }
 a.link-more {
     padding-right: 3px;
@@ -310,6 +310,25 @@ i.icon-bgdark {
     background-color: #3bc492;
     border: 1px solid #3bc492;
 }
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus {
+    z-index: 2;
+    color: #ffffff;
+    cursor: default;
+    background-color: #3bc492;
+    border-color: #3bc492;
+}
+.pagination > li > a:hover,
+.pagination > li > span:hover,
+.pagination > li > a:focus,
+.pagination > li > span:focus {
+    color: #3bc492;
+    background-color: #eeeeee;
+}
 /*---------- Bootstrap Overwrite END ------------*/
 /*---------- Index Page -------------------------*/
 .gt-index-tabs {
@@ -381,8 +400,13 @@ i.icon-bgdark {
 }
 .gt-tabs-header .btn {
     min-width:30px;
+    padding-top: 2px;
+    padding-bottom: 2px;
     margin-right: 5px;
     margin-bottom: 3px;
+}
+.gt-tabs-header .btn-default {
+    color: #999;
 }
 .gt-tabs-header a {
     margin-right: 7px;
@@ -397,10 +421,10 @@ i.icon-bgdark {
     background-color: #3bc492;
 }
 .gt-tabs-header .letters{
-    margin-bottom: 7px;
+    margin-bottom: 10px;
 }
 .gt-tabs-header .categories, .gt-tabs-header .regions {
-    font-size: 14px;
+    font-size: 13px;
 }
 .gt-tabs-header .artists {
     background-color: #FFF;
@@ -413,6 +437,52 @@ i.icon-bgdark {
 .gt-tabs-list {
     padding: 20px;
 }
+.gt-tabs-list .list-header {
+    border-bottom: 1px solid #dedede;
+    height: 38px;
+}
+.gt-tabs-list .list-header .header-text {
+    padding-top: 10px;
+}
+.gt-tabs-list .list-header .header-text .label {
+    font-size: 100%;
+}
+.gt-tabs-list table.list-table tr {
+    border-bottom: 1px dashed #eee;
+    line-height: 21px;
+    font-size: 13px;
+    height:32px;
+}
+.gt-tabs-list table.list-table tr:hover {
+    background-color: #fafafa;
+}
+.gt-tabs-list table.list-table td a.link-tab-subject {
+    color: #428bca;
+    font-size: 14px;
+}
+.gt-tabs-list table.list-table td a.link-tab-subject:hover {
+    color: #fff;
+    background-color: #428bca;
+}
+.gt-tabs-list table.list-table td.tab-style {
+    color: #90a0dd;
+    font-size: 11px;
+}
+.gt-tabs-list table.list-table td.tab-difficulty {
+    color: #f0ad4e;
+    font-size: 11px;
+}
+.gt-tabs-list table.list-table td.tab-hits {
+    color: #e96b56;
+    font-size: 11px;
+}
+/*.gt-tabs-list ul li a {*/
+/*color: #37a;*/
+/*}*/
+/*.gt-tabs-list ul li a:hover {*/
+/*color: #fff;*/
+/*background-color: #37a;*/
+/*}*/
 /*---------- Tabs Page END ----------------------*/
 /*---------- Error Page -------------------------*/
 .gt-error-info {

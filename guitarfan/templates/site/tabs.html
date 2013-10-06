@@ -8,9 +8,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
-                    <div class="alert alert-info">
+                    <div class="alert alert-info alert-square">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <strong>温馨提示：</strong>可以根据艺人对曲谱进行筛选，同时结合音乐风格和曲谱标签来满足您的音乐口味
+                        <strong><i class="icon icon-coffee"></i> 温馨提示：</strong>可以根据艺人对曲谱进行筛选，同时结合音乐风格和曲谱标签来满足您的音乐口味
                         <i class="icon-music"></i>
                     </div>
                 </div>
@@ -18,9 +18,9 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="letters">
-                        <button type="button" class="btn btn-info  btn-sm">All</button>
+                        <button type="button" class="btn btn-info btn-sm btn-square">All</button>
                         {% for letter in letters %}
-                            <button type="button" class="btn btn-default btn-sm">{{ letter }}</button>
+                            <button type="button" class="btn btn-default btn-sm btn-square">{{ letter }}</button>
                         {% endfor %}
                     </div>
                 </div>
@@ -30,22 +30,18 @@
                     <div class="categories">
                         <label>艺人类型：</label>
                         <a href="javascript:void(0);" class="active">全部</a>
-                        <a href="javascript:void(0);">男艺人</a>
-                        <a href="javascript:void(0);">女艺人</a>
-                        <a href="javascript:void(0);">组合</a>
-                        <a href="javascript:void(0);">乐队</a>
-                        <a href="javascript:void(0);">其他</a>
+                        {% for category in categories %}
+                            <a href="javascript:void(0);">{{ category[1] }}</a>
+                        {% endfor %}
                     </div>
                 </div>
                 <div class="col-md-5 col-sm-12">
                     <div class="regions">
                         <label>艺人地区：</label>
                         <a href="javascript:void(0);" class="active">全部</a>
-                        <a href="javascript:void(0);">内地</a>
-                        <a href="javascript:void(0);">港台</a>
-                        <a href="javascript:void(0);">日韩</a>
-                        <a href="javascript:void(0);">欧美</a>
-                        <a href="javascript:void(0);">其他</a>
+                        {% for region in regions %}
+                            <a href="javascript:void(0);">{{ region[1] }}</a>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
@@ -63,7 +59,40 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-7 col-sm-8 col-md-offset-1">
-                    tabs list
+                    <div class="list-header">
+                        <div class="header-text pull-left"><i class="icon icon-search"></i> 艺人：<span class="label">字母A</span> + <span class="label">男艺人</span> + <span class="label">港台</span>&nbsp;&nbsp;&nbsp;&nbsp;风格：<span class="label">流行</span></div>
+                        <div class="btn-group pull-right">
+                            <button type="button" class="btn btn-default btn-sm active" title="按照更新时间排序"><i class="glyphicon glyphicon-time"></i></button>
+                            <button type="button" class="btn btn-default btn-sm" title="按照点击量排序"><i class="glyphicon glyphicon-fire"></i></button>
+                        </div>
+                    </div>
+                    <table width="100%" class="list-table">
+                        {% for i in range(1,20) %}
+                            <tr>
+                                <td width="45%">
+                                    <i class="icon icon-file-alt"></i>&nbsp;&nbsp;
+                                    <a href="#" class="link-tab-subject">曲谱名称名称</a>
+                                    <a href="#" class="link-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
+                                </td>
+                                <td width="8%" class="tab-style">风格</td>
+                                <td width="8%" class="tab-difficulty">新手</td>
+                                <td width="10%" class="tab-hits">99次</td>
+                                <td align="right">
+                                    <a href="#" class="link-list-artist pull-right">艺人名</a>
+                                </td>
+                            </tr>
+
+                        {% endfor %}
+                    </table>
+                    <ul class="pagination pagination-square">
+                        <li><a href="#">«</a></li>
+                        <li class="active"><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#">»</a></li>
+                    </ul>
                 </div>
                 <div class="col-md-3 col-sm-4">
                     <div class="gt-styles">
