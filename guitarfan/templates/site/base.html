@@ -54,41 +54,41 @@
                 </li>
             </ul>
             {% block navbar_search %}
-            <div class="form-search search-only pull-right navbar-search">
-                <form>
-                    <input type="text" class="form-control search-query" placeholder="输入歌曲名或艺人名进行搜索">
-                </form>
-            </div>
+                <div class="form-search search-only pull-right navbar-search">
+                    <form>
+                        <input type="text" class="form-control search-query" placeholder="输入歌曲名或艺人名进行搜索">
+                    </form>
+                </div>
             {% endblock %}
         </nav>
     </div>
 </header>
 
 {% block landing %}
-<!-- index landing -->
-<div class="gt-landing" id="gt-landing">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-6 col-sm-offset-3">
-                <form>
-                    <div class="input-group input-group-square">
-                        <input type="text" class="form-control" placeholder="输入歌曲名或艺人名进行搜索">
+    <!-- index landing -->
+    <div class="gt-landing" id="gt-landing">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3">
+                    <form>
+                        <div class="input-group input-group-square">
+                            <input type="text" class="form-control" placeholder="输入歌曲名或艺人名进行搜索">
                         <span class="input-group-btn">
                           <button class="btn btn-info" type="submit"><i class="icon-search"></i></button>
                         </span>
-                    </div>
-                </form>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<script>
-    var landingDiv = document.getElementById('gt-landing');
-    if (landingDiv) {
-        var landingImgUrl = '../static/images/landing' + parseInt(Math.random()*7+1) + '.jpg';
-        landingDiv.style.backgroundImage = 'url(' + landingImgUrl + ')';
-    }
-</script>
+    <script>
+        var landingDiv = document.getElementById('gt-landing');
+        if (landingDiv) {
+            var landingImgUrl = '../static/images/landing' + parseInt(Math.random()*7+1) + '.jpg';
+            landingDiv.style.backgroundImage = 'url(' + landingImgUrl + ')';
+        }
+    </script>
 {% endblock %}
 
 {% block body %}{% endblock %}
@@ -110,12 +110,26 @@
             "{{ url_for('static', filename='bootstrap3/js/bootstrap.min.js') }}",
             "{{ url_for('static', filename='fancybox/jquery.fancybox.pack.js') }}",
             "{{ url_for('static', filename='animate/animate.js') }}",
-            "{{ url_for('static', filename='jqcloud/jqcloud-1.0.4.js') }}",
+            "{{ url_for('static', filename='js/jquery.tagcloud.js') }}",
             "{{ url_for('static', filename='js/custom.js') }}");
-{#            "//v3.jiathis.com/code/jia.js");#}
+    {#            "//v3.jiathis.com/code/jia.js");#}
     head.ready(function() {
         $('.link-new-window').tooltip();
     });
+
+    $(document).ready(function(){
+        $("#tagcloud a").tagcloud({
+            size: {
+                start: 12,
+                end: 18,
+                unit: 'px'
+            },
+            color: {
+                start: "#CDE",
+                end: "#F52"
+            }
+        })
+    })
 </script>
 
 {% block script_after_headjs %}{% endblock %}

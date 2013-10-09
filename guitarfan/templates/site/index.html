@@ -16,68 +16,16 @@
                                 <h4 class="pull-left">最热曲谱 · · · · · ·</h4>
                                 <div class="clearfix"></div>
                                 <ul class="list-unstyled">
+                                    {% for tab in hot_tabs %}
                                     <li class="clearfix">
                                         <span class="badge">1</span>
-                                        <a href="#" class="link-list-tab">风雨无阻</a>
-                                        <a href="#" class="link-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
-                                        <a href="#" class="link-list-artist pull-right">周华健</a>
+                                        <a href="#" class="link-list-tab">{{ tab.title }}</a>
+                                        <a href="/tabview/{{ tab.id }}" class="link-new-window" title="在新窗口中查看" target="_blank" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
+                                        <a href="#" class="link-list-artist pull-right">{{ tab.artist.name }}</a>
                                     </li>
-                                    <li class="clearfix">
-                                        <span class="badge">2</span>
-                                        <a href="#" class="link-list-tab">我是一只小小鸟</a>
-                                        <a href="#" class="link-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
-                                        <a href="#" class="link-list-artist pull-right">赵传</a>
-                                    </li>
-                                    <li class="clearfix">
-                                        <span class="badge">3</span>
-                                        <a href="#" class="link-list-tab">幸福的子弹</a>
-                                        <a href="#" class="link-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
-                                        <a href="#" class="link-list-artist pull-right">郑钧</a>
-                                    </li>
-                                    <li class="clearfix">
-                                        <span class="badge">4</span>
-                                        <a href="#" class="link-list-tab">大海</a>
-                                        <a href="#" class="link-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
-                                        <a href="#" class="link-list-artist pull-right">张雨生</a>
-                                    </li>
-                                    <li class="clearfix">
-                                        <span class="badge">5</span>
-                                        <a href="#" class="link-list-tab">爱我别走</a>
-                                        <a href="#" class="link-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
-                                        <a href="#" class="link-list-artist pull-right">张震岳</a>
-                                    </li>
-                                    <li class="clearfix">
-                                        <span class="badge">6</span>
-                                        <a href="#" class="link-list-tab">永远的画面</a>
-                                        <a href="#" class="link-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
-                                        <a href="#" class="link-list-artist pull-right">张惠妹</a>
-                                    </li>
-                                    <li class="clearfix">
-                                        <span class="badge">7</span>
-                                        <a href="#" class="link-list-tab">她来听我的演唱会</a>
-                                        <a href="#" class="link-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
-                                        <a href="#" class="link-list-artist pull-right">张学友</a>
-                                    </li>
-                                    <li class="clearfix">
-                                        <span class="badge">8</span>
-                                        <a href="#" class="link-list-tab">情网</a>
-                                        <a href="#" class="link-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
-                                        <a href="#" class="link-list-artist pull-right">张学友</a>
-                                    </li>
-                                    <li class="clearfix">
-                                        <span class="badge">9</span>
-                                        <a href="#" class="link-list-tab">隐形的翅膀</a>
-                                        <a href="#" class="link-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
-                                        <a href="#" class="link-list-artist pull-right">张韶涵</a>
-                                    </li>
-                                    <li class="clearfix">
-                                        <span class="badge">10</span>
-                                        <a href="#" class="link-list-tab">黑色幽默</a>
-                                        <a href="#" class="link-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
-                                        <a href="#" class="link-list-artist pull-right">周杰伦</a>
-                                    </li>
+                                    {% endfor %}
                                 </ul>
-                                <div class="text-right"><a class="link-more" href="#">more »</a></div>
+                                <div class="text-right"><a class="link-more" href="tabs?order=hot">More »</a></div>
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-12">
@@ -86,68 +34,16 @@
                                 <h4 class="pull-left">最新加入 · · · · · ·</h4>
                                 <div class="clearfix"></div>
                                 <ul class="list-unstyled">
+                                    {% for tab in new_tabs %}
                                     <li class="clearfix">
                                         <i class="icon-angle-right"></i>
-                                        <a href="#" class="link-list-tab">风雨无阻</a>
-                                        <a href="#" class="link-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
-                                        <a href="#" class="link-list-artist pull-right">周华健</a>
+                                        <a href="#" class="link-list-tab">{{ tab.title }}</a>
+                                        <a href="/tabview/{{ tab.id }}" class="link-new-window" title="在新窗口中查看" target="_blank" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
+                                        <a href="#" class="link-list-artist pull-right">{{ tab.artist.name }}</a>
                                     </li>
-                                    <li class="clearfix">
-                                        <i class="icon-angle-right"></i>
-                                        <a href="#" class="link-list-tab">我是一只小小鸟</a>
-                                        <a href="#" class="link-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
-                                        <a href="#" class="link-list-artist pull-right">赵传</a>
-                                    </li>
-                                    <li class="clearfix">
-                                        <i class="icon-angle-right"></i>
-                                        <a href="#" class="link-list-tab">幸福的子弹</a>
-                                        <a href="#" class="link-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
-                                        <a href="#" class="link-list-artist pull-right">郑钧</a>
-                                    </li>
-                                    <li class="clearfix">
-                                        <i class="icon-angle-right"></i>
-                                        <a href="#" class="link-list-tab">大海</a>
-                                        <a href="#" class="link-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
-                                        <a href="#" class="link-list-artist pull-right">张雨生</a>
-                                    </li>
-                                    <li class="clearfix">
-                                        <i class="icon-angle-right"></i>
-                                        <a href="#" class="link-list-tab">爱我别走</a>
-                                        <a href="#" class="link-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
-                                        <a href="#" class="link-list-artist pull-right">张震岳</a>
-                                    </li>
-                                    <li class="clearfix">
-                                        <i class="icon-angle-right"></i>
-                                        <a href="#" class="link-list-tab">永远的画面</a>
-                                        <a href="#" class="link-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
-                                        <a href="#" class="link-list-artist pull-right">张惠妹</a>
-                                    </li>
-                                    <li class="clearfix">
-                                        <i class="icon-angle-right"></i>
-                                        <a href="#" class="link-list-tab">她来听我的演唱会</a>
-                                        <a href="#" class="link-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
-                                        <a href="#" class="link-list-artist pull-right">张学友</a>
-                                    </li>
-                                    <li class="clearfix">
-                                        <i class="icon-angle-right"></i>
-                                        <a href="#" class="link-list-tab">情网</a>
-                                        <a href="#" class="link-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
-                                        <a href="#" class="link-list-artist pull-right">张学友</a>
-                                    </li>
-                                    <li class="clearfix">
-                                        <i class="icon-angle-right"></i>
-                                        <a href="#" class="link-list-tab">隐形的翅膀</a>
-                                        <a href="#" class="link-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
-                                        <a href="#" class="link-list-artist pull-right">张韶涵</a>
-                                    </li>
-                                    <li class="clearfix">
-                                        <i class="icon-angle-right"></i>
-                                        <a href="#" class="link-list-tab">黑色幽默</a>
-                                        <a href="#" class="link-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
-                                        <a href="#" class="link-list-artist pull-right">周杰伦</a>
-                                    </li>
+                                    {% endfor %}
                                 </ul>
-                                <div class="text-right"><a class="link-more" href="#">more »</a></div>
+                                <div class="text-right"><a class="link-more" href="tabs?order=new">More »</a></div>
                             </div>
                         </div>
                     </div>
@@ -166,7 +62,6 @@
                             <a href="#" rel="7" style="font-size: 14.218487394957982pt; color: rgb(189, 121, 133);">乡村</a>
                             <a href="#" rel="8" style="font-size: 14.974789915966387pt; color: rgb(197, 112, 118);">R&B</a>
                             <a href="#" rel="5" style="font-size: 12.705882352941178pt; color: rgb(172, 138, 162);">蓝调</a>
-
                         </div>
                     </div>
                     <div class="gt-tags">
