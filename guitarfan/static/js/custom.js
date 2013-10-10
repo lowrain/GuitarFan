@@ -22,7 +22,6 @@ $(".gt-index-tabs .hot-box, .gt-index-tabs .new-box").hover(
 $(".gt-styles, .gt-tags").hover(
     function () {
         $(this).find('h4').addClass("animated active fadeIn");
-
     },
     function () {
         $(this).find('h4').removeClass("animated active fadeIn");
@@ -72,7 +71,7 @@ $(function(){
         $.ajax({
             url: '/stylecloud.json',
             type: 'GET',
-            dataType: "json",
+            dataType: 'json',
             success: function(data) {
                 if (data && data.styles) {
                     var cloudHTML = '';
@@ -96,4 +95,48 @@ $(function(){
             }
         });
     }
+
+    $('.gt-tabs-header .letters .btn').click(function(){
+        updateArtistBox($(this));
+    });
 });
+
+function updateArtistBox(sender) {
+    var letter = sender.text();
+    var artistBox = $('.gt-tabs-header .artists');
+
+    $('.gt-tabs-header .letters .btn-info').toggleClass('btn-info btn-default');
+    sender.toggleClass('btn-info btn-default');
+
+    if (sender.text() != 'All') {
+        artistBox.fadeIn('slow');
+    }
+    else {
+        artistBox.fadeOut('fast');
+        return;
+    }
+    $.ajax({
+        url: '/artists.json?letter=' + sender.text(),
+        type: 'GET',
+        dataType: 'json',
+        beforeSend: function() {
+            artistBox.html('<img class="ajax-loader" src="static/images/loading-1.gif" width="16px" height="11px" border="0" />');
+        },
+        success: function(data) {
+            if (data && data.artists && data.artists.length > 0) {
+                var html = '';
+                for (var i=0; i<data.artists.length; i++) {
+                    html += '<a href="javascript:void(0);">'+data.artists[i].name+'</a> ';
+                }
+                artistBox.html(html);
+            }
+            else {
+                artistBox.html('暂时没有以字母 <b class="text-danger"> '+letter+'</b> 开头的艺人');
+            }
+        }
+    });
+}
+
+function updateTabsBox() {
+
+}

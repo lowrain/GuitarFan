@@ -398,14 +398,17 @@ i.icon-bgdark {
     padding-top: 70px;
     padding-bottom:15px;
 }
-.gt-tabs-header .btn {
-    min-width:30px;
+.gt-tabs-header .letters{
+    margin-bottom: 10px;
+}
+.gt-tabs-header .letters .btn {
+    min-width:31px;
     padding-top: 2px;
     padding-bottom: 2px;
-    margin-right: 5px;
+    margin-right: 3px;
     margin-bottom: 3px;
 }
-.gt-tabs-header .btn-default {
+.gt-tabs-header .letters .btn-default {
     color: #999;
 }
 .gt-tabs-header a {
@@ -420,9 +423,6 @@ i.icon-bgdark {
     color: #FFF;
     background-color: #3bc492;
 }
-.gt-tabs-header .letters{
-    margin-bottom: 10px;
-}
 .gt-tabs-header .categories, .gt-tabs-header .regions {
     font-size: 13px;
 }
@@ -433,6 +433,9 @@ i.icon-bgdark {
     background-color: #FFF;
     border: 1px solid #d3d7d7;
     border-radius: 4px;
+}
+.gt-tabs-header .artists a {
+    color: #999;
 }
 .gt-tabs-list {
     padding: 20px;
