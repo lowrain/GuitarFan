@@ -29,8 +29,8 @@ class EnumBase(object):
     @classmethod
     # get the corresponding text for given enum item
     # band ==> u‘乐队'
-    def get_item_text(cls, item):
-        return cls._descriptions[item]
+    def get_item_text(cls, item_value):
+        return cls._descriptions[item_value]
 
 
 class ArtistCategory(EnumBase):
@@ -68,6 +68,7 @@ class MusicStyle(EnumBase):
 
     _descriptions = {pop: u'流行', rock: u'摇滚', fork: u'民谣', rnb: u'R&B', blues: u'蓝调', classic: u'古典', country:u'乡村',
                      jazz: u'爵士', child: u'儿歌', national: u'民族', other: u'其他'}
+
 
 class DifficultyDegree(EnumBase):
     beginner = 1

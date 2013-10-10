@@ -8,10 +8,10 @@ from guitarfan.models import *
 # from guitarfan.extensions.flasksqlalchemy import db
 
 
-bp_frontend_tabs = Blueprint('bp_frontend_tabs', __name__, template_folder="../../templates/site")
+bp_site_tabs = Blueprint('bp_site_tabs', __name__, template_folder="../../templates/site")
 
 
-@bp_frontend_tabs.route('/tabs')
+@bp_site_tabs.route('/tabs')
 def tabs():
     letters = map(chr, range(65, 91))
     letters.append('Other')
