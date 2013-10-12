@@ -40,6 +40,9 @@ APP_NAME = 'Guitar123'
 # SITE_URL = 'http://www.guitar123.net'
 SITE_URL = 'http://127.0.0.1:8888'
 
+# pagination
+POSTS_PER_PAGE = 15
+
 # uplods config
 ARTIST_PHOTO_FOLDER = '/static/artists'
 TAB_FILE_FOLDER = '/static/tabs'

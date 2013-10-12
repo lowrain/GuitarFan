@@ -125,8 +125,28 @@ function updateArtistBox(sender) {
         success: function(data) {
             if (data && data.artists && data.artists.length > 0) {
                 var html = '';
+                var linkClass = '';
+                var artist = null;
                 for (var i=0; i<data.artists.length; i++) {
-                    html += '<a href="javascript:void(0);">'+data.artists[i].name+'</a> ';
+                    artist = data.artists[i];
+                    switch (artist.category) {
+                        case 1:
+                            linkClass = 'male';
+                            break;
+                        case 2:
+                            linkClass = 'female';
+                            break;
+                        case 3:
+                            linkClass = 'group';
+                            break;
+                        case 4:
+                            linkClass = 'band';
+                            break;
+                        default:
+                            linkClass = 'other';
+                            break;
+                    }
+                    html += '<a href="javascript:void(0);" class="{0}">{1}</a> '.format(linkClass, artist.name);
                 }
                 artistBox.html(html);
             }

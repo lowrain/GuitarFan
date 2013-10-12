@@ -29,7 +29,7 @@
                 <div class="col-md-5 col-sm-12">
                     <div class="categories">
                         <label>艺人类型：</label>
-                        <a href="javascript:void(0);" class="active">全部</a>
+                        <a href="javascript:void(0);" class="active">所有类型</a>
                         {% for category in categories %}
                             <a href="javascript:void(0);">{{ category[1] }}</a>
                         {% endfor %}
@@ -38,7 +38,7 @@
                 <div class="col-md-5 col-sm-12">
                     <div class="regions">
                         <label>艺人地区：</label>
-                        <a href="javascript:void(0);" class="active">全部</a>
+                        <a href="javascript:void(0);" class="active">所有地区</a>
                         {% for region in regions %}
                             <a href="javascript:void(0);">{{ region[1] }}</a>
                         {% endfor %}
@@ -64,32 +64,61 @@
                         </div>
                     </div>
                     <table width="100%" class="list-table">
-                        {% for i in range(1,20) %}
+                        {% for tab in tabs.items %}
                             <tr>
                                 <td width="45%">
                                     <i class="icon icon-file-alt"></i>&nbsp;&nbsp;
-                                    <a href="#" class="link-tab-subject">曲谱名称名称</a>
+                                    <a href="#" class="link-tab-subject">{{ tab.title }}</a>
                                     <a href="#" class="link-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
                                 </td>
-                                <td width="8%" class="tab-style">风格</td>
-                                <td width="8%" class="tab-difficulty">新手</td>
-                                <td width="10%" class="tab-hits">99次</td>
+                                <td width="8%" class="tab-style">{{ tab.style_text }}</td>
+                                <td width="8%" class="tab-difficulty">{{ tab.difficulty_text }}</td>
+                                <td width="10%" class="tab-hits">{{ tab.hits }}次</td>
                                 <td align="right">
-                                    <a href="#" class="link-list-artist pull-right">艺人名</a>
+                                    <a href="{{ url_for('bp_site_tabs.tabs') }}" class="link-list-artist pull-right">{{ tab.artist.name }}</a>
                                 </td>
                             </tr>
-
                         {% endfor %}
                     </table>
-                    <ul class="pagination pagination-square">
-                        <li><a href="#">«</a></li>
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">»</a></li>
-                    </ul>
+                    <div class="text-center">
+                        <ul class="pagination pagination-sm pagination-square">
+                            {% set page_size = config.POSTS_PER_PAGE %}
+                            {% set page_count = tabs.total/page_size if tabs.total is divisibleby page_size else tabs.total//page_size + 1%}
+                            {% if tabs.page < 7 %}
+                                {% set page_start = 1 %}
+                                {% set page_end = 10 %}
+                            {% elif tabs.page < page_count - 8 %}
+                                {% set page_start = tabs.page - 5 %}
+                                {% set page_end = tabs.page + 4 %}
+                            {% else %}
+                                {% set page_start = page_count - 9 %}
+                                {% set page_end = page_count %}
+                            {% endif %}
+                            {% if tabs.has_prev %}
+                                <li><a href="{{ url_for('bp_site_tabs.tabs', page = tabs.prev_num) }}">
+                                    <i class="icon icon-chevron-left"></i> 前页</a>
+                                </li>
+                            {% endif %}
+                            {% if page_start > 1 %}
+                                <li><a href="{{ url_for('bp_site_tabs.tabs', page=1) }}">1...</a></li>
+                            {% endif %}
+                            {% for page_index in range(page_start, page_end + 1) %}
+                                {% if page_index == tabs.page %}
+                                    <li class="active"><span>{{ page_index }}</span></li>
+                                {% else %}
+                                    <li><a href="{{ url_for('bp_site_tabs.tabs', page=page_index) }}">{{ page_index }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                            {% if page_end < page_count %}
+                                <li><a href="{{ url_for('bp_site_tabs.tabs', page=page_count) }}">...{{ page_count }}</a></li>
+                            {% endif %}
+                            {% if tabs.has_next %}
+                                <li>
+                                    <a href="{{ url_for('bp_site_tabs.tabs', page = tabs.next_num) }}">后页 <i class="icon icon-chevron-right"></i></a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
                 </div>
                 <div class="col-md-3 col-sm-4">
                     <div class="gt-styles">

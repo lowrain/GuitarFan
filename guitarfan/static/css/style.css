@@ -310,6 +310,15 @@ i.icon-bgdark {
     background-color: #3bc492;
     border: 1px solid #3bc492;
 }
+.pagination > li > a,
+.pagination > li > span {
+    border: 0px;
+    margin-right: 6px;
+}
+.pagination-sm > li > a,
+.pagination-sm > li > span {
+    padding: 1px 6px;
+}
 .pagination > .active > a,
 .pagination > .active > span,
 .pagination > .active > a:hover,
@@ -328,6 +337,16 @@ i.icon-bgdark {
 .pagination > li > span:focus {
     color: #3bc492;
     background-color: #eeeeee;
+}
+.pagination > .disabled > span,
+.pagination > .disabled > span:hover,
+.pagination > .disabled > a,
+.pagination > .disabled > a:hover,
+.pagination > .disabled > a:focus {
+  color: #ccc;
+  cursor: default;
+  background-color: #ffffff;
+  border: 0;
 }
 /*---------- Bootstrap Overwrite END ------------*/
 /*---------- Index Page -------------------------*/
