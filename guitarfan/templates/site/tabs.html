@@ -29,18 +29,18 @@
                 <div class="col-md-5 col-sm-12">
                     <div class="categories">
                         <label>艺人类型：</label>
-                        <a href="javascript:void(0);" class="active">所有类型</a>
+                        <a href="javascript:void(0);" class="active" ref="0">所有类型</a>
                         {% for category in categories %}
-                            <a href="javascript:void(0);">{{ category[1] }}</a>
+                            <a href="javascript:void(0);" ref="{{ category[0] }}">{{ category[1] }}</a>
                         {% endfor %}
                     </div>
                 </div>
                 <div class="col-md-5 col-sm-12">
                     <div class="regions">
                         <label>艺人地区：</label>
-                        <a href="javascript:void(0);" class="active">所有地区</a>
+                        <a href="javascript:void(0);" class="active" ref="0">所有地区</a>
                         {% for region in regions %}
-                            <a href="javascript:void(0);">{{ region[1] }}</a>
+                            <a href="javascript:void(0);" ref="{{ region[0] }}">{{ region[1] }}</a>
                         {% endfor %}
                     </div>
                 </div>
@@ -123,14 +123,23 @@
                 <div class="col-md-3 col-sm-4">
                     <div class="gt-styles">
                         <h4><i class="icon icon-leaf"></i> 音乐风格</h4>
-                        <div id="stylecloud"></div>
+                        <div id="styleCloud"></div>
                     </div>
                     <div class="gt-tags">
                         <h4><i class="icon icon-tags"></i> 曲谱标签</h4>
-                        <div id="tagcloud"></div>
+                        <div id="tagCloud"></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block script_after_headjs %}
+<script>
+head.ready(function() {
+   var tabsListOperator = new TabsListOperator();
+   tabsListOperator.initialize();
+});
+</script>
 {% endblock %}

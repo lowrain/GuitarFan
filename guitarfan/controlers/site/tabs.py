@@ -23,9 +23,9 @@ def tabs(page = 1):
     return render_template('tabs.html', letters=letters, regions=regions, categories=categories, tabs=tabs)
 
 
-@bp_site_tabs.route('/artists.json')
+@bp_site_tabs.route('/artists.json', methods=['POST'])
 def artists_json():
-    letter = request.args['letter']
+    letter = request.form['queryFilter[artistLetter]']
     artists = []
     for id, name, category in db.session.query(Artist.id, Artist.name, Artist.category_id).filter(or_(letter == 'ALL', Artist.letter == letter)):
         artists.append({'id': id, 'name': name, 'category': category})
