@@ -29,18 +29,18 @@
                 <div class="col-md-5 col-sm-12">
                     <div class="categories">
                         <label>艺人类型：</label>
-                        <a href="javascript:void(0);" class="active" ref="0">所有类型</a>
+                        <a href="javascript:void(0);" class="active" rel="0">所有类型</a>
                         {% for category in categories %}
-                            <a href="javascript:void(0);" ref="{{ category[0] }}">{{ category[1] }}</a>
+                            <a href="javascript:void(0);" rel="{{ category[0] }}">{{ category[1] }}</a>
                         {% endfor %}
                     </div>
                 </div>
                 <div class="col-md-5 col-sm-12">
                     <div class="regions">
                         <label>艺人地区：</label>
-                        <a href="javascript:void(0);" class="active" ref="0">所有地区</a>
+                        <a href="javascript:void(0);" class="active" rel="0">所有地区</a>
                         {% for region in regions %}
-                            <a href="javascript:void(0);" ref="{{ region[0] }}">{{ region[1] }}</a>
+                            <a href="javascript:void(0);" rel="{{ region[0] }}">{{ region[1] }}</a>
                         {% endfor %}
                     </div>
                 </div>
@@ -63,23 +63,25 @@
                             <button type="button" class="btn btn-default btn-sm" title="按照点击量排序"><i class="glyphicon glyphicon-fire"></i></button>
                         </div>
                     </div>
-                    <table width="100%" class="list-table">
-                        {% for tab in tabs.items %}
-                            <tr>
-                                <td width="45%">
-                                    <i class="icon icon-file-alt"></i>&nbsp;&nbsp;
-                                    <a href="#" class="link-tab-subject">{{ tab.title }}</a>
-                                    <a href="#" class="link-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
-                                </td>
-                                <td width="8%" class="tab-style">{{ tab.style_text }}</td>
-                                <td width="8%" class="tab-difficulty">{{ tab.difficulty_text }}</td>
-                                <td width="10%" class="tab-hits">{{ tab.hits }}次</td>
-                                <td align="right">
-                                    <a href="{{ url_for('bp_site_tabs.tabs') }}" class="link-list-artist pull-right">{{ tab.artist.name }}</a>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </table>
+                    <div class="list-body">
+                        <table width="100%">
+                            {% for tab in tabs.items %}
+                                <tr>
+                                    <td width="45%">
+                                        <i class="icon icon-file-alt"></i>&nbsp;&nbsp;
+                                        <a href="#" class="link-tab-subject">{{ tab.title }}</a>
+                                        <a href="#" class="link-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
+                                    </td>
+                                    <td width="8%" class="tab-style">{{ tab.style_text }}</td>
+                                    <td width="8%" class="tab-difficulty">{{ tab.difficulty_text }}</td>
+                                    <td width="10%" class="tab-hits">{{ tab.hits }}次</td>
+                                    <td align="right">
+                                        <a href="{{ url_for('bp_site_tabs.tabs') }}" class="link-list-artist pull-right">{{ tab.artist.name }}</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
                     <div class="text-center">
                         <ul class="pagination pagination-sm pagination-square">
                             {% set page_size = config.POSTS_PER_PAGE %}
@@ -136,10 +138,10 @@
 {% endblock %}
 
 {% block script_after_headjs %}
-<script>
-head.ready(function() {
-   var tabsListOperator = new TabsListOperator();
-   tabsListOperator.initialize();
-});
-</script>
+    <script>
+        head.ready(function() {
+            var tabsListOperator = new TabsListOperator();
+            tabsListOperator.initialize();
+        });
+    </script>
 {% endblock %}

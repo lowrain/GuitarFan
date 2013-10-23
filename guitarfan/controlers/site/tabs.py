@@ -26,8 +26,14 @@ def tabs(page = 1):
 @bp_site_tabs.route('/artists.json', methods=['POST'])
 def artists_json():
     letter = request.form['queryFilter[artistLetter]']
+    category_id = int(request.form['queryFilter[artistCategoryId]'])
+    region_id = int(request.form['queryFilter[artistRegionId]'])
     artists = []
-    for id, name, category in db.session.query(Artist.id, Artist.name, Artist.category_id).filter(or_(letter == 'ALL', Artist.letter == letter)):
+    for id, name, category in db.session.query(Artist.id, Artist.name, Artist.category_id)\
+        .filter(or_(letter == 'ALL', Artist.letter == letter))\
+        .filter(or_(category_id == 0, Artist.category_id == category_id))\
+        .filter(or_(region_id == 0, Artist.region_id == region_id))\
+        .order_by('category_id'):
         artists.append({'id': id, 'name': name, 'category': category})
     return jsonify(artists=artists)
 

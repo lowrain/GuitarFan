@@ -101,23 +101,23 @@ function TabsListOperator() {
         artistLetter: 'All',
         artistCategoryId: 0,
         artistRegionId: 0,
-        artistId: '',
         styleId: 0,
+        artistId: '',
         tagId: '',
         pageIndex: 1,
         orderBy: 'time'
     },
-    this.artistFilterBox = $('.gt-tabs-header');
+        this.artistFilterBox = $('.gt-tabs-header');
     this.artistLetters = $('.gt-tabs-header .letters');
     this.artistCategories = $('.gt-tabs-header .categories');
     this.artistRegions = $('.gt-tabs-header .regions');
     this.artistsBox = $('.gt-tabs-header .artists');
     this.tabsListBox = $('.gt-tabs-list');
     this.tabsListHeader = $('.gt-tabs-list .list-header');
-    this.tabsListBody = $('.gt-tabs-list table.list-table');
+    this.tabsListBody = $('.gt-tabs-list .list-body');
     this.tabsListPagination = $('.gt-tabs-list ul.pagination');
 
-    this.updateArtistFilterBox = function () {
+    this.updateArtistBox = function () {
         var loadingHTML = '<img class="ajax-loader" src="static/images/loading-1.gif" width="16px" height="11px" border="0" />';
         if (this.queryFilter.artistLetter == 'All') {
             this.artistsBox.html(loadingHTML);
@@ -135,30 +135,34 @@ function TabsListOperator() {
             success: function(data) {
                 if (data && data.artists && data.artists.length > 0) {
                     var html = '';
-                    var linkClass = '';
+                    var categoryClass = '';
                     var artist = null;
                     for (var i=0; i<data.artists.length; i++) {
                         artist = data.artists[i];
                         switch (artist.category) {
                             case 1:
-                                linkClass = 'male';
+                                categoryClass = 'male';
                                 break;
                             case 2:
-                                linkClass = 'female';
+                                categoryClass = 'female';
                                 break;
                             case 3:
-                                linkClass = 'group';
+                                categoryClass = 'group';
                                 break;
                             case 4:
-                                linkClass = 'band';
+                                categoryClass = 'band';
                                 break;
                             default:
-                                linkClass = 'other';
+                                categoryClass = 'other';
                                 break;
                         }
-                        html += '<a href="javascript:void(0);" class="{0}">{1}</a> '.format(linkClass, artist.name);
+                        html += '<a href="javascript:void(0);" class="{0}">{1}</a> '.format(categoryClass, artist.name);
                     }
                     _this.artistsBox.html(html);
+                    //need to off
+                    _this.artistsBox.on("click", 'a', function() {
+                        alert($(this).text());
+                    });
                 }
                 else {
                     _this.artistsBox.html('暂时没有符合条件的的艺人');
@@ -168,7 +172,7 @@ function TabsListOperator() {
     };
 
     this.updateTabsListBox = function () {
-        this.tabsListBody.html('');
+
     };
 
     this.initialize = function () {
@@ -186,21 +190,21 @@ function TabsListOperator() {
                 _this.artistsBox.hide();
             }
             _this.queryFilter.artistLetter = letter;
-            _this.updateArtistFilterBox();
+            _this.updateArtistBox();
             _this.updateTabsListBox();
         });
         this.artistCategories.find('a').click(function () {
             _this.artistCategories.find('.active').removeClass('active');
             $(this).addClass('active');
             _this.queryFilter.artistCategoryId = $(this).attr('rel');
-            _this.updateArtistFilterBox();
+            _this.updateArtistBox();
             _this.updateTabsListBox();
         });
         this.artistRegions.find('a').click(function () {
             _this.artistRegions.find('.active').removeClass('active');
             $(this).addClass('active');
             _this.queryFilter.artistRegionId = $(this).attr('rel');
-            _this.updateArtistFilterBox();
+            _this.updateArtistBox();
             _this.updateTabsListBox();
         });
         this.tabsListHeader.find('button').click(function () {

@@ -454,7 +454,26 @@ i.icon-bgdark {
     border-radius: 4px;
 }
 .gt-tabs-header .artists a {
+    white-space:nowrap;
+}
+.gt-tabs-header .artists a.male {
+    color: #66afe9;
+}
+.gt-tabs-header .artists a.female {
+    color: #FF9797;
+}
+.gt-tabs-header .artists a.group {
+    color: #aab5f0;
+}
+.gt-tabs-header .artists a.band {
+    color: #e74c3c;
+}
+.gt-tabs-header .artists a.other {
     color: #999;
+}
+.gt-tabs-header .artists a.active {
+    color: #FFF;
+    background-color: #3bc492;
 }
 .gt-tabs-list {
     padding: 20px;
@@ -469,32 +488,32 @@ i.icon-bgdark {
 .gt-tabs-list .list-header .header-text .label {
     font-size: 100%;
 }
-.gt-tabs-list table.list-table tr {
+.gt-tabs-list .list-body tr {
     border-bottom: 1px dashed #eee;
     line-height: 21px;
     font-size: 13px;
     height:32px;
 }
-.gt-tabs-list table.list-table tr:hover {
+.gt-tabs-list .list-body tr:hover {
     background-color: #fafafa;
 }
-.gt-tabs-list table.list-table td a.link-tab-subject {
+.gt-tabs-list .list-body td a.link-tab-subject {
     color: #428bca;
     font-size: 14px;
 }
-.gt-tabs-list table.list-table td a.link-tab-subject:hover {
+.gt-tabs-list .list-body td a.link-tab-subject:hover {
     color: #fff;
     background-color: #428bca;
 }
-.gt-tabs-list table.list-table td.tab-style {
+.gt-tabs-list .list-body td.tab-style {
     color: #90a0dd;
     font-size: 11px;
 }
-.gt-tabs-list table.list-table td.tab-difficulty {
+.gt-tabs-list .list-body td.tab-difficulty {
     color: #f0ad4e;
     font-size: 11px;
 }
-.gt-tabs-list table.list-table td.tab-hits {
+.gt-tabs-list .list-body td.tab-hits {
     color: #e96b56;
     font-size: 11px;
 }
