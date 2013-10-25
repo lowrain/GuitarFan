@@ -487,6 +487,7 @@ i.icon-bgdark {
 }
 .gt-tabs-list .list-header .header-text .label {
     font-size: 100%;
+    padding: .3em .6em .3em;
 }
 .gt-tabs-list .list-body tr {
     border-bottom: 1px dashed #eee;
@@ -548,7 +549,7 @@ i.icon-bgdark {
     color: #FFF;
     background-color: #3bc492;
 }
-#stylecloud, #tagcloud {
+#styleCloud, #tagCloud {
     padding: 5px 15px 10px 15px;
 }
 /*---------- Right Slide END --------------------*/

@@ -8,7 +8,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
-                    <div class="alert alert-info alert-square">
+                    <div class="alert alert-info">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                         <strong><i class="icon icon-coffee"></i> 温馨提示：</strong>可以根据艺人对曲谱进行筛选，同时结合音乐风格和曲谱标签来满足您的音乐口味
                         <i class="icon-music"></i>
@@ -18,9 +18,9 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="letters">
-                        <button type="button" class="btn btn-info btn-sm btn-square">All</button>
+                        <button type="button" class="btn btn-info btn-sm">All</button>
                         {% for letter in letters %}
-                            <button type="button" class="btn btn-default btn-sm btn-square">{{ letter }}</button>
+                            <button type="button" class="btn btn-default btn-sm">{{ letter }}</button>
                         {% endfor %}
                     </div>
                 </div>
@@ -57,10 +57,15 @@
             <div class="row">
                 <div class="col-md-7 col-sm-8 col-md-offset-1">
                     <div class="list-header">
-                        <div class="header-text pull-left"><i class="icon icon-search"></i> 艺人：<span class="label">字母A</span> + <span class="label">男艺人</span> + <span class="label">港台</span>&nbsp;&nbsp;&nbsp;&nbsp;风格：<span class="label">流行</span></div>
+                        <div class="header-text pull-left">
+                            <i class="icon icon-search"></i>&nbsp;
+                            <span>
+                                艺人：<span class="label">所有</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                            </span>
+                        </div>
                         <div class="btn-group pull-right">
-                            <button type="button" class="btn btn-default btn-sm active" title="按照更新时间排序"><i class="glyphicon glyphicon-time"></i></button>
-                            <button type="button" class="btn btn-default btn-sm" title="按照点击量排序"><i class="glyphicon glyphicon-fire"></i></button>
+                            <button type="button" class="btn btn-default btn-sm active" title="按照更新时间排序" rel="time"><i class="glyphicon glyphicon-time"></i></button>
+                            <button type="button" class="btn btn-default btn-sm" title="按照点击量排序" rel="hot"><i class="glyphicon glyphicon-fire"></i></button>
                         </div>
                     </div>
                     <div class="list-body">
@@ -82,9 +87,9 @@
                             {% endfor %}
                         </table>
                     </div>
-                    <div class="text-center">
+                    <div class="text-center hidden">
                         <ul class="pagination pagination-sm pagination-square">
-                            {% set page_size = config.POSTS_PER_PAGE %}
+                            {% set page_size = config.TABS_PER_PAGE %}
                             {% set page_count = tabs.total/page_size if tabs.total is divisibleby page_size else tabs.total//page_size + 1%}
                             {% if tabs.page < 7 %}
                                 {% set page_start = 1 %}
