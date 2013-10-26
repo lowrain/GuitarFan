@@ -87,7 +87,7 @@
                             {% endfor %}
                         </table>
                     </div>
-                    <div class="text-center hidden">
+                    <div class="text-center">
                         <ul class="pagination pagination-sm pagination-square">
                             {% set page_size = config.TABS_PER_PAGE %}
                             {% set page_count = tabs.total/page_size if tabs.total is divisibleby page_size else tabs.total//page_size + 1%}

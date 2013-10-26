@@ -106,8 +106,8 @@ function TabsListOperator() {
         tagId: '',
         pageIndex: 1,
         orderBy: 'time'
-    },
-        this.artistFilterBox = $('.gt-tabs-header');
+    };
+    this.artistFilterBox = $('.gt-tabs-header');
     this.artistLetters = $('.gt-tabs-header .letters');
     this.artistCategories = $('.gt-tabs-header .categories');
     this.artistRegions = $('.gt-tabs-header .regions');
@@ -115,7 +115,7 @@ function TabsListOperator() {
     this.tabsListBox = $('.gt-tabs-list');
     this.tabsListHeader = $('.gt-tabs-list .list-header');
     this.tabsListBody = $('.gt-tabs-list .list-body');
-    this.tabsListPagination = $('.gt-tabs-list ul.pagination');
+    this.pagination = $('.gt-tabs-list ul.pagination');
 
     this.updateArtistBox = function () {
         var loadingHTML = '<img class="ajax-loader" src="static/images/loading-1.gif" width="16px" height="11px" border="0" />';
@@ -187,37 +187,46 @@ function TabsListOperator() {
         }
         this.tabsListHeader.find('.header-text > span').html(conditionsHTML);
 
-
         var _this = this;
         $.ajax({
             url: '/tabs.json',
-            data: { queryFilter: _this.queryFilter },
+            data: {
+                queryFilter: _this.queryFilter
+            },
             type: 'POST',
             dataType: 'json',
             success: function(data) {
                 if (data && data.tabs && data.tabs.length > 0) {
-                    var html = '<table width="100%">';
+                    //build tab list html
+                    var listHtml = '<table width="100%">';
                     for (var i=0; i<data.tabs.length; i++) {
                         tab = data.tabs[i];
-                        html += '<tr>';
-                        html += '   <td width="45%">';
-                        html += '       <i class="icon icon-file-alt"></i>&nbsp;&nbsp;';
-                        html += '       <a href="#" class="link-tab-subject">' + tab.title + '</a>';
-                        html += '           <a href="#" class="link-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>';
-                        html += '   </td>';
-                        html += '   <td width="8%" class="tab-style">' + tab.style + '</td>';
-                        html += '   <td width="8%" class="tab-difficulty">' + tab.difficalty + '</td>';
-                        html += '   <td width="10%" class="tab-hits">' + tab.hits + '次</td>';
-                        html += '   <td align="right">';
-                        html += '       <a href="/tabs?artist=' + tab.artistId + '" class="link-list-artist pull-right">' + tab.artistName + '</a>';
-                        html += '   </td>'
-                        html += '</tr>'
+                        listHtml += '<tr>';
+                        listHtml += '   <td width="45%">';
+                        listHtml += '       <i class="icon icon-file-alt"></i>&nbsp;&nbsp;';
+                        listHtml += '       <a href="#" class="link-tab-subject">' + tab.title + '</a>';
+                        listHtml += '           <a href="#" class="link-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>';
+                        listHtml += '   </td>';
+                        listHtml += '   <td width="8%" class="tab-style">' + tab.style + '</td>';
+                        listHtml += '   <td width="8%" class="tab-difficulty">' + tab.difficalty + '</td>';
+                        listHtml += '   <td width="10%" class="tab-hits">' + tab.hits + '次</td>';
+                        listHtml += '   <td align="right">';
+                        listHtml += '       <a href="/tabs?artist=' + tab.artistId + '" class="link-list-artist pull-right">' + tab.artistName + '</a>';
+                        listHtml += '   </td>'
+                        listHtml += '</tr>'
                     }
-                    html += '</table>'
-                    _this.tabsListBody.html(html);
+                    listHtml += '</table>'
+                    _this.tabsListBody.html(listHtml);
+
+                    // TODO build page html
+                    var pageIndex = data.pageIndex;
+                    var pageCount = data.pageCount;
+                    var pageHTML = 'curent page: ' + pageIndex + ', total ' + pageCount + ' pages.';
+                    _this.pagination.html(pageHTML);
                 }
                 else {
-                    _this.tabsListBody.html('<br><center>暂时没有符合条件的的曲谱 >_<</center><br><br>');
+                    _this.tabsListBody.html('<br><br><center>暂时没有符合条件的的曲谱 >_<</center>');
+                    _this.pagination.html('');
                 }
             }
         });
@@ -261,7 +270,7 @@ function TabsListOperator() {
             _this.updateArtistBox();
             _this.updateTabsListBox();
         });
-        this.artistsBox.on("click", 'a', function() {
+        this.artistsBox.on('click', 'a', function() {
             $(this).toggleClass('active');
             _this.queryFilter.artistIds = '';
             _this.artistsBox.find('.active').each(function () {
@@ -270,6 +279,8 @@ function TabsListOperator() {
                 _this.queryFilter.artistIds += artistId;
             });
             _this.updateTabsListBox();
+
+            return false;
         });
         this.tabsListHeader.find('button').click(function () {
             _this.tabsListHeader.find('.active').removeClass('active');
@@ -279,8 +290,12 @@ function TabsListOperator() {
         });
         // TODO style/tag cloud
 
-        this.tabsListPagination.find('a').click(function () {
-            alert('pagination');
+        this.pagination.on('click', 'a', function () {
+            var pageIndex = parseInt($(this).text());
+            _this.queryFilter.pageIndex = pageIndex;
+            _this.updateTabsListBox();
+
+            return false;
         });
     };
 }
