@@ -113,8 +113,8 @@ function TabsListOperator() {
         artistLetter: 'All',
         artistCategoryId: 0,
         artistRegionId: 0,
-        styleId: 0,
         artistIds: '',
+        styleId: 0,
         tagId: '',
         pageIndex: 1,
         orderBy: 'time'
@@ -155,7 +155,7 @@ function TabsListOperator() {
         });
     };
 
-    this.updateTabsListBox = function () {
+    this.updateConditionText = function () {
         var conditionsHTML = '';
         var artistConditions = [];
         if (this.queryFilter.artistIds.length > 0) {
@@ -182,7 +182,9 @@ function TabsListOperator() {
             }
         }
         this.tabsListHeader.find('.header-text > span').html(conditionsHTML);
+    };
 
+    this.updateTabsListBox = function () {
         var _this = this;
         $.ajax({
             url: '/tabs.json',
@@ -207,53 +209,69 @@ function TabsListOperator() {
     this.initialize = function () {
         if (!this.artistFilterBox || !this.tabsListBox) return;
         var _this = this;
-        this.artistLetters.find('button').click(function () {
-            if ($(this).hasClass('btn-info')) return false;
-            var letter = $(this).text();
-            _this.artistLetters.find('.btn-info').toggleClass('btn-info btn-default');
-            $(this).toggleClass('btn-info btn-default');
+        if (this.artistFilterBox.length > 0) {
+            this.artistLetters.find('button').click(function () {
+                if ($(this).hasClass('btn-info')) return false;
+                var letter = $(this).text();
+                _this.artistLetters.find('.btn-info').toggleClass('btn-info btn-default');
+                $(this).toggleClass('btn-info btn-default');
 
-            if (letter != 'All') {
-                _this.artistsBox.fadeIn('slow');
-            }
-            else {
-                _this.artistsBox.hide();
-            }
-            _this.queryFilter.artistLetter = letter;
-            _this.queryFilter.artistIds = '';
-            _this.updateArtistBox();
-            _this.updateTabsListBox();
-        });
-        this.artistCategories.find('a').click(function () {
-            if ($(this).hasClass('active')) return false;
-            _this.artistCategories.find('.active').removeClass('active');
-            $(this).addClass('active');
-            _this.queryFilter.artistCategoryId = $(this).attr('rel');
-            _this.queryFilter.artistIds = '';
-            _this.updateArtistBox();
-            _this.updateTabsListBox();
-        });
-        this.artistRegions.find('a').click(function () {
-            if ($(this).hasClass('active')) return false;
-            _this.artistRegions.find('.active').removeClass('active');
-            $(this).addClass('active');
-            _this.queryFilter.artistRegionId = $(this).attr('rel');
-            _this.queryFilter.artistIds = '';
-            _this.updateArtistBox();
-            _this.updateTabsListBox();
-        });
-        this.artistsBox.on('click', 'a', function() {
-            $(this).toggleClass('active');
-            _this.queryFilter.artistIds = '';
-            _this.artistsBox.find('.active').each(function () {
-                var artistId = $(this).attr('rel');
-                if (_this.queryFilter.artistIds != '') _this.queryFilter.artistIds += '|';
-                _this.queryFilter.artistIds += artistId;
+                if (letter != 'All') {
+                    _this.artistsBox.fadeIn('slow');
+                }
+                else {
+                    _this.artistsBox.hide();
+                }
+                _this.queryFilter.artistLetter = letter;
+                _this.queryFilter.artistIds = '';
+                _this.queryFilter.pageIndex = 1;
+                _this.updateArtistBox();
+                _this.updateConditionText();
+                _this.updateTabsListBox();
+
+                return false;
             });
-            _this.updateTabsListBox();
+            this.artistCategories.find('a').click(function () {
+                if ($(this).hasClass('active')) return false;
+                _this.artistCategories.find('.active').removeClass('active');
+                $(this).addClass('active');
+                _this.queryFilter.artistCategoryId = $(this).attr('rel');
+                _this.queryFilter.artistIds = '';
+                _this.queryFilter.pageIndex = 1;
+                _this.updateArtistBox();
+                _this.updateConditionText();
+                _this.updateTabsListBox();
 
-            return false;
-        });
+                return false;
+            });
+            this.artistRegions.find('a').click(function () {
+                if ($(this).hasClass('active')) return false;
+                _this.artistRegions.find('.active').removeClass('active');
+                $(this).addClass('active');
+                _this.queryFilter.artistRegionId = $(this).attr('rel');
+                _this.queryFilter.artistIds = '';
+                _this.queryFilter.pageIndex = 1;
+                _this.updateArtistBox();
+                _this.updateConditionText();
+                _this.updateTabsListBox();
+
+                return false;
+            });
+            this.artistsBox.on('click', 'a', function() {
+                $(this).toggleClass('active');
+                _this.queryFilter.artistIds = '';
+                _this.artistsBox.find('.active').each(function () {
+                    var artistId = $(this).attr('rel');
+                    if (_this.queryFilter.artistIds != '') _this.queryFilter.artistIds += '|';
+                    _this.queryFilter.artistIds += artistId;
+                });
+                _this.queryFilter.pageIndex = 1;
+                _this.updateConditionText();
+                _this.updateTabsListBox();
+
+                return false;
+            });
+        }
         this.tabsListHeader.find('button').click(function () {
             if ($(this).hasClass('active')) return false;
             _this.tabsListHeader.find('.active').removeClass('active');
@@ -261,6 +279,8 @@ function TabsListOperator() {
             _this.queryFilter.pageIndex = 1;
             _this.queryFilter.orderBy = $(this).attr('rel');
             _this.updateTabsListBox();
+
+            return false;
         });
         // TODO style/tag cloud
 

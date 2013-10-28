@@ -13,12 +13,14 @@
                         <div class="col-md-6 col-sm-12">
                             <div class="hot-box">
                                 <i class="icon icon-star icon-circled icon-bglight icon-2x pull-left"></i>
-                                <h4 class="pull-left">最热曲谱 · · · · · ·</h4>
+                                <h4 class="pull-left">热门曲谱 · · · · · ·</h4>
                                 <div class="clearfix"></div>
                                 <ul class="list-unstyled">
+                                    {% set row_index = 0 %}
                                     {% for tab in hot_tabs %}
+                                    {% set row_index = row_index + 1 %}
                                     <li class="clearfix">
-                                        <span class="badge">1</span>
+                                        <span class="badge">{{ row_index }}</span>
                                         <a href="#" class="link-list-tab">{{ tab.title }}</a>
                                         <a href="/tabview/{{ tab.id }}" class="link-new-window" title="在新窗口中查看" target="_blank" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
                                         <a href="{{ url_for('bp_site_tabs.tabs', artist=tab.artist_id) }}" class="link-list-artist pull-right">{{ tab.artist.name }}</a>

@@ -22,7 +22,7 @@
                     <div class="col-sm-12">
                         <div class="alert alert-info">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                            <strong><i class="icon icon-coffee"></i> 温馨提示：</strong>可以根据艺人对曲谱进行筛选，同时结合音乐风格和曲谱标签来满足您的音乐口味
+                            <strong><i class="icon icon-coffee"></i> 温馨提示：</strong>可以根据艺人对曲谱进行筛选，或者通过音乐风格和曲谱标签来浏览符合口味的曲谱
                             <i class="icon-music"></i>
                         </div>
                     </div>
@@ -173,12 +173,17 @@
 {% endblock %}
 
 {% block script_after_headjs %}
-    {% if mode == 'list' %}
-        <script>
-            head.ready(function() {
-                var tabsListOperator = new TabsListOperator();
-                tabsListOperator.initialize();
-            });
-        </script>
-    {% endif %}
+    <script>
+        head.ready(function() {
+            var tabsListOperator = new TabsListOperator();
+            tabsListOperator.initialize();
+            {%- if mode == 'artist' -%}
+                tabsListOperator.queryFilter.artistIds = '{{ artist.id }}';
+            {%- elif mode == 'tag' -%}
+                tabsListOperator.queryFilter.tagId = '{{ tag.id }}';
+            {%- elif mode == 'style' -%}
+                tabsListOperator.queryFilter.styleId = '{{ style }}';
+            {%- endif -%}
+        });
+    </script>
 {% endblock %}
