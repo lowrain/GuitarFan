@@ -280,6 +280,11 @@ i.icon-bgdark {
     background-size:cover;
     text-align: center;
 }
+.gt-landing.small {
+    padding: 0px;
+    margin: 0px;
+    height:200px;
+}
 /*---------- Landing Box END --------------------*/
 /*---------- Footer -----------------------------*/
 .footer {

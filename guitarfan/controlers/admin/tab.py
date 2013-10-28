@@ -21,8 +21,8 @@ bp_admin_tab = Blueprint('bp_admin_tab', __name__, template_folder="../../templa
 @bp_admin_tab.route('/admin/tabs')
 @login_required
 def list():
-    tabs = Tab.query.all()
-    return render_template('tab_management.html', action='list', tabs=tabs)
+    #tabs = Tab.query.all()
+    return render_template('tab_management.html', action='list')
 
 
 @bp_admin_tab.route('/admin/tabs.dataTables_json')

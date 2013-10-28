@@ -16,14 +16,37 @@ bp_site_tabs = Blueprint('bp_site_tabs', __name__, template_folder="../../templa
 @bp_site_tabs.route('/tabs')
 @bp_site_tabs.route('/tabs/<int:page>')
 def tabs(page = 1):
-    # TODO add artist/search/style/tag query logic
-    letters = map(chr, range(65, 91))
-    letters.append('0-9')
-    letters.append('Other')
-    regions = ArtistRegion.get_described_items()
-    categories = ArtistCategory.get_described_items()
-    tabs = Tab.query.order_by('update_time desc').paginate(page, current_app.config['TABS_PER_PAGE'], True)
-    return render_template('tabs.html', letters=letters, regions=regions, categories=categories, tabs=tabs)
+    if 'artist' in request.args:
+        artist_id = request.args['artist']
+        artist = Artist.query.get(artist_id)
+        tabs = Tab.query.filter(Tab.artist_id == artist_id).order_by('update_time desc').paginate(page, current_app.config['TABS_PER_PAGE'], True)
+        return render_template('tabs.html', tabs=tabs, artist=artist, mode='artist')
+    elif 'style' in request.args:
+        style_id = int(request.args['style'])
+        style = enums.MusicStyle.get_item_text(style_id)
+        tabs = Tab.query.filter(Tab.style_id == style_id).order_by('update_time desc').paginate(page, current_app.config['TABS_PER_PAGE'], True)
+        return render_template('tabs.html', tabs=tabs, style=style, mode='style')
+    elif 'tag' in request.args:
+        tag_id = request.args['tag']
+        tag = Tag.query.get(tag_id)
+        tabs = Tab.query.join(Tab.tags).filter(Tag.id == tag_id).order_by('Tab.update_time desc').paginate(page, current_app.config['TABS_PER_PAGE'], True)
+        return render_template('tabs.html', tabs=tabs, tag=tag, mode='tag')
+    # TODO search mode
+    #elif 'search' in request.args:
+    #    return render_template('tabs.html', tabs=tabs, tag=tag, mode='search')
+    else:
+        letters = map(chr, range(65, 91))
+        letters.append('0-9')
+        letters.append('Other')
+        regions = ArtistRegion.get_described_items()
+        categories = ArtistCategory.get_described_items()
+
+        order_by = 'update_time'
+        if 'order' in request.args and request.args['order'] == 'hot':
+            order_by = 'hits'
+
+        tabs = Tab.query.order_by(order_by + ' desc').paginate(page, current_app.config['TABS_PER_PAGE'], True)
+        return render_template('tabs.html', letters=letters, regions=regions, categories=categories, tabs=tabs, mode='list')
 
 
 @bp_site_tabs.route('/artists.json', methods=['POST'])

@@ -19,8 +19,8 @@ bp_admin_artist = Blueprint('bp_admin_artist', __name__, template_folder="../../
 @bp_admin_artist.route('/admin/artists')
 @login_required
 def list():
-    artists = Artist.query.all()
-    return render_template('artist_management.html', action='list', artists=artists)
+    #artists = Artist.query.all()
+    return render_template('artist_management.html', action='list')
 
 
 @bp_admin_artist.route('/admin/artists.dataTables_json')

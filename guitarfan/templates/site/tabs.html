@@ -1,57 +1,70 @@
 {% extends "site/base.html" %}
 
 {% block title %} - 曲谱{% endblock %}
-{% block active_navbar_tabs %}active{% endblock %}
-{% block landing %}{% endblock %}
+{% block active_navbar_tabs %}
+    {% if mode == 'list' %}
+        active
+    {% endif %}
+{% endblock %}
+{% block landing %}
+    {% if mode != 'list' %}
+        <!-- index landing -->
+        <div class="gt-landing small" id="gt-landing"></div>
+    {% endif %}
+{% endblock %}
+
+
 {% block body %}
-    <div class="gt-tabs-header">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="alert alert-info">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <strong><i class="icon icon-coffee"></i> 温馨提示：</strong>可以根据艺人对曲谱进行筛选，同时结合音乐风格和曲谱标签来满足您的音乐口味
-                        <i class="icon-music"></i>
+    {% if mode == 'list' %}
+        <div class="gt-tabs-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="alert alert-info">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <strong><i class="icon icon-coffee"></i> 温馨提示：</strong>可以根据艺人对曲谱进行筛选，同时结合音乐风格和曲谱标签来满足您的音乐口味
+                            <i class="icon-music"></i>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="letters">
-                        <button type="button" class="btn btn-info btn-sm">All</button>
-                        {% for letter in letters %}
-                            <button type="button" class="btn btn-default btn-sm">{{ letter }}</button>
-                        {% endfor %}
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="letters">
+                            <button type="button" class="btn btn-info btn-sm">All</button>
+                            {% for letter in letters %}
+                                <button type="button" class="btn btn-default btn-sm">{{ letter }}</button>
+                            {% endfor %}
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-5 col-sm-12">
-                    <div class="categories">
-                        <label>艺人类型：</label>
-                        <a href="javascript:void(0);" class="active" rel="0">所有类型</a>
-                        {% for category in categories %}
-                            <a href="javascript:void(0);" rel="{{ category[0] }}">{{ category[1] }}</a>
-                        {% endfor %}
+                <div class="row">
+                    <div class="col-md-5 col-sm-12">
+                        <div class="categories">
+                            <label>艺人类型：</label>
+                            <a href="javascript:void(0);" class="active" rel="0">所有类型</a>
+                            {% for category in categories %}
+                                <a href="javascript:void(0);" rel="{{ category[0] }}">{{ category[1] }}</a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="col-md-5 col-sm-12">
+                        <div class="regions">
+                            <label>艺人地区：</label>
+                            <a href="javascript:void(0);" class="active" rel="0">所有地区</a>
+                            {% for region in regions %}
+                                <a href="javascript:void(0);" rel="{{ region[0] }}">{{ region[1] }}</a>
+                            {% endfor %}
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-5 col-sm-12">
-                    <div class="regions">
-                        <label>艺人地区：</label>
-                        <a href="javascript:void(0);" class="active" rel="0">所有地区</a>
-                        {% for region in regions %}
-                            <a href="javascript:void(0);" rel="{{ region[0] }}">{{ region[1] }}</a>
-                        {% endfor %}
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="artists" style="display: none"></div>
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="artists" style="display: none"></div>
                 </div>
             </div>
         </div>
-    </div>
+    {% endif %}
     <div class="gt-tabs-list">
         <div class="container">
             <div class="row">
@@ -59,13 +72,28 @@
                     <div class="list-header">
                         <div class="header-text pull-left">
                             <i class="icon icon-search"></i>&nbsp;
-                            <span>
+                        <span>
+                            {% if mode == 'list' %}
                                 艺人：<span class="label">所有</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                            {% elif mode == 'artist' %}
+                                艺人：<span class="label">{{ artist.name }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                            {% elif mode == 'style' %}
+                                音乐风格：<span class="label">{{ style }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                            {% elif mode == 'tag' %}
+                                曲谱标签：<span class="label">{{ tag.name }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                            {% endif %}
                             </span>
                         </div>
                         <div class="btn-group pull-right">
-                            <button type="button" class="btn btn-default btn-sm active" title="按照更新时间排序" rel="time"><i class="glyphicon glyphicon-time"></i></button>
-                            <button type="button" class="btn btn-default btn-sm" title="按照点击量排序" rel="hot"><i class="glyphicon glyphicon-fire"></i></button>
+                            {% if 'order' in request.args and request.args['order'] == 'hot' %}
+                                {% set time_btn_active = '' %}
+                                {% set hot_btn_active = 'active' %}
+                            {% else %}
+                                {% set time_btn_active = 'active' %}
+                                {% set hot_btn_active = '' %}
+                            {%  endif %}
+                            <button type="button" class="btn btn-default btn-sm {{ time_btn_active }}" title="按照更新时间排序" rel="time"><i class="glyphicon glyphicon-time"></i></button>
+                            <button type="button" class="btn btn-default btn-sm {{ hot_btn_active }}" title="按照点击量排序" rel="hot"><i class="glyphicon glyphicon-fire"></i></button>
                         </div>
                     </div>
                     <div class="list-body">
@@ -81,7 +109,7 @@
                                     <td width="8%" class="tab-difficulty">{{ tab.difficulty_text }}</td>
                                     <td width="10%" class="tab-hits">{{ tab.hits }}次</td>
                                     <td align="right">
-                                        <a href="{{ url_for('bp_site_tabs.tabs') }}" class="link-list-artist pull-right">{{ tab.artist.name }}</a>
+                                        <a href="{{ url_for('bp_site_tabs.tabs') }}?artist={{ tab.artist_id }}" class="link-list-artist pull-right">{{ tab.artist.name }}</a>
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -91,38 +119,40 @@
                         <ul class="pagination pagination-sm pagination-square">
                             {% set page_size = config.TABS_PER_PAGE %}
                             {% set page_count = tabs.total/page_size if tabs.total is divisibleby page_size else tabs.total//page_size + 1%}
-                            {% if tabs.page < 7 %}
-                                {% set page_start = 1 %}
-                                {% set page_end = 10 %}
-                            {% elif tabs.page < page_count - 8 %}
-                                {% set page_start = tabs.page - 5 %}
-                                {% set page_end = tabs.page + 4 %}
-                            {% else %}
-                                {% set page_start = page_count - 9 %}
-                                {% set page_end = page_count %}
-                            {% endif %}
-                            {% if tabs.has_prev %}
-                                <li><a href="{{ url_for('bp_site_tabs.tabs', page = tabs.prev_num) }}">
-                                    <i class="icon icon-chevron-left"></i> 前页</a>
-                                </li>
-                            {% endif %}
-                            {% if page_start > 1 %}
-                                <li><a href="{{ url_for('bp_site_tabs.tabs', page=1) }}">1...</a></li>
-                            {% endif %}
-                            {% for page_index in range(page_start, page_end + 1) %}
-                                {% if page_index == tabs.page %}
-                                    <li class="active"><span>{{ page_index }}</span></li>
+                            {% if page_count > 1 %}
+                                {% if tabs.page < 9 %}
+                                    {% set page_start = 1 %}
+                                    {% set page_end = 10 if page_count > 10 else page_count %}
+                                {% elif tabs.page < page_count - 8 %}
+                                    {% set page_start = tabs.page - 5 %}
+                                    {% set page_end = tabs.page + 4 %}
                                 {% else %}
-                                    <li><a href="{{ url_for('bp_site_tabs.tabs', page=page_index) }}">{{ page_index }}</a></li>
+                                    {% set page_start = page_count - 9 %}
+                                    {% set page_end = page_count %}
                                 {% endif %}
-                            {% endfor %}
-                            {% if page_end < page_count %}
-                                <li><a href="{{ url_for('bp_site_tabs.tabs', page=page_count) }}">...{{ page_count }}</a></li>
-                            {% endif %}
-                            {% if tabs.has_next %}
-                                <li>
-                                    <a href="{{ url_for('bp_site_tabs.tabs', page = tabs.next_num) }}">后页 <i class="icon icon-chevron-right"></i></a>
-                                </li>
+                                {% if tabs.has_prev %}
+                                    <li><a href="{{ url_for('bp_site_tabs.tabs', page = tabs.prev_num) }}">
+                                        <i class="icon icon-chevron-left"></i> 前页</a>
+                                    </li>
+                                {% endif %}
+                                {% if page_start > 1 %}
+                                    <li><a href="{{ url_for('bp_site_tabs.tabs', page=1) }}">1...</a></li>
+                                {% endif %}
+                                {% for page_index in range(page_start, page_end + 1) %}
+                                    {% if page_index == tabs.page %}
+                                        <li class="active"><span>{{ page_index }}</span></li>
+                                    {% else %}
+                                        <li><a href="{{ url_for('bp_site_tabs.tabs', page=page_index) }}">{{ page_index }}</a></li>
+                                    {% endif %}
+                                {% endfor %}
+                                {% if page_end < page_count %}
+                                    <li><a href="{{ url_for('bp_site_tabs.tabs', page=page_count) }}">...{{ page_count }}</a></li>
+                                {% endif %}
+                                {% if tabs.has_next %}
+                                    <li>
+                                        <a href="{{ url_for('bp_site_tabs.tabs', page = tabs.next_num) }}">后页 <i class="icon icon-chevron-right"></i></a>
+                                    </li>
+                                {% endif %}
                             {% endif %}
                         </ul>
                     </div>
@@ -143,10 +173,12 @@
 {% endblock %}
 
 {% block script_after_headjs %}
-    <script>
-        head.ready(function() {
-            var tabsListOperator = new TabsListOperator();
-            tabsListOperator.initialize();
-        });
-    </script>
+    {% if mode == 'list' %}
+        <script>
+            head.ready(function() {
+                var tabsListOperator = new TabsListOperator();
+                tabsListOperator.initialize();
+            });
+        </script>
+    {% endif %}
 {% endblock %}

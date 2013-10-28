@@ -21,7 +21,7 @@
                                         <span class="badge">1</span>
                                         <a href="#" class="link-list-tab">{{ tab.title }}</a>
                                         <a href="/tabview/{{ tab.id }}" class="link-new-window" title="在新窗口中查看" target="_blank" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
-                                        <a href="#" class="link-list-artist pull-right">{{ tab.artist.name }}</a>
+                                        <a href="{{ url_for('bp_site_tabs.tabs', artist=tab.artist_id) }}" class="link-list-artist pull-right">{{ tab.artist.name }}</a>
                                     </li>
                                     {% endfor %}
                                 </ul>
@@ -39,11 +39,11 @@
                                         <i class="icon-angle-right"></i>
                                         <a href="#" class="link-list-tab">{{ tab.title }}</a>
                                         <a href="/tabview/{{ tab.id }}" class="link-new-window" title="在新窗口中查看" target="_blank" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
-                                        <a href="#" class="link-list-artist pull-right">{{ tab.artist.name }}</a>
+                                        <a href="{{ url_for('bp_site_tabs.tabs', artist=tab.artist_id) }}" class="link-list-artist pull-right">{{ tab.artist.name }}</a>
                                     </li>
                                     {% endfor %}
                                 </ul>
-                                <div class="text-right"><a class="link-more" href="tabs?order=new">More »</a></div>
+                                <div class="text-right"><a class="link-more" href="tabs">More »</a></div>
                             </div>
                         </div>
                     </div>
