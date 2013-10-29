@@ -131,6 +131,17 @@ $(function() {
             scrolling : 'auto'
         }
     });
+
+    $('.fm_link').fancybox({
+        type: 'iframe',
+        padding : 0,
+        scrollOutside: true,
+        width: 920,
+        height: 370,
+        iframe: {
+            scrolling : 'no'
+        }
+    });
 });
 
 function TabsListOperator() {
