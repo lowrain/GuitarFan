@@ -74,13 +74,15 @@
                             <i class="icon icon-search"></i>&nbsp;
                         <span>
                             {% if mode == 'list' %}
-                                艺人：<span class="label">所有</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                艺人：<span class="label">所有</span>
                             {% elif mode == 'artist' %}
-                                艺人：<span class="label">{{ artist.name }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                艺人：<span class="label">{{ artist.name }}</span>
                             {% elif mode == 'style' %}
-                                音乐风格：<span class="label">{{ style }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                音乐风格：<span class="label">{{ style }}</span>
                             {% elif mode == 'tag' %}
-                                曲谱标签：<span class="label">{{ tag.name }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                曲谱标签：<span class="label">{{ tag.name }}</span>
+                            {% elif mode == 'search' %}
+                                搜索关键词：<span class="label">{{ request.args['search'] }}</span>
                             {% endif %}
                             </span>
                         </div>
@@ -116,9 +118,10 @@
                         </table>
                     </div>
                     <div class="text-center">
+
                         <ul class="pagination pagination-sm pagination-square">
                             {% set page_size = config.TABS_PER_PAGE %}
-                            {% set page_count = tabs.total/page_size if tabs.total is divisibleby page_size else tabs.total//page_size + 1%}
+                            {% set page_count = tabs.total//page_size if tabs.total is divisibleby page_size else tabs.total//page_size + 1 %}
                             {% if page_count > 1 %}
                                 {% if tabs.page < 9 %}
                                     {% set page_start = 1 %}
@@ -174,16 +177,20 @@
 
 {% block script_after_headjs %}
     <script>
+        head.js("{{ url_for('static', filename='js/jquery.highlight.js') }}");
         head.ready(function() {
             var tabsListOperator = new TabsListOperator();
             tabsListOperator.initialize();
             {%- if mode == 'artist' -%}
-                tabsListOperator.queryFilter.artistIds = '{{ artist.id }}';
+                tabsListOperator.queryFilter.artistIds = '{{ request.args['artist'] }}';
             {%- elif mode == 'tag' -%}
-                tabsListOperator.queryFilter.tagId = '{{ tag.id }}';
+                tabsListOperator.queryFilter.tagId = '{{ request.args['tag'] }}';
             {%- elif mode == 'style' -%}
-                tabsListOperator.queryFilter.styleId = '{{ style }}';
+                tabsListOperator.queryFilter.styleId = '{{ request.args['style'] }}';
+            {% elif mode == 'search' %}
+                tabsListOperator.queryFilter.search = '{{ request.args['search'] }}';
             {%- endif -%}
+            tabsListOperator.colorSearchKeyword();
         });
     </script>
 {% endblock %}

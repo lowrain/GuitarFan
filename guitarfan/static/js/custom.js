@@ -48,6 +48,17 @@ $(function() {
     //init tooltip
     $('.link-new-window').tooltip();
 
+    //search submit validation
+    $('.search-form').submit(function() {
+        if ($(this).find('input[name=search]').val() == '') {
+            return false;
+        }
+        else {
+            $(this).find('input[name=search]').val($(this).find('input[name=search]').val().trim());
+            return true;
+        }
+    });
+
     //init tag and style cloud
     if ($('#tagCloud')) {
         $.ajax({
@@ -117,7 +128,8 @@ function TabsListOperator() {
         styleId: 0,
         tagId: '',
         pageIndex: 1,
-        orderBy: 'time'
+        orderBy: 'time',
+        search: ''
     };
     this.artistFilterBox = $('.gt-tabs-header');
     this.artistLetters = $('.gt-tabs-header .letters');
@@ -128,83 +140,6 @@ function TabsListOperator() {
     this.tabsListHeader = $('.gt-tabs-list .list-header');
     this.tabsListBody = $('.gt-tabs-list .list-body');
     this.pagination = $('.gt-tabs-list ul.pagination');
-
-    this.updateArtistBox = function () {
-        var loadingHTML = '<img class="ajax-loader" src="static/images/loading-1.gif" width="16px" height="11px" border="0" />';
-        if (this.queryFilter.artistLetter == 'All') {
-            this.artistsBox.html(loadingHTML);
-            return;
-        }
-        var _this = this;
-        $.ajax({
-            url: '/artists.json',
-            data: { queryFilter: _this.queryFilter },
-            type: 'POST',
-            dataType: 'json',
-            beforeSend: function() {
-                _this.artistsBox.html(loadingHTML);
-            },
-            success: function(data) {
-                if (data && data.artists && data.artists.length > 0) {
-                    _this.artistsBox.html(buildArtistsHTML(data.artists));
-                }
-                else {
-                    _this.artistsBox.html('暂时没有符合条件的的艺人');
-                }
-            }
-        });
-    };
-
-    this.updateConditionText = function () {
-        var conditionsHTML = '';
-        var artistConditions = [];
-        if (this.queryFilter.artistIds.length > 0) {
-            this.artistsBox.find('a.active').slice(0, 3).each(function () {
-                artistConditions.push($(this).text());
-            });
-            if (this.artistsBox.find('a.active').length > 3) {
-                artistConditions.push('···');
-            }
-        }
-        else if (this.queryFilter.artistLetter == 'All' && this.queryFilter.artistCategoryId == 0 && this.queryFilter.artistRegionId == 0) {
-            artistConditions.push('所有');
-        }
-        else {
-            if (this.queryFilter.artistLetter != 'All') artistConditions.push('字母' + this.queryFilter.artistLetter);
-            if (this.queryFilter.artistCategoryId != 0) artistConditions.push(this.artistCategories.find('a.active').text());
-            if (this.queryFilter.artistRegionId != 0) artistConditions.push(this.artistRegions.find('a.active').text());
-        }
-        if (artistConditions.length > 0) {
-            conditionsHTML = '艺人：';
-            for (var i = 0; i < artistConditions.length; i++) {
-                if (i > 0) conditionsHTML += ' + ';
-                conditionsHTML += '<span class="label">' + artistConditions[i] + '</span>';
-            }
-        }
-        this.tabsListHeader.find('.header-text > span').html(conditionsHTML);
-    };
-
-    this.updateTabsListBox = function () {
-        var _this = this;
-        $.ajax({
-            url: '/tabs.json',
-            data: {
-                queryFilter: _this.queryFilter
-            },
-            type: 'POST',
-            dataType: 'json',
-            success: function(data) {
-                if (data && data.tabs && data.tabs.length > 0) {
-                    _this.tabsListBody.html(buildTabsListHTML(data.tabs));
-                    _this.pagination.html(buildPaginationHTML(data.pageIndex, data.pageCount));
-                }
-                else {
-                    _this.tabsListBody.html('<br><br><center>暂时没有符合条件的的曲谱 >_<</center>');
-                    _this.pagination.html('');
-                }
-            }
-        });
-    };
 
     this.initialize = function () {
         if (!this.artistFilterBox || !this.tabsListBox) return;
@@ -299,6 +234,92 @@ function TabsListOperator() {
 
             return false;
         });
+    };
+
+    this.updateArtistBox = function () {
+        var loadingHTML = '<img class="ajax-loader" src="static/images/loading-1.gif" width="16px" height="11px" border="0" />';
+        if (this.queryFilter.artistLetter == 'All') {
+            this.artistsBox.html(loadingHTML);
+            return;
+        }
+        var _this = this;
+        $.ajax({
+            url: '/artists.json',
+            data: { queryFilter: _this.queryFilter },
+            type: 'POST',
+            dataType: 'json',
+            beforeSend: function() {
+                _this.artistsBox.html(loadingHTML);
+            },
+            success: function(data) {
+                if (data && data.artists && data.artists.length > 0) {
+                    _this.artistsBox.html(buildArtistsHTML(data.artists));
+                }
+                else {
+                    _this.artistsBox.html('暂时没有符合条件的的艺人');
+                }
+            }
+        });
+    };
+
+    this.updateConditionText = function () {
+        var conditionsHTML = '';
+        var artistConditions = [];
+        if (this.queryFilter.artistIds.length > 0) {
+            this.artistsBox.find('a.active').slice(0, 3).each(function () {
+                artistConditions.push($(this).text());
+            });
+            if (this.artistsBox.find('a.active').length > 3) {
+                artistConditions.push('···');
+            }
+        }
+        else if (this.queryFilter.artistLetter == 'All' && this.queryFilter.artistCategoryId == 0 && this.queryFilter.artistRegionId == 0) {
+            artistConditions.push('所有');
+        }
+        else {
+            if (this.queryFilter.artistLetter != 'All') artistConditions.push('字母' + this.queryFilter.artistLetter);
+            if (this.queryFilter.artistCategoryId != 0) artistConditions.push(this.artistCategories.find('a.active').text());
+            if (this.queryFilter.artistRegionId != 0) artistConditions.push(this.artistRegions.find('a.active').text());
+        }
+        if (artistConditions.length > 0) {
+            conditionsHTML = '艺人：';
+            for (var i = 0; i < artistConditions.length; i++) {
+                if (i > 0) conditionsHTML += ' + ';
+                conditionsHTML += '<span class="label">' + artistConditions[i] + '</span>';
+            }
+        }
+        this.tabsListHeader.find('.header-text > span').html(conditionsHTML);
+    };
+
+    this.updateTabsListBox = function () {
+        var _this = this;
+        $.ajax({
+            url: '/tabs.json',
+            data: {
+                queryFilter: _this.queryFilter
+            },
+            type: 'POST',
+            dataType: 'json',
+            success: function(data) {
+                if (data && data.tabs && data.tabs.length > 0) {
+                    _this.tabsListBody.html(buildTabsListHTML(data.tabs));
+                    _this.pagination.html(buildPaginationHTML(data.pageIndex, data.pageCount));
+                }
+                else {
+                    _this.tabsListBody.html('<br><br><center>暂时没有符合条件的的曲谱 >_<</center>');
+                    _this.pagination.html('');
+                }
+
+                if (_this.queryFilter.search != '') {
+                    _this.colorSearchKeyword();
+                }
+            }
+        });
+    };
+
+    this.colorSearchKeyword = function () {
+        var keyword = this.queryFilter.search;
+        this.tabsListBody.find('a.link-tab-subject, a.link-list-artist').highlight(keyword);
     };
 }
 

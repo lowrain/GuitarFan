@@ -523,6 +523,9 @@ i.icon-bgdark {
     color: #e96b56;
     font-size: 11px;
 }
+.gt-tabs-list span.highlight {
+    background-color: #FFFF88;
+}
 /*.gt-tabs-list ul li a {*/
 /*color: #37a;*/
 /*}*/

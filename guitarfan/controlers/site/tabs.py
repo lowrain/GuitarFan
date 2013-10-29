@@ -32,8 +32,12 @@ def tabs(page = 1):
         tabs = Tab.query.join(Tab.tags).filter(Tag.id == tag_id).order_by('Tab.update_time desc').paginate(page, current_app.config['TABS_PER_PAGE'], True)
         return render_template('tabs.html', tabs=tabs, tag=tag, mode='tag')
     # TODO search mode
-    #elif 'search' in request.args:
-    #    return render_template('tabs.html', tabs=tabs, tag=tag, mode='search')
+    elif 'search' in request.args:
+        # TODO limit match entire english word not single letter
+        search = request.args['search']
+        tabs = Tab.query.join(Artist).filter(or_(Tab.title.like('%' + search + '%'), Artist.name.like('%' + search + '%')))\
+            .order_by('Tab.update_time desc').paginate(page, current_app.config['TABS_PER_PAGE'], True)
+        return render_template('tabs.html', tabs=tabs, mode='search')
     else:
         letters = map(chr, range(65, 91))
         letters.append('0-9')
@@ -71,34 +75,50 @@ def tabs_json():
     region_id = int(request.form['queryFilter[artistRegionId]'])
     order_by = 'Tab.update_time' if request.form['queryFilter[orderBy]'] == 'time' else 'Tab.hits'
     artists = request.form['queryFilter[artistIds]'].split('|') if request.form['queryFilter[artistIds]'] != '' else []
+    style_id = int(request.form['queryFilter[styleId]'])
+    tag_id = request.form['queryFilter[tagId]']
+    search = request.form['queryFilter[search]']
     page_index = int(request.form['queryFilter[pageIndex]'])
     tabs = []
 
     page_size = current_app.config['TABS_PER_PAGE']
 
-    count = db.session.query(func.count(Tab.id)).join(Artist) \
-        .filter(or_(letter == 'All', Artist.letter == letter)) \
-        .filter(or_(category_id == 0, Artist.category_id == category_id)) \
-        .filter(or_(region_id == 0, Artist.region_id == region_id)) \
-        .filter(or_(len(artists) == 0, Artist.id.in_(artists))).scalar()
+    count_query = db.session.query(func.count(Tab.id)).join(Artist)
+    tab_query = db.session.query(Tab.title, Tab.style_id, Tab.difficulty_id, Tab.hits, Tab.artist_id, Artist.name).join(Artist)
 
-    page_count = math.ceil(float(count)/page_size)
+    if letter != 'All':
+        tab_query = tab_query.filter(Artist.letter == letter)
+        count_query = count_query.filter(Artist.letter == letter)
+    if category_id > 0:
+        tab_query = tab_query.filter(Artist.category_id == category_id)
+        count_query = count_query.filter(Artist.category_id == category_id)
+    if region_id > 0:
+        tab_query = tab_query.filter(Artist.region_id == region_id)
+        count_query = count_query.filter(Artist.region_id == region_id)
+    if len(artists) > 0:
+        tab_query = tab_query.filter(Artist.id.in_(artists))
+        count_query = count_query.filter(Artist.id.in_(artists))
+    if style_id > 0:
+        tab_query = tab_query.filter(Tab.style_id == style_id)
+        count_query = count_query.filter(Tab.style_id == style_id)
+    if tag_id != '':
+        tab_query = tab_query.join(Tab.tags).filter(Tag.id == tag_id)
+        count_query = count_query.join(Tab.tags).filter(Tag.id == tag_id)
+    if search != '':
+        tab_query = tab_query.filter(or_(Tab.title.like('%' + search + '%'), Artist.name.like('%' + search + '%')))
+        count_query = count_query.filter(or_(Tab.title.like('%' + search + '%'), Artist.name.like('%' + search + '%')))
 
-    tabQuery = db.session.query(Tab.title, Tab.style_id, Tab.difficulty_id, Tab.hits, Tab.artist_id, Artist.name).join(Artist) \
-        .filter(or_(letter == 'All', Artist.letter == letter)) \
-        .filter(or_(category_id == 0, Artist.category_id == category_id)) \
-        .filter(or_(region_id == 0, Artist.region_id == region_id)) \
-        .filter(or_(len(artists) == 0, Artist.id.in_(artists))) \
-        .order_by(order_by + ' desc').limit(page_size).offset(page_size * (page_index - 1))
+    page_count = math.ceil(float(count_query.scalar())/page_size)
+    tab_query = tab_query.order_by(order_by + ' desc').limit(page_size).offset(page_size * (page_index - 1))
 
-    for title, styleId, difficaltyId, hits, artistId, artistName in tabQuery:
+    for title, style_id, difficalty_id, hits, artist_id, artist_name in tab_query:
         tabs.append({
             'title': title,
-            'style': MusicStyle.get_item_text(styleId),
-            'difficalty': DifficultyDegree.get_item_text(difficaltyId),
+            'style': MusicStyle.get_item_text(style_id),
+            'difficalty': DifficultyDegree.get_item_text(difficalty_id),
             'hits': hits,
-            'artistId': artistId,
-            'artistName': artistName
+            'artistId': artist_id,
+            'artistName': artist_name
         })
 
     return jsonify(tabs=tabs, pageIndex=page_index, pageCount=page_count)

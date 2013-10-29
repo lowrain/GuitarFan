@@ -1,4 +1,4 @@
-GuitarFan(temporary app name)
+Guitar123
 ===
 
 Guitar tabs web app for guitar fans, powered by Python/Flask, under developing...

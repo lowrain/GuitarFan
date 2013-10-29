@@ -55,8 +55,8 @@
             </ul>
             {% block navbar_search %}
                 <div class="form-search search-only pull-right navbar-search">
-                    <form action="{{ url_for('bp_site_tabs.tabs') }}" method="get">
-                        <input name="keyword" type="text" class="form-control search-query" placeholder="输入歌曲名或艺人名进行搜索">
+                    <form action="{{ url_for('bp_site_tabs.tabs') }}" method="get" class="search-form">
+                        <input name="search" type="text" class="form-control search-query" placeholder="输入歌曲名或艺人名进行搜索">
                     </form>
                 </div>
             {% endblock %}
@@ -70,9 +70,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-6 col-sm-offset-3">
-                    <form action="{{ url_for('bp_site_tabs.tabs') }}" method="get">
+                    <form action="{{ url_for('bp_site_tabs.tabs') }}" method="get" class="search-form">
                         <div class="input-group input-group-square">
-                            <input name="keyword" type="text" class="form-control" placeholder="输入歌曲名或艺人名进行搜索">
+                            <input name="search" type="text" class="form-control" placeholder="输入歌曲名或艺人名进行搜索">
                         <span class="input-group-btn">
                           <button class="btn btn-info" type="submit"><i class="icon-search"></i></button>
                         </span>
