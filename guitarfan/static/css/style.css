@@ -28,12 +28,12 @@ a:hover {
     color: #83bf73;
     text-decoration: none;
 }
-a.link-list-tab {
+a.link-tab-subject {
     font-size:13px;
+    padding: 0 2px;
+    /*padding: 1px;*/
 }
-a.link-list-tab:hover {
-    color: #fff;
-    background-color: #83bf73;
+a.link-tab-subject:hover {
     text-decoration: none;
     border-radius: 3px;
 }
@@ -391,6 +391,10 @@ i.icon-bgdark {
     padding: 4px 0;
     border-bottom: 1px dashed #ddd;
 }
+.gt-index-tabs ul li a.link-tab-subject:hover {
+    color: #fff;
+    background-color: #83bf73;
+}
 .gt-index-tabs .label {
     font-size: 9px;
     /*background-color: #999;*/
@@ -505,7 +509,6 @@ i.icon-bgdark {
 }
 .gt-tabs-list .list-body td a.link-tab-subject {
     color: #428bca;
-    font-size: 13px;
 }
 .gt-tabs-list .list-body td a.link-tab-subject:hover {
     color: #fff;

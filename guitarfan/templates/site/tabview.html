@@ -1,10 +1,13 @@
-{% extends "site/base.html" %}
-
-{% block title %} - {{ tab.artist.name }}:{{ tab.title }}{% endblock %}
-{% block active_navbar_tabview %}active{% endblock %}
-{% block landing %}
-    <div class="gt-landing small" id="gt-landing"></div>
-{% endblock %}
+{% if 'popup' in request.args %}
+    {% extends "site/popup_base.html" %}
+{% else %}
+    {% extends "site/base.html" %}
+    {% block title %} - {{ tab.artist.name }}:{{ tab.title }}{% endblock %}
+    {% block active_navbar_tabview %}active{% endblock %}
+    {% block landing %}
+        <div class="gt-landing small" id="gt-landing"></div>
+    {% endblock %}
+{% endif %}
 {% block body %}
     <div class="gt-tab-view">
         <div class="container">

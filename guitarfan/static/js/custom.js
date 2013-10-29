@@ -118,6 +118,19 @@ $(function() {
             }
         });
     }
+
+    $('.link-tab-subject').fancybox({
+        type: 'iframe',
+        padding : 0,
+        scrollOutside: true,
+        width: 800,
+        helpers   : {
+            overlay : {closeClick: false}
+        },
+        iframe: {
+            scrolling : 'auto'
+        }
+    });
 });
 
 function TabsListOperator() {
@@ -359,7 +372,7 @@ function buildTabsListHTML(tabs) {
         html += '<tr>';
         html += '   <td width="45%">';
         html += '       <i class="icon icon-file-alt"></i>&nbsp;&nbsp;';
-        html += '       <a href="javascript:void(0);" class="link-tab-subject">' + tab.title + '</a>';
+        html += '       <a href="/tabview/' + tab.id + '?popup" class="link-tab-subject">' + tab.title + '</a>';
         html += '           <a href="/tabview/' + tab.id + '" class="link-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right" target="_blank"><i class="icon-share-alt"></i></a>';
         html += '   </td>';
         html += '   <td width="8%" class="tab-style">' + tab.style + '</td>';
