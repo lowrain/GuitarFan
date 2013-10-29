@@ -1,0 +1,20 @@
+{% extends "site/base.html" %}
+
+{% block title %} - {{ tab.artist.name }}:{{ tab.title }}{% endblock %}
+{% block active_navbar_tabview %}active{% endblock %}
+{% block landing %}
+    <div class="gt-landing small" id="gt-landing"></div>
+{% endblock %}
+{% block body %}
+    <div class="gt-tab-view">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-sm-12 col-md-offset-2">
+                    {% for tabfile in tab.tabfiles %}
+                        <img src="{{ tabfile.file_relpath }}" width="100%" /><br><br>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

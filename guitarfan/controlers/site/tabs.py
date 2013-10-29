@@ -84,7 +84,7 @@ def tabs_json():
     page_size = current_app.config['TABS_PER_PAGE']
 
     count_query = db.session.query(func.count(Tab.id)).join(Artist)
-    tab_query = db.session.query(Tab.title, Tab.style_id, Tab.difficulty_id, Tab.hits, Tab.artist_id, Artist.name).join(Artist)
+    tab_query = db.session.query(Tab.id, Tab.title, Tab.style_id, Tab.difficulty_id, Tab.hits, Tab.artist_id, Artist.name).join(Artist)
 
     if letter != 'All':
         tab_query = tab_query.filter(Artist.letter == letter)
@@ -111,8 +111,9 @@ def tabs_json():
     page_count = math.ceil(float(count_query.scalar())/page_size)
     tab_query = tab_query.order_by(order_by + ' desc').limit(page_size).offset(page_size * (page_index - 1))
 
-    for title, style_id, difficalty_id, hits, artist_id, artist_name in tab_query:
+    for id, title, style_id, difficalty_id, hits, artist_id, artist_name in tab_query:
         tabs.append({
+            'id': id,
             'title': title,
             'style': MusicStyle.get_item_text(style_id),
             'difficalty': DifficultyDegree.get_item_text(difficalty_id),

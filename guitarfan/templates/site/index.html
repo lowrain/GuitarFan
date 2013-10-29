@@ -1,6 +1,6 @@
 {% extends "site/base.html" %}
 
-{% block title %} - home{% endblock %}
+{% block title %} - 首页{% endblock %}
 {% block active_navbar_home %}active{% endblock %}
 {% block navbar_search %}{% endblock %}
 {% block body %}
@@ -21,8 +21,10 @@
                                     {% set row_index = row_index + 1 %}
                                     <li class="clearfix">
                                         <span class="badge">{{ row_index }}</span>
-                                        <a href="#" class="link-list-tab">{{ tab.title }}</a>
-                                        <a href="/tabview/{{ tab.id }}" class="link-new-window" title="在新窗口中查看" target="_blank" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
+                                        <a href="javascript:void(0);" class="link-list-tab">{{ tab.title }}</a>
+                                        <a href="{{ url_for('bp_site_tabview.tab_view', tab_id=tab.id) }}" class="link-new-window" title="在新窗口中查看" target="_blank" data-toggle="在新窗口中查看" data-placement="right">
+                                            <i class="icon-share-alt"></i>
+                                        </a>
                                         <a href="{{ url_for('bp_site_tabs.tabs', artist=tab.artist_id) }}" class="link-list-artist pull-right">{{ tab.artist.name }}</a>
                                     </li>
                                     {% endfor %}
@@ -39,8 +41,10 @@
                                     {% for tab in new_tabs %}
                                     <li class="clearfix">
                                         <i class="icon-angle-right"></i>
-                                        <a href="#" class="link-list-tab">{{ tab.title }}</a>
-                                        <a href="/tabview/{{ tab.id }}" class="link-new-window" title="在新窗口中查看" target="_blank" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
+                                        <a href="javascript:void(0);" class="link-list-tab">{{ tab.title }}</a>
+                                        <a href="{{ url_for('bp_site_tabview.tab_view', tab_id=tab.id) }}" class="link-new-window" title="在新窗口中查看" target="_blank" data-toggle="在新窗口中查看" data-placement="right">
+                                            <i class="icon-share-alt"></i>
+                                        </a>
                                         <a href="{{ url_for('bp_site_tabs.tabs', artist=tab.artist_id) }}" class="link-list-artist pull-right">{{ tab.artist.name }}</a>
                                     </li>
                                     {% endfor %}

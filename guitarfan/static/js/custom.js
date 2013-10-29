@@ -16,7 +16,8 @@ function getParameterByName(name) {
 }
 
 $(function() {
-    if ($('.gt-landing')) {
+    //init landing
+    if ($('.gt-landing').length > 0) {
         var landingImgUrl = '../static/images/landing' + parseInt(Math.random()*7+1) + '.jpg';
         $('.gt-landing').css('background-image', 'url(' + landingImgUrl + ')');
     }
@@ -60,7 +61,7 @@ $(function() {
     });
 
     //init tag and style cloud
-    if ($('#tagCloud')) {
+    if ($('#tagCloud').length > 0) {
         $.ajax({
             url: '/tagcloud.json',
             type: 'GET',
@@ -89,7 +90,7 @@ $(function() {
         });
     }
 
-    if ($('#styleCloud')) {
+    if ($('#styleCloud').length > 0) {
         $.ajax({
             url: '/stylecloud.json',
             type: 'GET',
@@ -358,8 +359,8 @@ function buildTabsListHTML(tabs) {
         html += '<tr>';
         html += '   <td width="45%">';
         html += '       <i class="icon icon-file-alt"></i>&nbsp;&nbsp;';
-        html += '       <a href="#" class="link-tab-subject">' + tab.title + '</a>';
-        html += '           <a href="#" class="link-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>';
+        html += '       <a href="javascript:void(0);" class="link-tab-subject">' + tab.title + '</a>';
+        html += '           <a href="/tabview/' + tab.id + '" class="link-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right" target="_blank"><i class="icon-share-alt"></i></a>';
         html += '   </td>';
         html += '   <td width="8%" class="tab-style">' + tab.style + '</td>';
         html += '   <td width="8%" class="tab-difficulty">' + tab.difficalty + '</td>';

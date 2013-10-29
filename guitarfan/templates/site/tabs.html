@@ -1,6 +1,18 @@
 {% extends "site/base.html" %}
 
-{% block title %} - 曲谱{% endblock %}
+{% block title %} -
+    {% if mode == 'list' %}
+        曲谱
+    {% elif mode == 'artist' %}
+        艺人:{{ artist.name }}
+    {% elif mode == 'style' %}
+        曲谱风格:{{ style }}
+    {% elif mode == 'tag' %}
+        曲谱标签:{{ tag.name }}
+    {% elif mode == 'search' %}
+        曲谱搜索:{{ request.args['search'] }}
+    {% endif %}
+{% endblock %}
 {% block active_navbar_tabs %}
     {% if mode == 'list' %}
         active
@@ -12,7 +24,6 @@
         <div class="gt-landing small" id="gt-landing"></div>
     {% endif %}
 {% endblock %}
-
 
 {% block body %}
     {% if mode == 'list' %}
@@ -104,8 +115,10 @@
                                 <tr>
                                     <td width="45%">
                                         <i class="icon icon-file-alt"></i>&nbsp;&nbsp;
-                                        <a href="#" class="link-tab-subject">{{ tab.title }}</a>
-                                        <a href="#" class="link-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right"><i class="icon-share-alt"></i></a>
+                                        <a href="javascript:void(0);" class="link-tab-subject">{{ tab.title }}</a>
+                                        <a href="{{ url_for('bp_site_tabview.tab_view', tab_id=tab.id) }}" class="link-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right" target="_blank">
+                                            <i class="icon-share-alt"></i>
+                                        </a>
                                     </td>
                                     <td width="8%" class="tab-style">{{ tab.style_text }}</td>
                                     <td width="8%" class="tab-difficulty">{{ tab.difficulty_text }}</td>

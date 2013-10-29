@@ -505,7 +505,7 @@ i.icon-bgdark {
 }
 .gt-tabs-list .list-body td a.link-tab-subject {
     color: #428bca;
-    font-size: 14px;
+    font-size: 13px;
 }
 .gt-tabs-list .list-body td a.link-tab-subject:hover {
     color: #fff;
@@ -534,6 +534,11 @@ i.icon-bgdark {
 /*background-color: #37a;*/
 /*}*/
 /*---------- Tabs Page END ----------------------*/
+/*---------- Tab View Page ----------------------*/
+.gt-tab-view {
+    margin:20px 0px;
+}
+/*---------- Tab View Page END ------------------*/
 /*---------- Error Page -------------------------*/
 .gt-error-info {
     padding: 20px 0;
