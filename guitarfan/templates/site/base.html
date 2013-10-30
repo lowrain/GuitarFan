@@ -16,14 +16,10 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='animate/animate.css') }}" media="screen">
     <link rel="stylesheet" href="{{ url_for('static', filename='jqcloud/jqcloud.css') }}" media="screen">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" media="screen">
+    <link rel="stylesheet" href="{{ url_for('static', filename='browser/detection.css') }}" media="screen">
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
     {% block style %}{% endblock %}
     <script src="{{ url_for('static', filename='js/head.min.js') }}"></script>
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="{{ url_for('static', filename='bootflat/js/html5shiv.js') }}"></script>
-    <script src="{{ url_for('static', filename='bootflat/js/respond.min.js') }}"></script>
-    <![endif]-->
 </head>
 <body>
 <!-- top nav -->
@@ -95,19 +91,16 @@
     </p>
     <p class="text-muted">声明：本站所有曲谱均来自网络，如有版权问题请联系站长</p>
 </div>
-
 {% block script_before_headjs %}{% endblock %}
-
 <script>
     head.js("{{ url_for('static', filename='js/jquery.min.js') }}",
             "{{ url_for('static', filename='bootstrap3/js/bootstrap.min.js') }}",
             "{{ url_for('static', filename='fancybox/jquery.fancybox.pack.js') }}",
             "{{ url_for('static', filename='animate/animate.js') }}",
             "{{ url_for('static', filename='js/jquery.tagcloud.js') }}",
-            "{{ url_for('static', filename='js/custom.js') }}");
-    {#            "//v3.jiathis.com/code/jia.js");#}
+            "{{ url_for('static', filename='js/custom.js') }}",
+            "{{ url_for('static', filename='browser/detection.js') }}");
 </script>
-
 {% block script_after_headjs %}{% endblock %}
 </body>
 </html>

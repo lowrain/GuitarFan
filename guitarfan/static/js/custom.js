@@ -16,6 +16,8 @@ function getParameterByName(name) {
 }
 
 $(function() {
+    BrowserDetection.init();
+
     //init landing
     if ($('.gt-landing').length > 0) {
         var landingImgUrl = '../static/images/landing' + parseInt(Math.random()*7+1) + '.jpg';
