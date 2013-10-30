@@ -8,12 +8,4 @@ Flask-SQLAlchemy
 Flask-Testing
 Flask-Uploads
 Flask-WTF
-Jinja2
-MarkupSafe
 Pillow
-SQLAlchemy
-Scrapy
-WTForms
-Werkzeug
-itsdangerous
-wsgiref
