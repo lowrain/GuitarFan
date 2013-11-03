@@ -56,6 +56,7 @@ class Tab(db.Model):
     def format_text(self):
         return TabFormat.get_item_text(self.format_id)
 
+    @classmethod
     def set_tags(self, value):
         if self.tags:
             for tag in self.tags:
@@ -64,6 +65,7 @@ class Tab(db.Model):
                 for tag in value:
                     self.append_tag(tag)
 
+    @classmethod
     def append_tag(self, tag):
         if tag and isinstance(tag, Tag):
             # reload tag by id to void error that <object xxx is already attached in session>

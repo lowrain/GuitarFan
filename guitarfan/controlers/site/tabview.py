@@ -15,4 +15,5 @@ bp_site_tabview = Blueprint('bp_site_tabview', __name__, template_folder="../../
 @bp_site_tabview.route('/tabview/<string:tab_id>')
 def tab_view(tab_id):
     tab = Tab.query.get(tab_id)
+    db.engine.connect().execute("update tab set hits=hits+1 where id='%s'" % tab_id)
     return render_template('tabview.html', tab=tab)
