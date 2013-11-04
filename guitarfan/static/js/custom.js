@@ -20,7 +20,7 @@ $(function() {
 
     //init landing
     if ($('.gt-landing').length > 0) {
-        var landingImgUrl = '../static/images/landing' + parseInt(Math.random()*13+1) + '.jpg';
+        var landingImgUrl = '../static/images/landing' + parseInt(Math.random()*19+1) + '.jpg';
         $('.gt-landing').css('background-image', 'url(' + landingImgUrl + ')');
     }
 
