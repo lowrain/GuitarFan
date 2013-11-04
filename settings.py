@@ -31,11 +31,11 @@ APP_PATH = os.path.dirname(os.path.abspath(__file__)) + '/guitarfan'
 SQLALCHEMY_DATABASE_URI = 'sqlite:///' + APP_PATH + '/data/sqlite.db'
 
 # web config
-PORT = 8888
+PORT = 80
 HOST = '0.0.0.0'
 SESSION_PROTECTION = 'strong'
 SECRET_KEY = 'b\n\x90\\\x13\x044Q\x9a>\x99v\x08\x8ez[\x11 \x82\x83'
-DEBUG = True
+DEBUG = False
 APP_NAME = 'Guitar123'
 SITE_URL = 'http://www.guitar123.net'
 
