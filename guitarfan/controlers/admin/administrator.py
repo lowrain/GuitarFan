@@ -13,10 +13,10 @@ from forms.administrator import *
 
 bp_admin_administrator = Blueprint('bp_admin_administrator', __name__, template_folder="../../templates/admin")
 
-@bp_admin_administrator.route('/admin')
-@login_required
-def index():
-    return render_template('admin/index.html')
+#@bp_admin_administrator.route('/admin')
+#@login_required
+#def index():
+#    return render_template('admin/index.html')
 
 
 @bp_admin_administrator.route('/admin/login', methods=['GET', 'POST'])

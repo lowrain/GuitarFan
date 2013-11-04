@@ -17,7 +17,7 @@ from forms.tab import *
 
 bp_admin_tab = Blueprint('bp_admin_tab', __name__, template_folder="../../templates/admin/tabs")
 
-
+@bp_admin_tab.route('/admin')
 @bp_admin_tab.route('/admin/tabs')
 @login_required
 def list():

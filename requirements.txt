@@ -8,4 +8,3 @@ Flask-SQLAlchemy
 Flask-Testing
 Flask-Uploads
 Flask-WTF
-Pillow
