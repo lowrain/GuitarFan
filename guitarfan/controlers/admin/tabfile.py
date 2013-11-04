@@ -42,8 +42,8 @@ def delete():
     db.session.delete(tabfile)
     db.session.commit()
     try:
-        if os.path.isfile(tabfile.file_abspath()):
-            os.remove(tabfile.file_abspath())
+        if os.path.isfile(tabfile.file_abspath):
+            os.remove(tabfile.file_abspath)
     except Exception as e:
         return '%s: %s' % ('error:', e.message)
     return 'success'
