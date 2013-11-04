@@ -55,9 +55,6 @@ def tabs(page = 1):
 
 @bp_site_tabs.route('/artists.json', methods=['POST'])
 def artists_json():
-    if request.remote_addr != current_app.config['HOST_ADDR']:
-        return jsonify()
-
     letter = request.form['queryFilter[artistLetter]']
     category_id = int(request.form['queryFilter[artistCategoryId]'])
     region_id = int(request.form['queryFilter[artistRegionId]'])
@@ -73,9 +70,6 @@ def artists_json():
 
 @bp_site_tabs.route('/tabs.json', methods=['POST'])
 def tabs_json():
-    if request.remote_addr != current_app.config['HOST_ADDR']:
-        return jsonify()
-
     letter = request.form['queryFilter[artistLetter]']
     category_id = int(request.form['queryFilter[artistCategoryId]'])
     region_id = int(request.form['queryFilter[artistRegionId]'])
