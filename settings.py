@@ -38,6 +38,7 @@ SECRET_KEY = 'b\n\x90\\\x13\x044Q\x9a>\x99v\x08\x8ez[\x11 \x82\x83'
 DEBUG = False
 APP_NAME = 'Guitar123'
 SITE_URL = 'http://www.guitar123.net'
+HOST_ADDR = '49.212.220.83'
 
 # pagination
 TABS_PER_PAGE = 15
