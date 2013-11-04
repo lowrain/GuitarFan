@@ -21,7 +21,7 @@ def index():
 @bp_site_index.route('/tagcloud.json')
 def tag_cloud_json():
     if request.remote_addr != current_app.config['HOST_ADDR']:
-        return jsonify();
+        return jsonify()
 
     tags = []
     for tag_id, tag_name, tab_count in db.session.query(Tag.id, Tag.name, func.count(Tab.id)).join(Tab, Tag.tabs).group_by(Tag.id):
@@ -31,7 +31,7 @@ def tag_cloud_json():
 @bp_site_index.route('/stylecloud.json')
 def style_cloud_json():
     if request.remote_addr != current_app.config['HOST_ADDR']:
-        return jsonify();
+        return jsonify()
 
     styles = []
     for style_id, tab_count in db.session.query(Tab.style_id, func.count(Tab.id)).group_by(Tab.style_id):
