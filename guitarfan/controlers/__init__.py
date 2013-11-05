@@ -10,6 +10,8 @@ from admin.data import bp_admin_data
 from site.index import bp_site_index
 from site.tabs import bp_site_tabs
 from site.tabview import bp_site_tabview
+from site.videos import bp_site_videos
+from site.courses import bp_site_courses
 from error import bp_error
 
 def Register_Blueprints(app):
@@ -22,4 +24,6 @@ def Register_Blueprints(app):
     app.register_blueprint(bp_site_index)
     app.register_blueprint(bp_site_tabs)
     app.register_blueprint(bp_site_tabview)
+    app.register_blueprint(bp_site_videos)
+    app.register_blueprint(bp_site_courses)
     app.register_blueprint(bp_error)
