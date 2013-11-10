@@ -17,6 +17,10 @@ def create_app(config):
     db.app = app # if without it, db query operation will throw exception in Form class
     db.init_app(app)
 
+    # init flask-cache
+    from guitarfan.extensions.flaskcache import cache
+    cache.init_app(app)
+
     # register all blueprints
     import controlers
     controlers.Register_Blueprints(app)
