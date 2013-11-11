@@ -8,7 +8,7 @@ from sqlalchemy import func, or_
 
 from guitarfan.models import *
 from guitarfan.extensions.flasksqlalchemy import db
-from guitarfan.extensions.flaskcache import cache
+from guitarfan.extensions.flaskcache import cache, make_cache_key
 
 
 bp_site_tabs = Blueprint('bp_site_tabs', __name__, template_folder="../../templates/site")
@@ -16,7 +16,7 @@ bp_site_tabs = Blueprint('bp_site_tabs', __name__, template_folder="../../templa
 
 @bp_site_tabs.route('/tabs')
 @bp_site_tabs.route('/tabs/<int:page>')
-@cache.cached(3600)
+@cache.cached(3600, key_prefix=make_cache_key)
 def tabs(page = 1):
     if 'artist' in request.args:
         artist_id = request.args['artist']
