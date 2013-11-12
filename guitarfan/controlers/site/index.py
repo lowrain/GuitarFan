@@ -37,3 +37,16 @@ def style_cloud_json():
     for style_id, tab_count in db.session.query(Tab.style_id, func.count(Tab.id)).group_by(Tab.style_id):
         styles.append({'styleId': style_id, 'styleName': MusicStyle.get_item_text(style_id), 'count': tab_count})
     return jsonify(styles=styles)
+
+@bp_site_index.route('/robots.txt')
+def robots_txt():
+    return """<html>
+<head></head>
+<body>
+<pre>User-agent: *
+Crawl-delay: 10
+
+Disallow: /admin
+</pre>
+</body>
+</html>"""
