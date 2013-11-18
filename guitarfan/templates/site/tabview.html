@@ -12,12 +12,15 @@
     <div class="gt-tab-view">
         <div class="container">
             <div class="row">
-                <div class="col-md-8 col-sm-12 col-md-offset-2">
-                    {% for tabfile in tab.tabfiles %}
-                        <img src="{{ tabfile.file_relpath }}" width="100%" /><br>
-                    {% endfor %}
-                </div>
+                <div id="tabContainer" class="col-md-8 col-sm-12 col-md-offset-2"></div>
             </div>
         </div>
     </div>
+    <script>
+        var imgPaths = new Array();
+        {%- for tabfile in tab.tabfiles -%}
+        imgPaths.push('{{ tabfile.filename }}');
+        {%- endfor -%}
+        window.onload = function(){ loadTabImages(imgPaths); };
+    </script>
 {% endblock %}
