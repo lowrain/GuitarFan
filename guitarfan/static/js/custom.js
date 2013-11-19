@@ -130,7 +130,7 @@ $(function() {
         padding : 0,
         width: 850,
         height: '100%',
-        title: 'Tips: 鼠标滚轮或者 ↑ ↓ 键可以帮助您浏览完整曲谱',
+        title: 'Tips: 鼠标滚轮或者 ↑ ↓ 键可以浏览完整曲谱',
         helpers: {
             overlay : {
                 closeClick: false,
