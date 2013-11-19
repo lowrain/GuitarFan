@@ -124,26 +124,66 @@ $(function() {
     $('.link-tab-subject').fancybox({
         type: 'iframe',
         padding : 0,
-        scrollOutside: true,
         width: 800,
-        helpers   : {
-            overlay : {closeClick: false}
+        title: 'Tips: 滚动鼠标滚轮或者点击 ↑ ↓ 键可以帮助您浏览完整曲谱',
+        helpers: {
+            overlay : {
+                closeClick: false,
+                showEarly  : true
+            },
+            title: {
+                type: 'over'
+            }
         },
         iframe: {
-            scrolling : 'auto'
-        }
-    });
+            scrolling : 'auto',
+            preload: false
+        },
+        afterShow: function() {
+            $(".fancybox-title").wrapInner('<div />').show();
+            $(".fancybox-wrap").hover(function() {
+                $(".fancybox-title").show();
+            }, function() {
+                $(".fancybox-title").hide();
+            });
 
-    $('.fm_link').fancybox({
-        type: 'iframe',
-        padding : 0,
-        scrollOutside: true,
-        width: 920,
-        height: 370,
-        iframe: {
-            scrolling : 'no'
+            // TODO add functional buttons
+            var iframeWindow = $('.fancybox-iframe').contents();
+
+            $(document).keydown(function(e) {
+                // 38-up, 40-down
+                switch(e.keyCode) {
+                    case 38:
+                        iframeWindow.scrollTop(iframeWindow.scrollTop() - 100);
+                        break;
+                    case 40:
+                        iframeWindow.scrollTop(iframeWindow.scrollTop() + 100);
+                        break;
+                }
+            });
+            var mousewheelevt = (/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "mousewheel" //FF doesn't recognize mousewheel as of FF3.x
+            $('.fancybox-overlay').bind(mousewheelevt, function(e){
+                var evt = window.event || e //equalize event object
+                evt = evt.originalEvent ? evt.originalEvent : evt; //convert to originalEvent if possible
+                var delta = evt.detail ? evt.detail*(-40) : evt.wheelDelta //check for detail first, because it is used by Opera and FF
+                iframeWindow.scrollTop(iframeWindow.scrollTop() - delta);
+            });
+        },
+        afterClose: function() {
+            $(document).unbind('keydown');
         }
     });
+//
+//    $('.fm_link').fancybox({
+//        type: 'iframe',
+//        padding : 0,
+//        scrollOutside: true,
+//        width: 920,
+//        height: 370,
+//        iframe: {
+//            scrolling : 'no'
+//        }
+//    });
 });
 
 function TabsListOperator() {
@@ -244,8 +284,6 @@ function TabsListOperator() {
 
             return false;
         });
-        // TODO style/tag cloud
-
         this.pagination.on('click', 'a', function () {
             var pageIndex = $(this).text().trim().replace('...', '');
             if (pageIndex == '前页') {

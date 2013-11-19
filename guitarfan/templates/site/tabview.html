@@ -13,19 +13,20 @@
         <div class="container">
             <div class="row">
                 <div id="tabContainer" class="col-md-8 col-sm-12 col-md-offset-2">
-                    {%- if 'popup' in request.args -%}
-                        <script>
-                            var imgPaths = new Array();
-                            {%- for tabfile in tab.tabfiles -%}
-                                imgPaths.push('{{ tabfile.file_relpath }}');
-                            {%- endfor -%}
-                            window.onload = function(){ loadTabImages(imgPaths); };
-                        </script>
-                    {%- else -%}
-                        {%- for tabfile in tab.tabfiles -%}
-                            <img src="{{ tabfile.file_relpath }}" width="100%" />
-                        {% endfor %}
-                    {%- endif -%}
+                    {#                    {%- if 'popup' in request.args -%}#}
+                    {#                        <script>#}
+                    {#                            var imgPaths = new Array();#}
+                    {#                            {%- for tabfile in tab.tabfiles -%}#}
+                    {#                                imgPaths.push('{{ tabfile.file_relpath }}');#}
+                    {#                            {%- endfor -%}#}
+                    {#                            window.onload = function(){ loadTabImages(imgPaths); };#}
+                    {#                        </script>#}
+                    {#                    {%- else -%}#}
+                    {#                        #}
+                    {#                    {%- endif -%}#}
+                    {%- for tabfile in tab.tabfiles -%}
+                        <img src="{{ tabfile.file_relpath }}" width="100%" />
+                    {% endfor %}
                 </div>
             </div>
         </div>

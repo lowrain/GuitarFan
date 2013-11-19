@@ -250,7 +250,7 @@ i.icon-bgdark {
     float: left;
     margin-top: 10px;
     margin-bottom: 0;
-    width: 260px;
+    width: 180px;
 }
 .gt-navbar .search-only:before {
     position: absolute;
@@ -354,6 +354,13 @@ i.icon-bgdark {
   border: 0;
 }
 /*---------- Bootstrap Overwrite END ------------*/
+/*---------- Fancybox Overwrite -----------------*/
+.fancybox-title-over-wrap {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.5);
+    padding: 2px;
+    position: absolute;
+}
+/*---------- Fancybox Overwrite END -------------*/
 /*---------- Index Page -------------------------*/
 .gt-index-tabs {
     border-bottom: 1px solid #ddd;
