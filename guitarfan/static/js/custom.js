@@ -15,6 +15,10 @@ function getParameterByName(name) {
     return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
+function isMobile() {
+    return (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
+}
+
 $(function() {
     BrowserDetection.init();
 
@@ -124,8 +128,8 @@ $(function() {
     $('.link-tab-subject').fancybox({
         type: 'iframe',
         padding : 0,
-        width: 800,
-        title: 'Tips: 滚动鼠标滚轮或者点击 ↑ ↓ 键可以帮助您浏览完整曲谱',
+        width: 850,
+        height: '100%',
         helpers: {
             overlay : {
                 closeClick: false,
@@ -140,34 +144,43 @@ $(function() {
             preload: false
         },
         afterShow: function() {
-            $(".fancybox-title").wrapInner('<div />').show();
-            $(".fancybox-wrap").hover(function() {
-                $(".fancybox-title").show();
-            }, function() {
-                $(".fancybox-title").hide();
-            });
+            if (isMobile()) {
+                this.title = '';
+            }
+            else {
+                this.title = 'Tips: 鼠标滚轮或者 ↑ ↓ 键可以帮助您浏览完整曲谱';
+
+                // mosuse over/out to show/hide tips
+                $(".fancybox-title").wrapInner('<div />').show();
+                $(".fancybox-wrap").hover(function() {
+                    $(".fancybox-title").show();
+                }, function() {
+                    $(".fancybox-title").hide();
+                });
+
+                var iframeWindow = $('.fancybox-iframe').contents();
+
+                $(document).keydown(function(e) {
+                    // 38-up, 40-down
+                    switch(e.keyCode) {
+                        case 38:
+                            iframeWindow.scrollTop(iframeWindow.scrollTop() - 100);
+                            break;
+                        case 40:
+                            iframeWindow.scrollTop(iframeWindow.scrollTop() + 100);
+                            break;
+                    }
+                });
+                var mousewheelevt = (/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "mousewheel" //FF doesn't recognize mousewheel as of FF3.x
+                $('.fancybox-overlay').bind(mousewheelevt, function(e){
+                    var evt = window.event || e //equalize event object
+                    evt = evt.originalEvent ? evt.originalEvent : evt; //convert to originalEvent if possible
+                    var delta = evt.detail ? evt.detail*(-40) : evt.wheelDelta //check for detail first, because it is used by Opera and FF
+                    iframeWindow.scrollTop(iframeWindow.scrollTop() - delta);
+                });
+            }
 
             // TODO add functional buttons
-            var iframeWindow = $('.fancybox-iframe').contents();
-
-            $(document).keydown(function(e) {
-                // 38-up, 40-down
-                switch(e.keyCode) {
-                    case 38:
-                        iframeWindow.scrollTop(iframeWindow.scrollTop() - 100);
-                        break;
-                    case 40:
-                        iframeWindow.scrollTop(iframeWindow.scrollTop() + 100);
-                        break;
-                }
-            });
-            var mousewheelevt = (/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "mousewheel" //FF doesn't recognize mousewheel as of FF3.x
-            $('.fancybox-overlay').bind(mousewheelevt, function(e){
-                var evt = window.event || e //equalize event object
-                evt = evt.originalEvent ? evt.originalEvent : evt; //convert to originalEvent if possible
-                var delta = evt.detail ? evt.detail*(-40) : evt.wheelDelta //check for detail first, because it is used by Opera and FF
-                iframeWindow.scrollTop(iframeWindow.scrollTop() - delta);
-            });
         },
         afterClose: function() {
             $(document).unbind('keydown');
