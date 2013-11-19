@@ -130,6 +130,7 @@ $(function() {
         padding : 0,
         width: 850,
         height: '100%',
+        title: 'Tips: 鼠标滚轮或者 ↑ ↓ 键可以帮助您浏览完整曲谱',
         helpers: {
             overlay : {
                 closeClick: false,
@@ -143,13 +144,11 @@ $(function() {
             scrolling : 'auto',
             preload: false
         },
-        afterShow: function() {
+        afterLoad: function() {
             if (isMobile()) {
                 this.title = '';
             }
             else {
-                this.title = 'Tips: 鼠标滚轮或者 ↑ ↓ 键可以帮助您浏览完整曲谱';
-
                 // mosuse over/out to show/hide tips
                 $(".fancybox-title").wrapInner('<div />').show();
                 $(".fancybox-wrap").hover(function() {
