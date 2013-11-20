@@ -49,8 +49,17 @@ $(function() {
         }
     );
 
-    $('.gt-landing .input-group').removeClass("hidden");
-    $('.gt-landing .input-group').addClass("animated fadeInDown");
+    setTimeout(function() {
+        $('.gt-landing .input-group').removeClass("hidden");
+        $('.gt-landing .input-group').addClass("animated fadeInDown");
+    }, 500);
+
+    if (!isMobile()) {
+        setTimeout(function() {
+            $('.gt-landing .responsive-devices').removeClass("hidden");
+            $('.gt-landing .responsive-devices').addClass("animated fadeInRight");
+        }, 1500);
+    }
 
     //init tooltip
     $('.link-new-window').tooltip();

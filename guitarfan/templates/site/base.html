@@ -69,15 +69,18 @@
     <div class="gt-landing" id="gt-landing">
         <div class="container">
             <div class="row">
-                <div class="col-sm-6 col-sm-offset-3">
+                <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 search-box">
                     <form action="{{ url_for('bp_site_tabs.tabs') }}" method="get" class="search-form">
-                        <div class="input-group input-group-square">
+                        <div class="input-group input-group-square hidden">
                             <input name="search" type="text" class="form-control" placeholder="输入歌曲名或艺人名进行搜索">
-                        <span class="input-group-btn">
-                          <button class="btn btn-info" type="submit"><i class="icon-search"></i></button>
-                        </span>
+                            <span class="input-group-btn">
+                              <button class="btn btn-info" type="submit"><i class="icon-search"></i></button>
+                            </span>
                         </div>
                     </form>
+                </div>
+                <div class="col-md-3 responsive-devices hidden">
+                    <img src="{{ url_for('static', filename='images/Responsive-showcase-presentation.png') }}" width="220px" />
                 </div>
             </div>
         </div>

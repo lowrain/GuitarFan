@@ -273,12 +273,29 @@ i.icon-bgdark {
     text-align:center;
     margin-left:-2px;
     margin-bottom: 20px;
-    padding-top: 220px;
+    /*padding-top: 220px;*/
     height:300px;
     -webkit-background-size:cover;
     -moz-background-size:cover;
     background-size:cover;
     text-align: center;
+}
+.gt-landing .search-box {
+    margin-top: 220px;
+}
+.gt-landing .responsive-devices {
+    height: 250px;
+    padding-top: 100px;
+    text-align: right;
+    /*display: none;*/
+}
+.gt-landing .responsive-devices img {
+    opacity: 0.8;
+}
+@media (max-width: 991px) {
+    .gt-landing .responsive-devices {
+        display: none;
+    }
 }
 .gt-landing.small {
     padding: 0px;
@@ -348,10 +365,10 @@ i.icon-bgdark {
 .pagination > .disabled > a,
 .pagination > .disabled > a:hover,
 .pagination > .disabled > a:focus {
-  color: #ccc;
-  cursor: default;
-  background-color: #ffffff;
-  border: 0;
+    color: #ccc;
+    cursor: default;
+    background-color: #ffffff;
+    border: 0;
 }
 /*---------- Bootstrap Overwrite END ------------*/
 /*---------- Fancybox Overwrite -----------------*/
