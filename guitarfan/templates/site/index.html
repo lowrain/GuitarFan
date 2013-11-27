@@ -21,7 +21,7 @@
                                     {% set row_index = row_index + 1 %}
                                     <li class="clearfix">
                                         <span class="badge">{{ row_index }}</span>
-                                        <a href="{{ url_for('bp_site_tabview.tab_view', tab_id=tab.id) }}?popup" class="link-tab-subject">{{ tab.title }}</a>
+                                        <a href="{{ url_for('bp_site_tabview.tab_view', tab_id=tab.id) }}?popup" class="link-tab-subject" target="_blank">{{ tab.title }}</a>
                                         <a href="{{ url_for('bp_site_tabview.tab_view', tab_id=tab.id) }}" class="link-new-window" title="在新窗口中查看" target="_blank" data-toggle="在新窗口中查看" data-placement="right">
                                             <i class="icon-share-alt"></i>
                                         </a>
@@ -41,7 +41,7 @@
                                     {% for tab in new_tabs %}
                                     <li class="clearfix">
                                         <i class="icon-angle-right"></i>
-                                        <a href="{{ url_for('bp_site_tabview.tab_view', tab_id=tab.id) }}?popup" class="link-tab-subject">{{ tab.title }}</a>
+                                        <a href="{{ url_for('bp_site_tabview.tab_view', tab_id=tab.id) }}?popup" class="link-tab-subject" target="_blank">{{ tab.title }}</a>
                                         <a href="{{ url_for('bp_site_tabview.tab_view', tab_id=tab.id) }}" class="link-new-window" title="在新窗口中查看" target="_blank" data-toggle="在新窗口中查看" data-placement="right">
                                             <i class="icon-share-alt"></i>
                                         </a>

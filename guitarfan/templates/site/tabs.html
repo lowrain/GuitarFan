@@ -115,7 +115,7 @@
                                 <tr>
                                     <td width="45%">
                                         <i class="icon icon-file-alt"></i>&nbsp;&nbsp;
-                                        <a href="{{ url_for('bp_site_tabview.tab_view', tab_id=tab.id) }}?popup" class="link-tab-subject">{{ tab.title }}</a>
+                                        <a href="{{ url_for('bp_site_tabview.tab_view', tab_id=tab.id) }}?popup" class="link-tab-subject" target="_blank">{{ tab.title }}</a>
                                         <a href="{{ url_for('bp_site_tabview.tab_view', tab_id=tab.id) }}" class="link-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right" target="_blank">
                                             <i class="icon-share-alt"></i>
                                         </a>
@@ -192,8 +192,12 @@
     <script>
         head.js("{{ url_for('static', filename='js/jquery.highlight.js') }}");
         head.ready(function() {
-            var tabsListOperator = new TabsListOperator();
-            tabsListOperator.initialize();
+            (function(){
+                var tabsListOperator = new TabsListOperator();
+                tabsListOperator.initialize();
+                tabsListOperator.colorSearchKeyword();
+            })();
+
             {%- if mode == 'artist' -%}
                 tabsListOperator.queryFilter.artistIds = '{{ request.args['artist'] }}';
             {%- elif mode == 'tag' -%}
@@ -203,7 +207,6 @@
             {% elif mode == 'search' %}
                 tabsListOperator.queryFilter.search = '{{ request.args['search'] }}';
             {%- endif -%}
-            tabsListOperator.colorSearchKeyword();
         });
     </script>
 {% endblock %}

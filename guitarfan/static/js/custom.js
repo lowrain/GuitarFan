@@ -19,6 +19,11 @@ function isMobile() {
     return (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
 }
 
+function setFancyboxIframeScrollY(num) {
+    var contents = $('.fancybox-iframe').contents();
+    contents.scrollTop(contents.scrollTop() + num);
+}
+
 $(function() {
     BrowserDetection.init();
 
@@ -49,6 +54,7 @@ $(function() {
         }
     );
 
+    //fadein search box
     setTimeout(function() {
         $('.gt-landing .input-group').removeClass("hidden");
         $('.gt-landing .input-group').addClass("animated fadeInDown");
@@ -166,16 +172,14 @@ $(function() {
                     $(".fancybox-title").hide();
                 });
 
-                var iframeWindow = $('.fancybox-iframe').contents();
-
                 $(document).keydown(function(e) {
                     // 38-up, 40-down
                     switch(e.keyCode) {
                         case 38:
-                            iframeWindow.scrollTop(iframeWindow.scrollTop() - 100);
+                            setFancyboxIframeScrollY(-100);
                             break;
                         case 40:
-                            iframeWindow.scrollTop(iframeWindow.scrollTop() + 100);
+                            setFancyboxIframeScrollY(100);
                             break;
                     }
                 });
@@ -184,7 +188,7 @@ $(function() {
                     var evt = window.event || e //equalize event object
                     evt = evt.originalEvent ? evt.originalEvent : evt; //convert to originalEvent if possible
                     var delta = evt.detail ? evt.detail*(-40) : evt.wheelDelta //check for detail first, because it is used by Opera and FF
-                    iframeWindow.scrollTop(iframeWindow.scrollTop() - delta);
+                    setFancyboxIframeScrollY(delta * -1);
                 });
             }
 
@@ -194,7 +198,7 @@ $(function() {
             $(document).unbind('keydown');
         }
     });
-//
+
 //    $('.fm_link').fancybox({
 //        type: 'iframe',
 //        padding : 0,
@@ -407,102 +411,103 @@ function TabsListOperator() {
         var keyword = this.queryFilter.search;
         this.tabsListBody.find('a.link-tab-subject, a.link-list-artist').highlight(keyword);
     };
-}
 
-function buildArtistsHTML(artists) {
-    var html = '';
-    var categoryClass = '';
-    var artist = null;
-    for (var i=0; i<artists.length; i++) {
-        artist = artists[i];
-        switch (artist.category) {
-            case 1:
-                categoryClass = 'male';
-                break;
-            case 2:
-                categoryClass = 'female';
-                break;
-            case 3:
-                categoryClass = 'group';
-                break;
-            case 4:
-                categoryClass = 'band';
-                break;
-            default:
-                categoryClass = 'other';
-                break;
+
+    function buildArtistsHTML(artists) {
+        var html = '';
+        var categoryClass = '';
+        var artist = null;
+        for (var i=0; i<artists.length; i++) {
+            artist = artists[i];
+            switch (artist.category) {
+                case 1:
+                    categoryClass = 'male';
+                    break;
+                case 2:
+                    categoryClass = 'female';
+                    break;
+                case 3:
+                    categoryClass = 'group';
+                    break;
+                case 4:
+                    categoryClass = 'band';
+                    break;
+                default:
+                    categoryClass = 'other';
+                    break;
+            }
+            html += '<a href="javascript:void(0);" class="{0}" rel="{1}">{2}</a> '.format(categoryClass, artist.id, artist.name);
         }
-        html += '<a href="javascript:void(0);" class="{0}" rel="{1}">{2}</a> '.format(categoryClass, artist.id, artist.name);
-    }
-    return html;
-}
-
-function buildTabsListHTML(tabs) {
-    var html = '<table width="100%">';
-    for (var i=0; i<tabs.length; i++) {
-        tab = tabs[i];
-        html += '<tr>';
-        html += '   <td width="45%">';
-        html += '       <i class="icon icon-file-alt"></i>&nbsp;&nbsp;';
-        html += '       <a href="/tabview/' + tab.id + '?popup" class="link-tab-subject">' + tab.title + '</a>';
-        html += '           <a href="/tabview/' + tab.id + '" class="link-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right" target="_blank"><i class="icon-share-alt"></i></a>';
-        html += '   </td>';
-        html += '   <td width="8%" class="tab-style">' + tab.style + '</td>';
-        html += '   <td width="8%" class="tab-difficulty">' + tab.difficalty + '</td>';
-        html += '   <td width="10%" class="tab-hits">' + tab.hits + '次</td>';
-        html += '   <td align="right">';
-        html += '       <a href="/tabs?artist=' + tab.artistId + '" class="link-list-artist pull-right">' + tab.artistName + '</a>';
-        html += '   </td>'
-        html += '</tr>'
-    }
-    html += '</table>'
-    return html;
-}
-
-function buildPaginationHTML(pageIndex, pageCount) {
-    var html = '';
-    if (pageCount == 1) return html;
-
-    var pageStart = 0, pageEnd = 0;
-    if (pageIndex < 9) {
-        pageStart = 1;
-        if (pageCount > 10)
-            pageEnd = 10;
-        else
-            pageEnd = pageCount;
-    }
-    else if (pageIndex < pageCount - 8) {
-        pageStart = pageIndex - 5;
-        pageEnd = pageIndex + 4;
-    }
-    else {
-        pageStart = pageCount - 9;
-        pageEnd = pageCount;
+        return html;
     }
 
-    if (pageIndex > 1) {
-        html += '<li><a href="javascript:void(0);"><i class="icon icon-chevron-left"></i> 前页</a></li>'
+    function buildTabsListHTML(tabs) {
+        var html = '<table width="100%">';
+        for (var i=0; i<tabs.length; i++) {
+            tab = tabs[i];
+            html += '<tr>';
+            html += '   <td width="45%">';
+            html += '       <i class="icon icon-file-alt"></i>&nbsp;&nbsp;';
+            html += '       <a href="/tabview/' + tab.id + '?popup" class="link-tab-subject" target="_blank">' + tab.title + '</a>';
+            html += '           <a href="/tabview/' + tab.id + '" class="link-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right" target="_blank"><i class="icon-share-alt"></i></a>';
+            html += '   </td>';
+            html += '   <td width="8%" class="tab-style">' + tab.style + '</td>';
+            html += '   <td width="8%" class="tab-difficulty">' + tab.difficalty + '</td>';
+            html += '   <td width="10%" class="tab-hits">' + tab.hits + '次</td>';
+            html += '   <td align="right">';
+            html += '       <a href="/tabs?artist=' + tab.artistId + '" class="link-list-artist pull-right">' + tab.artistName + '</a>';
+            html += '   </td>'
+            html += '</tr>'
+        }
+        html += '</table>'
+        return html;
     }
 
-    if (pageStart > 1) {
-        html += '<li><a href="javascript:void(0);")>1...</a></li>';
-    }
+    function buildPaginationHTML(pageIndex, pageCount) {
+        var html = '';
+        if (pageCount == 1) return html;
 
-    for (var i=pageStart; i<=pageEnd; i++) {
-        if (i == pageIndex) {
-            html += '<li class="active"><span>' + i + '</span></li>';
+        var pageStart = 0, pageEnd = 0;
+        if (pageIndex < 9) {
+            pageStart = 1;
+            if (pageCount > 10)
+                pageEnd = 10;
+            else
+                pageEnd = pageCount;
+        }
+        else if (pageIndex < pageCount - 8) {
+            pageStart = pageIndex - 5;
+            pageEnd = pageIndex + 4;
         }
         else {
-            html += '<li><a href="javascript:void(0)">' + i + '</a></li>';
+            pageStart = pageCount - 9;
+            pageEnd = pageCount;
         }
-    }
 
-    if (pageEnd < pageCount) {
-        html += '<li><a href="/tabs/"' + pageCount + '>...' + pageCount + '</a></li>';
-    }
+        if (pageIndex > 1) {
+            html += '<li><a href="javascript:void(0);"><i class="icon icon-chevron-left"></i> 前页</a></li>'
+        }
 
-    if (pageIndex < pageCount) {
-        html += '<li><a href="javascript:void(0);">后页 <i class="icon icon-chevron-right"></i></a></li>';
+        if (pageStart > 1) {
+            html += '<li><a href="javascript:void(0);")>1...</a></li>';
+        }
+
+        for (var i=pageStart; i<=pageEnd; i++) {
+            if (i == pageIndex) {
+                html += '<li class="active"><span>' + i + '</span></li>';
+            }
+            else {
+                html += '<li><a href="javascript:void(0)">' + i + '</a></li>';
+            }
+        }
+
+        if (pageEnd < pageCount) {
+            html += '<li><a href="/tabs/"' + pageCount + '>...' + pageCount + '</a></li>';
+        }
+
+        if (pageIndex < pageCount) {
+            html += '<li><a href="javascript:void(0);">后页 <i class="icon icon-chevron-right"></i></a></li>';
+        }
+        return html;
     }
-    return html;
 }
