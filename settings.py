@@ -32,13 +32,13 @@ SQLALCHEMY_DATABASE_URI = 'sqlite:///' + APP_PATH + '/data/sqlite.db'
 
 # web config
 PORT = 8888
-HOST = '0.0.0.0'
+HOST = '127.0.0.1'
 SESSION_PROTECTION = 'strong'
 SECRET_KEY = 'b\n\x90\\\x13\x044Q\x9a>\x99v\x08\x8ez[\x11 \x82\x83'
-DEBUG = False
+DEBUG = True
 APP_NAME = 'Guitar123'
 SITE_URL = 'http://www.guitar123.net'
-HOST_ADDR = '49.212.220.83'
+HOST_ADDR = '158.199.192.140'
 
 # pagination
 TABS_PER_PAGE = 15
@@ -49,3 +49,6 @@ TAB_FILE_FOLDER = '/static/tabs'
 ARTIST_PHOTO_ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 TAB_FILE_ALLOWED_EXTENSIONS = ['.png', '.jpg', '.jpeg', '.gif']
 FILE_UPLOAD_MAX_MEMORY_SIZE = '10485760'
+
+# CSRF Protection
+WTF_CSRF_ENABLED = True
