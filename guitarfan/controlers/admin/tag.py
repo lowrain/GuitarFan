@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from uuid import uuid1
+from uuid import uuid4
 
 from flask import render_template, request, redirect, url_for, flash, Blueprint
 from flask.ext.login import login_required
@@ -29,7 +29,7 @@ def add():
         return render_template('tag_management.html', action='add', form=form)
     elif request.method == 'POST':
         if form.validate_on_submit():
-            tag = Tag(str(uuid1()), form.name.data)
+            tag = Tag(str(uuid4()), form.name.data)
             db.session.add(tag)
             db.session.commit()
             flash(u'Add new tag success', 'success')

@@ -75,6 +75,6 @@ class Pinyin(object):
 
 if __name__ == "__main__":
     xpinyin = Pinyin()
-    string = "时间都去哪了1.png"
+    string = "时间都去哪了.png"
     print "in: %s" % string
-    print "out: %s" % xpinyin.get_initials(string, '')
+    print "out: %s" % xpinyin.get_pinyin(string, '-')

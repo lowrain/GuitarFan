@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from uuid import uuid1
+from uuid import uuid4
 from random import random
 
 from flask import render_template, request, redirect, url_for, flash, Blueprint, jsonify
@@ -64,7 +64,7 @@ def add():
         return render_template('artist_management.html', action='add', form=form)
     elif request.method == 'POST':
         if form.validate_on_submit():
-            artist_id = str(uuid1())
+            artist_id = str(uuid4())
 
             # upload photo file
             file = form.photo.data

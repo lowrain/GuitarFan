@@ -5,7 +5,7 @@
 import os
 import sys
 import shutil
-from uuid import uuid1
+from uuid import uuid4
 
 from flask import render_template, request, current_app, redirect, url_for, flash, Blueprint, jsonify
 from flask.ext.login import login_required
@@ -57,7 +57,7 @@ def data_import():
                 # create artist if not exist or just fetch it
                 artist = Artist.query.filter_by(name=artist_dir_name).first()
                 if artist is None:
-                    artist = Artist(str(uuid1()), artist_dir_name, letter_dir_name, '', 1, 1)
+                    artist = Artist(str(uuid4()), artist_dir_name, letter_dir_name, '', 1, 1)
                     db.session.add(artist)
                     result_info['artists'] += 1
 
@@ -70,7 +70,7 @@ def data_import():
 
                     # import tab if not exists
                     if not db.session.query(exists().where(Tab.title == tab_dir_name and Tab.artist_id == artist.id)).scalar():
-                        tab = Tab(str(uuid1()), tab_dir_name, 1, artist.id, 1, 1, '', None)
+                        tab = Tab(str(uuid4()), tab_dir_name, 1, artist.id, 1, 1, '', None)
                         db.session.add(tab)
                         result_info['tabs'] += 1
 
@@ -90,7 +90,7 @@ def data_import():
                                     os.mkdir(dest_path)
                                 shutil.copy(file_path, dest_path)
 
-                                tabfile = TabFile(str(uuid1()), tab.id, os.path.join(tab.id, file_name))
+                                tabfile = TabFile(str(uuid4()), tab.id, os.path.join(tab.id, file_name))
                                 db.session.add(tabfile)
 
                             except:

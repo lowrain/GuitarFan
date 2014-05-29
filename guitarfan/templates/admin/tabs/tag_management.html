@@ -42,7 +42,7 @@
                                     <li class="text-left"><a href="{{ url_for('bp_admin_tag.edit', id=tag.id) }}"><i class="icon-pencil"></i> Edit</a></li>
                                     <li class="divider"></li>
                                     <li class="text-left"><a href="{{ '' }}"><i class="icon-plus"></i> Add Tab</a></li>
-                                    <li class="text-left"><a href="javascript:void(0);" onclick="deleteTag('{{ tag.id }}', this)"><i class="icon-remove"></i> Delete</a></li>
+                                    <li class="text-left"><a href="javascript:void(0);" onclick="('{{ tag.id }}', this)"><i class="icon-remove"></i> Delete</a></li>
                                 </ul>
                             </div>
                         </td>
