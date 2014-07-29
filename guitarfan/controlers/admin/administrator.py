@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from uuid import uuid1
+from uuid import uuid4
 
 from flask import render_template, request, redirect, url_for, flash, Blueprint
 from flask.ext.login import login_user, logout_user, login_required, current_user
@@ -78,7 +78,7 @@ def add():
         return render_template('dashboard/administrator_management.html', action='add', form=form)
     elif request.method == 'POST':
         if form.validate_on_submit():
-            administrator = Administrator(str(uuid1()), form.name.data, form.email.data, form.password.data, 1)
+            administrator = Administrator(str(uuid4()), form.name.data, form.email.data, form.password.data, 1)
             db.session.add(administrator)
             db.session.commit()
             flash(u'Add new administrator successfully', 'success')

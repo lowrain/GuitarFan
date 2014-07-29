@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os
-from uuid import uuid1
+from uuid import uuid4
 import shutil
 
 from flask import render_template, request, redirect, url_for, flash, Blueprint, jsonify
@@ -60,7 +60,7 @@ def add():
                                artist=Artist.query.filter_by(id=artist_id).first())
     elif request.method == 'POST':
         if form.validate_on_submit():
-            tab = Tab(str(uuid1()), form.tab_title.data, form.format.data, form.artist.data, form.difficulty.data,
+            tab = Tab(str(uuid4()), form.tab_title.data, form.format.data, form.artist.data, form.difficulty.data,
                       form.style.data, form.audio_url.data, form.tags.data)
             db.session.add(tab)
             db.session.commit()

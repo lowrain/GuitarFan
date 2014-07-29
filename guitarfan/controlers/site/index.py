@@ -14,7 +14,7 @@ bp_site_index = Blueprint('bp_site_index', __name__, template_folder="../../temp
 
 @bp_site_index.route('/')
 @bp_site_index.route('/index')
-@cache.cached(3600)
+
 def index():
     hot_tabs = Tab.query.order_by(Tab.hits.desc()).limit(10)
     new_tabs = Tab.query.order_by(Tab.update_time.desc()).limit(10)

@@ -24,7 +24,6 @@ def check_dir(path):
     if not os.path.exists(path):
         os.makedirs(path)
 
-
 def upload_file(file, upload_path, new_filename):
     try:
         check_dir(upload_path)

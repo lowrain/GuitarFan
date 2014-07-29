@@ -75,11 +75,11 @@
                     </div>
                 </div>
             </div>
+            <div class="form-actions">
             {%- if show_wizard -%}
-                <div class="form-actions">
-                    <input class="btn btn-danger" id="submit" name="submit" type="submit" value="Finish" onclick="location.href='{{ url_for('bp_admin_tab.list') }}'">
-                </div>
+                <input class="btn btn-danger" id="submit" name="submit" type="submit" value="Finish" onclick="location.href='{{ url_for('bp_admin_tab.list') }}'">
             {%- endif -%}
+                </div>
         </div>
 
     </div>

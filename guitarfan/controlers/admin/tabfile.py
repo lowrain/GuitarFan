@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 
-from uuid import uuid1
+from uuid import uuid4
 
 from flask import render_template, request, Blueprint, jsonify
 from flask.ext.login import login_required
@@ -27,8 +27,7 @@ def edit(tab_id):
         else:
             return render_template('tabfile_edit.html', tab=tab)
     elif request.method == 'PUT':
-        filename = os.path.join(tab_id, request.form['filename'])
-        tabfile = TabFile(str(uuid1()), tab_id, filename)
+        tabfile = TabFile(str(uuid4()), tab_id, request.form['filename'])
         db.session.add(tabfile)
         db.session.commit()
         tabfiles = TabFile.query.filter_by(tab_id=tab_id).all()
