@@ -49,3 +49,6 @@ TAB_FILE_FOLDER = '/static/tabs'
 ARTIST_PHOTO_ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 TAB_FILE_ALLOWED_EXTENSIONS = ['.png', '.jpg', '.jpeg', '.gif']
 FILE_UPLOAD_MAX_MEMORY_SIZE = '10485760'
+
+# CSRF Protection
+WTF_CSRF_ENABLED = True
