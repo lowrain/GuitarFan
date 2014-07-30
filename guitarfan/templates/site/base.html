@@ -8,8 +8,8 @@
     <meta name="keywords" content="吉他,吉他谱,弹唱,六线谱,木吉他,图片谱,吉他教材,吉他视频,民谣">
     <meta name="description" content="吉他,吉他谱,弹唱,六线谱,木吉他,图片谱,吉他教材,吉他视频,民谣">
     <meta name="author" content="lowrain">
-    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap3/css/bootstrap.css') }}" media="screen">
-    <link rel="stylesheet" href="{{ url_for('static', filename='FontAwesome/css/font-awesome.css') }}" media="screen">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap3/css/bootstrap.min.css') }}" media="screen">
+    <link rel="stylesheet" href="{{ url_for('static', filename='FontAwesome/css/font-awesome.min.css') }}" media="screen">
     <link rel="stylesheet" href="{{ url_for('static', filename='bootflat/css/bootflat.css') }}" media="screen">
     <link rel="stylesheet" href="{{ url_for('static', filename='bootflat/css/bootflat-extensions.css') }}" media="screen">
     <link rel="stylesheet" href="{{ url_for('static', filename='bootflat/css/bootflat-square.css') }}" media="screen">
@@ -29,19 +29,19 @@
         <div class="navbar-header">
             <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
+                <span class="fa fa-bar"></span>
+                <span class="fa fa-bar"></span>
+                <span class="fa fa-bar"></span>
             </button>
             <a href="javascript:void(0);" class="navbar-brand e_swing"><img src="{{ url_for('static', filename='images/logo.png') }}" width="24" /> Guitar123</a>
         </div>
         <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
             <ul class="nav navbar-nav">
                 <li class="{% block active_navbar_home %}{% endblock %}">
-                    <a href="/"><i class="icon-home"></i> 首页</a>
+                    <a href="/"><i class="fa fa-home"></i> 首页</a>
                 </li>
                 <li class="{% block active_navbar_tabs %}{% endblock %}">
-                    <a href="/tabs"><i class="icon-file-text"></i> 曲谱</a>
+                    <a href="/tabs"><i class="fa fa-file-text"></i> 曲谱</a>
                 </li>
                 <!--<li class="{% block active_navbar_video %}{% endblock %}">
                     <a href="/videos"><i class="icon-youtube-play"></i> 视频</a>
@@ -50,7 +50,7 @@
                     <a href="/courses"><i class="icon-book"></i> 教材</a>
                 </li>-->
                 <li class="{% block active_navbar_fm %}{% endblock %}">
-                    <a href="http://douban.fm/?cid=1000399" target="_blank"><i class="icon-music"></i> FM</a>
+                    <a href="http://douban.fm/?cid=1000399" target="_blank"><i class="fa fa-music"></i> FM</a>
                 </li>
             </ul>
             {% block navbar_search %}
@@ -74,7 +74,7 @@
                         <div class="input-group input-group-square hidden">
                             <input name="search" type="text" class="form-control" placeholder="输入歌曲名或艺人名进行搜索">
                             <span class="input-group-btn">
-                              <button class="btn btn-info" type="submit"><i class="icon-search"></i></button>
+                              <button class="btn btn-info" type="submit"><i class="fa fa-search"></i></button>
                             </span>
                         </div>
                     </form>
@@ -92,8 +92,8 @@
 <!-- footer -->
 <div class="footer">
     <p>Copyright © 2013 - Guitar123&nbsp;&nbsp;|&nbsp;&nbsp;Created and Maintained by <span style="color:#e84c3d">@lowrain</span>&nbsp;&nbsp;
-        <a href="mailto:jinzm1982@gmail.com" title="意见反馈"><i class="icon-envelope"></i></a>&nbsp;
-        <a class="jiathis_follow_tsina" href="http://weibo.com/jinzemin" title="关注站长" target="_blank"><i class="icon-weibo"></i></a>
+        <a href="mailto:jinzm1982@gmail.com" title="意见反馈"><i class="fa fa-envelope"></i></a>&nbsp;
+        <a class="jiathis_follow_tsina" href="http://weibo.com/jinzemin" title="关注站长" target="_blank"><i class="fa fa-weibo"></i></a>
     </p>
     <p class="text-muted">声明：本站所有曲谱均来自网络，如有版权问题请联系站长</p>
 </div>

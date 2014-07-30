@@ -12,7 +12,7 @@
                     <div class="row">
                         <div class="col-md-6 col-sm-12">
                             <div class="hot-box">
-                                <i class="icon icon-star icon-circled icon-bglight icon-2x pull-left"></i>
+                                <i class="fa fa-star fa-circled fa-bglight fa-2x pull-left"></i>
                                 <h4 class="pull-left">热门曲谱 · · · · · ·</h4>
                                 <div class="clearfix"></div>
                                 <ul class="list-unstyled">
@@ -23,44 +23,44 @@
                                         <span class="badge">{{ row_index }}</span>
                                         <a href="{{ url_for('bp_site_tabview.tab_view', tab_id=tab.id) }}?popup" class="link-tab-subject" target="_blank">{{ tab.title }}</a>
                                         <a href="{{ url_for('bp_site_tabview.tab_view', tab_id=tab.id) }}" class="link-new-window" title="在新窗口中查看" target="_blank" data-toggle="在新窗口中查看" data-placement="right">
-                                            <i class="icon-share-alt"></i>
+                                            <i class="fa fa-share"></i>
                                         </a>
                                         <a href="{{ url_for('bp_site_tabs.tabs', artist=tab.artist_id) }}" class="link-list-artist pull-right">{{ tab.artist.name }}</a>
                                     </li>
                                     {% endfor %}
                                 </ul>
-                                <div class="text-right"><a class="link-more" href="tabs?order=hot">More »</a></div>
+                                <div class="text-right"><a class="link-more" href="tabs?order=hot">More <i class="fa fa-angle-double-right"></i></a></div>
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-12">
                             <div class="new-box">
-                                <i class="icon icon-rocket icon-circled icon-bglight icon-2x pull-left"></i>
+                                <i class="fa fa-rocket fa-circled fa-bglight fa-2x pull-left"></i>
                                 <h4 class="pull-left">最新加入 · · · · · ·</h4>
                                 <div class="clearfix"></div>
                                 <ul class="list-unstyled">
                                     {% for tab in new_tabs %}
                                     <li class="clearfix">
-                                        <i class="icon-angle-right"></i>
+                                        <i class="fa fa-angle-right"></i>
                                         <a href="{{ url_for('bp_site_tabview.tab_view', tab_id=tab.id) }}?popup" class="link-tab-subject" target="_blank">{{ tab.title }}</a>
                                         <a href="{{ url_for('bp_site_tabview.tab_view', tab_id=tab.id) }}" class="link-new-window" title="在新窗口中查看" target="_blank" data-toggle="在新窗口中查看" data-placement="right">
-                                            <i class="icon-share-alt"></i>
+                                            <i class="fa fa-share"></i>
                                         </a>
                                         <a href="{{ url_for('bp_site_tabs.tabs', artist=tab.artist_id) }}" class="link-list-artist pull-right">{{ tab.artist.name }}</a>
                                     </li>
                                     {% endfor %}
                                 </ul>
-                                <div class="text-right"><a class="link-more" href="tabs">More »</a></div>
+                                <div class="text-right"><a class="link-more" href="tabs">More <i class="fa fa-angle-double-right"></i></a></div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="gt-styles">
-                        <h4><i class="icon icon-leaf"></i> 音乐风格</h4>
+                        <h4><i class="fa fa-leaf"></i> 音乐风格</h4>
                         <div id="styleCloud"></div>
                     </div>
                     <div class="gt-tags">
-                        <h4><i class="icon icon-tags"></i> 曲谱标签</h4>
+                        <h4><i class="fa fa-tags"></i> 曲谱标签</h4>
                         <div id="tagCloud"></div>
                     </div>
                 </div>

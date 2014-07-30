@@ -105,8 +105,8 @@
                                 {% set time_btn_active = 'active' %}
                                 {% set hot_btn_active = '' %}
                             {%  endif %}
-                            <button type="button" class="btn btn-default btn-sm {{ time_btn_active }}" title="按照更新时间排序" rel="time"><i class="glyphicon glyphicon-time"></i></button>
-                            <button type="button" class="btn btn-default btn-sm {{ hot_btn_active }}" title="按照点击量排序" rel="hot"><i class="glyphicon glyphicon-fire"></i></button>
+                            <button type="button" class="btn btn-default btn-sm {{ time_btn_active }}" title="按照更新时间排序" rel="time"><i class="fa fa-clock-o"></i></button>
+                            <button type="button" class="btn btn-default btn-sm {{ hot_btn_active }}" title="按照点击量排序" rel="hot"><i class="fa fa-fire"></i></button>
                         </div>
                     </div>
                     <div class="list-body">
@@ -114,10 +114,10 @@
                             {% for tab in tabs.items %}
                                 <tr>
                                     <td width="60%">
-                                        <i class="icon icon-file-alt"></i>&nbsp;&nbsp;
+                                        <i class="fa fa-file-text-o"></i>&nbsp;&nbsp;
                                         <a href="{{ url_for('bp_site_tabview.tab_view', tab_id=tab.id) }}?popup" class="link-tab-subject" target="_blank">{{ tab.title }}</a>
                                         <a href="{{ url_for('bp_site_tabview.tab_view', tab_id=tab.id) }}" class="link-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right" target="_blank">
-                                            <i class="icon-share-alt"></i>
+                                            <i class="fa fa-share"></i>
                                         </a>
                                     </td>
                                     <td width="8%" class="tab-style">{{ tab.style_text }}</td>
@@ -148,7 +148,7 @@
                                 {% endif %}
                                 {% if tabs.has_prev %}
                                     <li><a href="{{ url_for('bp_site_tabs.tabs', page = tabs.prev_num) }}">
-                                        <i class="icon icon-chevron-left"></i> 前页</a>
+                                        <i class="fa fa-chevron-left"></i> 前页</a>
                                     </li>
                                 {% endif %}
                                 {% if page_start > 1 %}
@@ -166,7 +166,7 @@
                                 {% endif %}
                                 {% if tabs.has_next %}
                                     <li>
-                                        <a href="{{ url_for('bp_site_tabs.tabs', page = tabs.next_num) }}">后页 <i class="icon icon-chevron-right"></i></a>
+                                        <a href="{{ url_for('bp_site_tabs.tabs', page = tabs.next_num) }}">后页 <i class="fa fa-chevron-right"></i></a>
                                     </li>
                                 {% endif %}
                             {% endif %}
@@ -175,11 +175,11 @@
                 </div>
                 <div class="col-md-4">
                     <div class="gt-styles">
-                        <h4><i class="icon icon-leaf"></i> 音乐风格</h4>
+                        <h4><i class="fa fa-leaf"></i> 音乐风格</h4>
                         <div id="styleCloud"></div>
                     </div>
                     <div class="gt-tags">
-                        <h4><i class="icon icon-tags"></i> 曲谱标签</h4>
+                        <h4><i class="fa fa-tags"></i> 曲谱标签</h4>
                         <div id="tagCloud"></div>
                     </div>
                 </div>

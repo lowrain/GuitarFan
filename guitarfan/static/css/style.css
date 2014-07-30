@@ -38,8 +38,8 @@ a.link-tab-subject:hover {
     border-radius: 3px;
 }
 a.link-new-window {
-    color: #dedede;
-    margin-left: 3px;
+    color: #ccc;
+    margin-left: 1px;
     font-size: 80%;
 }
 a.link-new-window:hover {
@@ -62,41 +62,41 @@ a.link-more:hover {
     padding-right: 0px;
 }
 /*---------- Links END -------------------------*/
-/*---------- Icons Customizations --------------*/
+/*---------- fas Customizations --------------*/
 /* color */
-i.icon-bglight {
+i.fa-bglight {
     color: #e96b56;
     background: #f7f7f7;
 }
 
-/*i.icon-bglight.active:hover{*/
+/*i.fa-bglight.active:hover{*/
 /*color: #444;*/
 /*background: #f7f7f7;*/
 /*}*/
-i.icon-bglight.active,
-i.icon-bgdark {
+i.fa-bglight.active,
+i.fa-bgdark {
     color: #f7f7f7;
     background: #e96b56;
 }
-/*[class^="icon-"].active {*/
+/*[class^="fa-"].active {*/
 /*color:#e96b56;*/
 /*}*/
-/*a i.icon-bglight:hover,*/
-/*a i.icon-bgdark:hover {*/
+/*a i.fa-bglight:hover,*/
+/*a i.fa-bgdark:hover {*/
 /*background: #e96b56;*/
 /*}*/
-/*i.icon-bglight.active {*/
+/*i.fa-bglight.active {*/
 /*background: #e96b56;*/
 /*}*/
 
-/*i.icon-bgdark.active {*/
+/*i.fa-bgdark.active {*/
 /*background: #e96b56;*/
 /*}*/
 /*ul.styledlist li:before {*/
 /*color:#e96b56;*/
 /*}*/
 /* square */
-.icon-square {
+.fa-square {
     display: inline-block;
     text-align: center;
     color: #444;
@@ -105,29 +105,29 @@ i.icon-bgdark {
     height: 24px !important;
     line-height: 24px !important;
 }
-.icon-square.icon-2x{
+.fa-square.fa-2x{
     width: 48px !important;
     height: 48px !important;
     line-height: 48px !important;
 }
-.icon-square.icon-3x{
+.fa-square.fa-3x{
     width: 72px !important;
     height: 72px !important;
     line-height: 72px !important;
 }
-.icon-square.icon-4x{
+.fa-square.fa-4x{
     width: 96px !important;
     height: 96px !important;
     line-height: 96px !important;
 }
-.icon-square.icon-5x{
+.fa-square.fa-5x{
     width: 120px !important;
     height: 120px !important;
     line-height: 120px !important;
 }
 
 /* rounded */
-.icon-rounded {
+.fa-rounded {
     display: inline-block;
     border-radius: 6px !important;
     -moz-border-radius: 6px !important;
@@ -139,12 +139,12 @@ i.icon-bgdark {
     height: 24px !important;
     line-height: 24px !important;
 }
-.icon-rounded.icon-2x{
+.fa-rounded.fa-2x{
     width: 48px !important;
     height: 48px !important;
     line-height: 48px !important;
 }
-.icon-rounded.icon-3x{
+.fa-rounded.fa-3x{
     width: 72px !important;
     height: 72px !important;
     line-height: 72px !important;
@@ -154,7 +154,7 @@ i.icon-bgdark {
     -o-border-radius: 8px !important;
     -ms-border-radius: 8px !important;
 }
-.icon-rounded.icon-4x{
+.fa-rounded.fa-4x{
     width: 96px !important;
     height: 96px !important;
     line-height: 96px !important;
@@ -164,7 +164,7 @@ i.icon-bgdark {
     -o-border-radius: 10px !important;
     -ms-border-radius: 10px !important;
 }
-.icon-rounded.icon-5x{
+.fa-rounded.fa-5x{
     width: 120px !important;
     height: 120px !important;
     line-height: 120px !important;
@@ -175,7 +175,7 @@ i.icon-bgdark {
     -ms-border-radius: 12px !important;
 }
 /* circled */
-.icon-circled {
+.fa-circled {
     display: inline-block;
     border-radius: 1000px !important;
     -moz-border-radius: 1000px !important;
@@ -188,27 +188,27 @@ i.icon-bgdark {
     line-height: 24px !important;
 }
 
-.icon-circled.icon-2x{
+.fa-circled.fa-2x{
     width: 48px !important;
     height: 48px !important;
     line-height: 48px !important;
 }
-.icon-circled.icon-3x{
+.fa-circled.fa-3x{
     width: 72px !important;
     height: 72px !important;
     line-height: 72px !important;
 }
-.icon-circled.icon-4x{
+.fa-circled.fa-4x{
     width: 96px !important;
     height: 96px !important;
     line-height: 96px !important;
 }
-.icon-circled.icon-5x{
+.fa-circled.fa-5x{
     width: 120px !important;
     height: 120px !important;
     line-height: 120px !important;
 }
-/*---------- Icons Customizations End ----------*/
+/*---------- fas Customizations End ----------*/
 /*---------- Navbar Customizations -------------*/
 .gt-navbar {
     background:rgba(46,46,46,0.8);
@@ -314,7 +314,7 @@ i.icon-bgdark {
     border-top: solid 4px #c0392b;
 }
 .footer a {
-    font-size: 22px;
+    font-size: 16px;
     color:#ccc;
     text-decoration: none;
 }
@@ -383,7 +383,7 @@ i.icon-bgdark {
     border-bottom: 1px solid #ddd;
     padding-bottom: 15px;
 }
-/*.gt-tabs .gt-icon-wrap {*/
+/*.gt-tabs .gt-fa-wrap {*/
 /*-webkit-border-radius: 50%;*/
 /*-moz-border-radius: 50%;*/
 /*border-radius: 50%;*/
@@ -429,13 +429,13 @@ i.icon-bgdark {
     font-size: 11px;
     color: #ffffff;
     border-radius: 3px;
-    background-color: #dedede;
+    background-color: #ccc;
 }
-.gt-index-tabs .new-box .icon-angle-right {
+.gt-index-tabs .new-box .fa-angle-right {
     margin-right: 5px;
     font-size: 14px;
     font-weight: bold;
-    color: #dedede;
+    color: #ccc;
 }
 .gt-index-videos {
     border-top: 1px solid #FFFDFD;
@@ -481,13 +481,15 @@ i.icon-bgdark {
 .gt-tabs-header .artists {
     background-color: #FFF;
     margin-top: 10px;
-    padding: 20px;
+    padding: 13px 15px 15px 15px;
     background-color: #FFF;
     border: 1px solid #d3d7d7;
     border-radius: 4px;
 }
 .gt-tabs-header .artists a {
     white-space:nowrap;
+    margin-top:2px;
+    display: inline-block;
 }
 .gt-tabs-header .artists a.male {
     color: #66afe9;
@@ -515,6 +517,9 @@ i.icon-bgdark {
     border-bottom: 1px solid #dedede;
     height: 38px;
 }
+.gt-tabs-list .list-header .fa {
+    font-size: 15px;
+}
 .gt-tabs-list .list-header .header-text {
     padding-top: 10px;
 }
@@ -525,7 +530,7 @@ i.icon-bgdark {
 .gt-tabs-list .list-body tr {
     border-bottom: 1px dashed #eee;
     line-height: 21px;
-    font-size: 13px;
+    font-size: 12px;
     height:32px;
 }
 .gt-tabs-list .list-body tr:hover {

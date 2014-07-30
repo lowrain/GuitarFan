@@ -36,11 +36,11 @@ $(function() {
     //init animation effect
     $(".gt-index-tabs .hot-box, .gt-index-tabs .new-box").hover(
         function () {
-            $(this).find('.icon').addClass("animated active rotateIn");
+            $(this).find('.fa-circled').addClass("animated active rotateIn");
             $(this).find('h4').addClass("animated active fadeInRight");
         },
         function () {
-            $(this).find('.icon').removeClass("animated active rotateIn");
+            $(this).find('.fa-circled').removeClass("animated active rotateIn");
             $(this).find('h4').removeClass("animated active fadeInRight");
         }
     );
@@ -447,7 +447,7 @@ function TabsListOperator() {
             tab = tabs[i];
             html += '<tr>';
             html += '   <td width="45%">';
-            html += '       <i class="icon icon-file-alt"></i>&nbsp;&nbsp;';
+            html += '       <i class="fa fa-file-alt"></i>&nbsp;&nbsp;';
             html += '       <a href="/tabview/' + tab.id + '?popup" class="link-tab-subject" target="_blank">' + tab.title + '</a>';
             html += '           <a href="/tabview/' + tab.id + '" class="link-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right" target="_blank"><i class="icon-share-alt"></i></a>';
             html += '   </td>';
@@ -485,7 +485,7 @@ function TabsListOperator() {
         }
 
         if (pageIndex > 1) {
-            html += '<li><a href="javascript:void(0);"><i class="icon icon-chevron-left"></i> 前页</a></li>'
+            html += '<li><a href="javascript:void(0);"><i class="fa fa-chevron-left"></i> 前页</a></li>'
         }
 
         if (pageStart > 1) {
@@ -506,7 +506,7 @@ function TabsListOperator() {
         }
 
         if (pageIndex < pageCount) {
-            html += '<li><a href="javascript:void(0);">后页 <i class="icon icon-chevron-right"></i></a></li>';
+            html += '<li><a href="javascript:void(0);">后页 <i class="fa fa-chevron-right"></i></a></li>';
         }
         return html;
     }

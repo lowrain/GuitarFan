@@ -16,8 +16,8 @@ bp_site_index = Blueprint('bp_site_index', __name__, template_folder="../../temp
 @bp_site_index.route('/index')
 
 def index():
-    hot_tabs = Tab.query.order_by(Tab.hits.desc()).limit(10)
-    new_tabs = Tab.query.order_by(Tab.update_time.desc()).limit(10)
+    hot_tabs = Tab.query.order_by(Tab.hits.desc()).limit(12)
+    new_tabs = Tab.query.order_by(Tab.update_time.desc()).limit(12)
     return render_template('index.html', hot_tabs=hot_tabs, new_tabs=new_tabs)
 
 
