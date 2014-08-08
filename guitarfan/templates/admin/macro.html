@@ -5,7 +5,7 @@
                 <div class="alert alert-{{ category }}">
                     <a class="close" data-dismiss="alert" href="#">×</a>
                     {% for msg in message.split(';') %}
-                        <i class="icon-info-sign"></i> {{ msg }}<br>
+                        <i class="fa fa-info-circle"></i> {{ msg }}<br>
                     {% endfor %}
                 </div>
             {% endfor %}
@@ -15,17 +15,17 @@
 
 {% macro get_adverse_desc(status)  -%}
     {% if status == 0 %}
-        <i class="icon-ok-sign"></i> Enable
+        <i class="fa fa-check-circle-o"></i> Enable
     {% elif status == 1 %}
-        <i class="icon-ban-circle"></i> Disable
+        <i class="fa fa-ban"></i> Disable
     {% endif %}
 {%- endmacro %}
 
 {% macro get_status(status)  -%}
     {% if status == False %}
-        <i class="icon-ban-circle text-error" title="Disabled"></i>
+        <i class="fa fa-ban text-error" title="Disabled"></i>
     {% elif status == True %}
-        <i class="icon-ok-sign text-success" title="Enabled"></i>
+        <i class="fa fa-check-circle-o text-success" title="Enabled"></i>
     {% endif %}
 {%- endmacro %}
 

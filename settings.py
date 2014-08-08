@@ -24,13 +24,13 @@
 # SOFTWARE.
 
 import os
-# path config
+# Path Config
 APP_PATH = os.path.dirname(os.path.abspath(__file__)) + '/guitarfan'
 
-# database config
+# Database Config
 SQLALCHEMY_DATABASE_URI = 'sqlite:///' + APP_PATH + '/data/sqlite.db'
 
-# web config
+# Site Config
 PORT = 8888
 HOST = '127.0.0.1'
 SESSION_PROTECTION = 'strong'
@@ -40,10 +40,10 @@ APP_NAME = 'Guitar123'
 SITE_URL = 'http://www.guitar123.net'
 HOST_ADDR = '158.199.192.140'
 
-# pagination
+# Pagination
 TABS_PER_PAGE = 15
 
-# uplods config
+# Uplods Config
 ARTIST_PHOTO_FOLDER = '/static/artists'
 TAB_FILE_FOLDER = '/static/tabs'
 ARTIST_PHOTO_ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])

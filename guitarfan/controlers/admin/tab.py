@@ -133,9 +133,9 @@ def col_files_preview(id):
     tabfiles = TabFile.query.filter_by(tab_id=id)
     if tabfiles and tabfiles.count() > 0:
         return '<a href="javascript:void(0)" style="text-decoration: none;" class="preview_link" data-id="%s" ' \
-               'title="preview tab"><i class="icon-eye-open"></i></a>' % id
+               'title="preview tab"><i class="fa fa-eye-open"></i></a>' % id
     else:
-        return '<i class="icon-eye-close"></i>'
+        return '<i class="fa fa-eye-close"></i>'
 
 
 def col_operations(id):
@@ -146,20 +146,20 @@ def col_operations(id):
 
     html = """
     <div class="dropdown related_menu">
-        <a title="Related Objects" class="relate_menu dropdown-toggle" data-toggle="dropdown"><i class="icon icon-list"></i></a>
+        <a title="Related Objects" class="relate_menu dropdown-toggle" data-toggle="dropdown"><i class="fa fa-list"></i></a>
         <ul class="dropdown-menu pull-right" role="menu">
-        <li class="text-left"><a href="%s"><i class="icon-pencil"></i> Edit</a></li>
+        <li class="text-left"><a href="%s"><i class="fa fa-pencil"></i> Edit</a></li>
             <li class="divider"></li>
     """ % url_for('bp_admin_tab.edit', id=id)
 
     if tab.format_id != 2:
          html += """
-            <li class="text-left"><a href="%s"><i class="icon-file-text-alt"></i> Tab File(s)</a></li>
+            <li class="text-left"><a href="%s"><i class="fa fa-file-text-o"></i> Tab File(s)</a></li>
             """ % url_for('bp_admin_tabfile.edit', tab_id=id)
 
     html += """
             <li class="text-left"><a href="javascript:void(0);" onclick="deleteTab('%s')">
-                <i class="icon-remove"></i> Delete</a>
+                <i class="fa fa-trash-o"></i> Delete</a>
             </li>
         </ul>
     </div>

@@ -482,8 +482,7 @@ i.fa-bgdark {
     background-color: #FFF;
     margin-top: 10px;
     padding: 13px 15px 15px 15px;
-    background-color: #FFF;
-    border: 1px solid #d3d7d7;
+    border: 1px solid #eee;
     border-radius: 4px;
 }
 .gt-tabs-header .artists a {
@@ -596,5 +595,8 @@ i.fa-bgdark {
 }
 #styleCloud, #tagCloud {
     padding: 5px 15px 10px 15px;
+}#styleCloud, #tagCloud a {
+    margin-right: 5px;
+    white-space: nowrap;
 }
 /*---------- Right Slide END --------------------*/

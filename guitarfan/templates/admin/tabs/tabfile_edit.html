@@ -45,13 +45,13 @@
                         {%- if tab.tabfiles.count() > 0 -%}
                             <ul class="thumbnails">
                                 {%- for tabfile in tab.tabfiles -%}
-                                    <li class="span3">
+                                    <li>
                                         <div class="thumbnail text-center">
                                             <a href="{{ tabfile.file_relpath }}" class="fancybox" data-fancybox-group="gallery" title="{{ tabfile.file_basename }}">
                                                 <img style="width:200px; height:150px" src="{{ tabfile.file_relpath }}" title="{{ tabfile.file_basename }}">
                                             </a>
-                                            {{ tabfile.file_basename }}
-                                            <a href="javascript:void(0)" class="deleteLink" style="text-decoration: none" data-id="{{ tabfile.id }}"><i class="icon-trash"></i></a>
+                                            <br />{{ tabfile.file_basename }}
+                                            <a href="javascript:void(0)" class="deleteLink" style="text-decoration: none" data-id="{{ tabfile.id }}"><i class="fa fa-trash-o"></i></a>
                                         </div>
                                     </li>
                                 {%- endfor -%}
@@ -71,7 +71,7 @@
                         </noscript>
                     </div>
                     <div id="triggerUpload" class="btn btn-info btn-mini" style="margin-top: 10px;">
-                        <i class="icon-upload icon-white"></i> Upload Now
+                        <i class="fa fa-upload"></i> Upload Now
                     </div>
                 </div>
             </div>
@@ -123,7 +123,7 @@
                     enableTooltip: true
                 },
                 text: {
-                    uploadButton: '<div><i class="icon-cloud-upload icon-white"></i> Select or drag file(s) to upload</div>'
+                    uploadButton: '<div><i class="fa fa-cloud-upload"></i> Select or drag file(s) to upload</div>'
                 },
                 template:
                         '<table width=100% cellspacing=0 cellpadding=0>' +
@@ -160,7 +160,7 @@
                                             '       <a href="{0}" class="fancybox" data-fancybox-group="gallery" title="{1}">' +
                                             '           <img style="width:200px; height:150px" src="{0}" title="{1}">' +
                                             '       </a>' +
-                                            '       {1} <a href="javascript:void(0)" class="deleteLink" style="text-decoration: none" data-id="{2}" title="delete file"><i class="icon-trash"></i></a>' +
+                                            '       {1} <a href="javascript:void(0)" class="deleteLink" style="text-decoration: none" data-id="{2}" title="delete file"><i class="fa fa-trash-o"></i></a>' +
                                             '   </div>' +
                                             '</li>';
                             var thumbsHTML = '<ul class="thumbnails">';

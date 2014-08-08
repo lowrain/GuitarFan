@@ -8,16 +8,16 @@
         <div class="well sidebar-nav">
             <ul class="nav nav-list">
                 <li class="nav-header">Site Info</li>
-                <li><a href="javascript:void(0)"><i class="icon-tasks"></i> Site Status</a></li>
-                <li><a href="javascript:void(0)"><i class="icon-warning-sign"></i> Error Logs</a></li>
-                <li><a href="javascript:void(0)"><i class="icon-bar-chart"></i> Statistics</a></li>
-                <li><a href="https://www.google.com/analytics/web/?hl=zh-CN&pli=1#home/a42340313w72054318p74352125/" target="_blank"><i class="icon-google-plus-sign"></i> Analytics</a></li>
+                <li><a href="javascript:void(0)"><i class="fa fa-tasks"></i> Site Status</a></li>
+                <li><a href="javascript:void(0)"><i class="fa fa-warning"></i> Error Logs</a></li>
+                <li><a href="javascript:void(0)"><i class="fa fa-bar-chart-o"></i> Statistics</a></li>
+                <li><a href="https://www.google.com/analytics/web/?hl=zh-CN&pli=1#home/a42340313w72054318p74352125/" target="_blank"><i class="fa fa-google"></i> Analytics</a></li>
                 <li class="nav-header">AUTH</li>
                 <li class="{% block active_dashboard_administrator %}{% endblock %}">
-                    <a href="{{ url_for('bp_admin_administrator.list') }}"><i class="icon-user"></i> Administrators</a>
+                    <a href="{{ url_for('bp_admin_administrator.list') }}"><i class="fa fa-user"></i> Administrators</a>
                 </li>
                 <li class="nav-header">Operations</li>
-                <li><a href="javascript:void(0)"><i class="icon-inbox"></i> database backup</a></li>
+                <li><a href="javascript:void(0)"><i class="fa fa-inbox"></i> database backup</a></li>
             </ul>
         </div>
     </div>

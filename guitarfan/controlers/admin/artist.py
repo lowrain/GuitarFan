@@ -166,25 +166,25 @@ def col_tabs(id):
 def col_photo(id):
     artist = Artist.query.get(id)
     if artist and artist.photo and artist.photo != '':
-        return '<a href="%s" style="text-decoration: none;" class="preview_link"><i class="icon-eye-open"></i></a>' % artist.photo_relative_path
+        return '<a href="%s" style="text-decoration: none;" class="preview_link"><i class="fa fa-eye-open"></i></a>' % artist.photo_relative_path
     else:
-        return '<i class="icon-eye-close"></i>'
+        return '<i class="fa fa-eye-close"></i>'
 
 
 def col_operations(id):
     html = """
     <div class="dropdown related_menu">
-        <a title="Related Objects" class="relate_menu dropdown-toggle" data-toggle="dropdown"><i class="icon icon-list"></i></a>
+        <a title="Related Objects" class="relate_menu dropdown-toggle" data-toggle="dropdown"><i class="fa fa-list"></i></a>
         <ul class="dropdown-menu pull-right" role="menu">
-            <li class="text-left"><a href="%s"><i class="icon-pencil"></i> Edit</a></li>
+            <li class="text-left"><a href="%s"><i class="fa fa-pencil"></i> Edit</a></li>
             <li class="divider"></li>
-            <li class="text-left"><a href="%s"><i class="icon-plus"></i> Add Tab</a></li>
+            <li class="text-left"><a href="%s"><i class="fa fa-plus"></i> Add Tab</a></li>
     """ % (url_for('bp_admin_artist.edit', id=id), url_for('bp_admin_tab.add', artist_id=id))
 
     if col_tabs(id) == 0:
         html += """
             <li class="text-left"><a href="javascript:void(0);" onclick="deleteArtist('%s')">
-                <i class="icon-remove"></i> Delete</a>
+                <i class="fa fa-remove"></i> Delete</a>
             </li>
         """ % id
 

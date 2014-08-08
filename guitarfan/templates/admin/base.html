@@ -28,23 +28,22 @@
         <div class="navbar-inner">
             <div class="container-fluid">
                 <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
+                    <span class="fa fa-bar"></span>
+                    <span class="fa fa-bar"></span>
+                    <span class="fa fa-bar"></span>
                 </a>
-                <a class="brand" href="/" target="_"><i class="icon-home"></i> {{ config['APP_NAME'] }}</a>
+                <a class="brand" href="/" target="_"><i class="fa fa-home"></i> {{ config['APP_NAME'] }}</a>
                 <ul class="nav">
-                    <li class="{% block active_dashboard %}{% endblock %}"><a href="{{ url_for('bp_admin_administrator.list') }}"><i class="icon-dashboard"></i> Dashboard</a></li>
-                    <li class="{% block active_tabs %}{% endblock %}"><a href="{{ url_for('bp_admin_tab.list') }}"><i class="icon-music"></i> Tabs</a></li>
-                    <li><a href="javascript:void(0)"><i class="icon-envelope"></i> Feedbacks</a></li>
+                    <li class="{% block active_dashboard %}{% endblock %}"><a href="{{ url_for('bp_admin_administrator.list') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+                    <li class="{% block active_tabs %}{% endblock %}"><a href="{{ url_for('bp_admin_tab.list') }}"><i class="fa fa-music"></i> Tabs</a></li>
                 </ul>
                 <ul class="nav pull-right">
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user"></i> <b>{{ current_user.name }}</b> <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <b>{{ current_user.name }}</b> <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{ url_for('bp_admin_administrator.edit', id=current_user.id) }}"><i class="icon-cogs"></i> Settings</a></li>
+                            <li><a href="{{ url_for('bp_admin_administrator.edit', id=current_user.id) }}"><i class="fa fa-cogs"></i> Settings</a></li>
                             <li class="divider"></li>
-                            <li><a href="{{ url_for('bp_admin_administrator.logout') }}"><i class="icon-off"></i> Logout</a></li>
+                            <li><a href="{{ url_for('bp_admin_administrator.logout') }}"><i class="fa fa-off"></i> Logout</a></li>
                         </ul>
                     </li>
                 </ul>

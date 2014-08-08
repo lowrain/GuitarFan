@@ -8,19 +8,19 @@
             <ul class="nav nav-list">
                 <li class="nav-header">Tabs</li>
                 <li class="{% block active_tabs_tab %}{% endblock %}">
-                    <a href="{{ url_for('bp_admin_tab.list') }}"><i class="icon-music"></i> Tabs Mangement</a>
+                    <a href="{{ url_for('bp_admin_tab.list') }}"><i class="fa fa-music"></i> Tabs Mangement</a>
                 </li>
                 <li class="nav-header">Artists</li>
                 <li class="{% block active_tabs_artist %}{% endblock %}">
-                    <a href="{{ url_for('bp_admin_artist.list') }}"><i class="icon-group"></i> Artists Mangement</a>
+                    <a href="{{ url_for('bp_admin_artist.list') }}"><i class="fa fa-group"></i> Artists Mangement</a>
                 </li>
                 <li class="nav-header">Tags</li>
                 <li class="{% block active_tabs_tag %}{% endblock %}">
-                    <a href="{{ url_for('bp_admin_tag.list') }}"><i class="icon-tags"></i> Tags Mangement</a>
+                    <a href="{{ url_for('bp_admin_tag.list') }}"><i class="fa fa-tags"></i> Tags Mangement</a>
                 </li>
                 <li class="nav-header">Data</li>
                 <li class="{% block active_import_tag %}{% endblock %}">
-                    <a href="{{ url_for('bp_admin_data.data_import') }}"><i class="icon-rocket"></i> Import</a>
+                    <a href="{{ url_for('bp_admin_data.data_import') }}"><i class="fa fa-rocket"></i> Import</a>
                 </li>
             </ul>
         </div>

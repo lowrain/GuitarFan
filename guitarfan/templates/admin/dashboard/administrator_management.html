@@ -15,17 +15,17 @@
             <div class="navbar">
                 <div class="navbar-inner">
                     <div class="btn-group">
-                        <a href="{{ url_for('bp_admin_administrator.add')}}" class="btn btn-success"><i class="icon-plus"></i> New Administrator</a>
+                        <a href="{{ url_for('bp_admin_administrator.add')}}" class="btn btn-success"><i class="fa fa-plus"></i> New Administrator</a>
                     </div>
                 </div>
             </div>
 
             <table class="table table-hover table-bordered table-striped">
                 <tr>
-                    <th width="20%">user name</th>
-                    <th width="69%">email</th>
-                    <th width="6%" style="text-align:center">status</th>
-                    <th></th>
+                    <th width="30%">user name</th>
+                    <th>email</th>
+                    <th width="8%" style="text-align:center">status</th>
+                    <th width="20px"></th>
                 </tr>
                 {% for administrator in administrators %}
                     <tr>
@@ -34,13 +34,13 @@
                         <td style="text-align:center">{{ macro.get_status(administrator.status) }}</td>
                         <td style="text-align:center">
                             <div class="dropdown related_menu">
-                                <a title="Related Objects" class="relate_menu dropdown-toggle" data-toggle="dropdown"><i class="icon icon-list"></i></a>
+                                <a title="Related Objects" class="relate_menu dropdown-toggle" data-toggle="dropdown"><i class="fa fa-list"></i></a>
                                 <ul class="dropdown-menu pull-right" role="menu">
-                                    <li class="text-left"><a href="{{ url_for('bp_admin_administrator.edit', id=administrator.id) }}"><i class="icon-pencil"></i> Edit</a></li>
+                                    <li class="text-left"><a href="{{ url_for('bp_admin_administrator.edit', id=administrator.id) }}"><i class="fa fa-pencil"></i> Edit</a></li>
                                     {% if current_user.name != administrator.name %}
                                         <li class="divider"></li>
                                         <li class="text-left"><a href="{{ url_for('bp_admin_administrator.update_status', id=administrator.id, status=(not administrator.status)) }}">{{ macro.get_adverse_desc(administrator.status) }}</a></li>
-                                        <li class="text-left"><a href="javascript:void(0);" onclick="deleteAdministrator('{{ administrator.id }}', this)"><i class="icon-remove"></i> Delete</a></li>
+                                        <li class="text-left"><a href="javascript:void(0);" onclick="deleteAdministrator('{{ administrator.id }}', this)"><i class="fa fa-remove"></i> Delete</a></li>
                                     {% endif %}
                                 </ul>
                             </div>
