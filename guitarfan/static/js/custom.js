@@ -311,10 +311,10 @@ function TabsListOperator() {
         });
         this.pagination.on('click', 'a', function () {
             var pageIndex = $(this).text().trim().replace('...', '');
-            if (pageIndex == '前页') {
+            if (pageIndex == '上一页') {
                 _this.queryFilter.pageIndex--;
             }
-            else if (pageIndex == '上一页') {
+            else if (pageIndex == '下一页') {
                 _this.queryFilter.pageIndex++;
             }
             else {
@@ -446,7 +446,7 @@ function TabsListOperator() {
         for (var i=0; i<tabs.length; i++) {
             tab = tabs[i];
             html += '<tr>';
-            html += '   <td width="45%">';
+            html += '   <td width="60%">';
             html += '       <i class="fa fa-file-alt"></i>&nbsp;&nbsp;';
             html += '       <a href="/tabview/' + tab.id + '?popup" class="link-tab-subject" target="_blank">' + tab.title + '</a>';
             html += '           <a href="/tabview/' + tab.id + '" class="link-new-window" title="在新窗口中查看" data-toggle="在新窗口中查看" data-placement="right" target="_blank"><i class="fa fa-share"></i></a>';
